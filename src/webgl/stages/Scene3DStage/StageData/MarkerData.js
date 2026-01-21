@@ -27,6 +27,10 @@ class MarkerData{
         this.tier3_childPosts = 0
         this.grandchildPosts = 0
         //------------
+        this.MAP_CENTER = [52.218905, -0.911451] // Northampton
+        this.DIST_FROM_CENTER_KM = this.getDistanceFromLatLonInKm(this.coordinates, this.MAP_CENTER)
+        this.INTRO_PAUSE = Math.min(1, this.DIST_FROM_CENTER_KM / 600)*4
+        console.log(this.name+": " + this.DIST_FROM_CENTER_KM+" pause: "+this.INTRO_PAUSE);
     }
     init(){
         // console.log("(MarkerData.init): ", this.id);
@@ -94,7 +98,33 @@ class MarkerData{
 
     //----------------------------------------------
     // AUX:
+    /**
+     * Calculates the distance between two coordinates in kilometers.
+     * @param {number[]} coord1 - [latitude, longitude]
+     * @param {number[]} coord2 - [latitude, longitude]
+     * @returns {number} Distance in kilometers
+     */
+    getDistanceFromLatLonInKm(coord1, coord2) {
+        const [lat1, lon1] = coord1;
+        const [lat2, lon2] = coord2;
+        
+        const R = 6371; // Radius of the earth in km
+        const dLat = this.deg2rad(lat2 - lat1);
+        const dLon = this.deg2rad(lon2 - lon1);
+        
+        const a =
+            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        const d = R * c; // Distance in km
+        
+        return d;
+    }
 
-  
+    deg2rad(deg) {
+        return deg * (Math.PI / 180);
+    }
 }
 export default MarkerData

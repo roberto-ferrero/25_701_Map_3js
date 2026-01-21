@@ -1,6 +1,10 @@
-//import gsap from "gsap"
+import gsap from "gsap"
 import * as THREE from 'three'
 import EasedOutValue from '../../../../core/utils/EasedOutValue'
+
+import ShopBullet from "./ShopBullet"
+import EventBullet from "./EventBullet"
+import CityBullet from "./CityBullet"
 
 class City3D{
     constructor (obj){
@@ -18,14 +22,15 @@ class City3D{
             this.TYPE_SCALE_FACTOR = 1.0
             this.TYPE_OPACITY_FACTOR = 0.7+Math.random()*0.3
         }else if(this.type === "event"){
-            this.TYPE_SCALE_FACTOR = 0.65
+            this.TYPE_SCALE_FACTOR = 1.65
             this.TYPE_OPACITY_FACTOR = 1
         }else if(this.type === "shop"){
             this.TYPE_SCALE_FACTOR = 0.65
             this.TYPE_OPACITY_FACTOR = 2
         }
+        this.INTRO_OPACITY_FACTOR = 0.0
         //-------------
-        this.city = this.stage.stageData.getItemById(this.city_id, this.type)
+        this.cityData = this.stage.stageData.getItemById(this.city_id, this.type)
         //-------------
         this.Z_POS = 0.85
         this.POSITION_IN_TIER_MODE_1 = new THREE.Vector3(0, 0, this.Z_POS)
@@ -42,26 +47,61 @@ class City3D{
         this.EASED_POSITION_Y = new EasedOutValue(this.POSITION_IN_TIER_MODE_1.y, 0.1, 0.001, this.app.emitter, "onUpdateRAF")
         this.EASED_SCALE = new EasedOutValue(this.SCALE_IN_TIER_MODE_1, 0.1, 0.001, this.app.emitter, "onUpdateRAF")
         //------------
+        
+
+        //------------
+        if(this.type === "city"){
+            this.bullet = new CityBullet({
+                app: this.app,
+                project: this.project,
+                stage: this.stage,
+                parent3D: this.parent3D,
+                marker: this
+            })
+        }else if(this.type === "event"){
+            this.bullet = new EventBullet({
+                app: this.app,
+                project: this.project,
+                stage: this.stage,
+                parent3D: this.parent3D,
+                marker: this
+            })
+        }else if(this.type === "shop"){
+            this.bullet = new ShopBullet({
+                app: this.app,
+                project: this.project,
+                stage: this.stage,
+                parent3D: this.parent3D,
+                marker: this
+            })
+        }
+        this.mesh = this.bullet.mesh
+        this.material = this.bullet.material
+        //------------
+
 
 
         //------------
-        const geometry = new THREE.PlaneGeometry(1, 1)
-        const texture = this.stage.loader.get_texture(this.type)
-        const material = new THREE.MeshBasicMaterial({ 
-            map: texture,
-            transparent: true,
-            depthWrite: false,
-            combine : THREE.MixOperation,
-            opacity: this.TYPE_OPACITY_FACTOR,
-        });
-        this.mesh = new THREE.Mesh( geometry, material );
-        //--
-        this.mesh.userData.city_id = this.city_id;
-        this.mesh.userData.city_type = this.type;
-        this.mesh.userData.parentInstance = this; // Opcional, por si quieres acceder a la clase completa
-        //--
-        // this.mesh.rotation.x = - Math.PI /2
-        this.parent3D.add(this.mesh)
+        // const geometry = new THREE.PlaneGeometry(1, 1)
+        // const texture = this.stage.loader.get_texture(this.type)
+        // this.material = new THREE.MeshBasicMaterial({ 
+        //     map: texture,
+        //     transparent: true,
+        //     depthWrite: false,
+        //     combine : THREE.MixOperation,
+        //     opacity: this.TYPE_OPACITY_FACTOR*this.INTRO_OPACITY_FACTOR,
+        // });
+        // this.mesh = new THREE.Mesh( geometry, this.material );
+        
+        // //--
+        // this.mesh.userData.city_id = this.city_id;
+        // this.mesh.userData.city_type = this.type;
+        // this.mesh.userData.parentInstance = this; // Opcional, por si quieres acceder a la clase completa
+        // //--
+        // // this.mesh.rotation.x = - Math.PI /2
+        // this.parent3D.add(this.mesh)
+
+        //------------
         this._drawPosition()
         this._drawScale()
 
@@ -82,6 +122,15 @@ class City3D{
                 this.EASED_SCALE.set(this.SCALE_IN_TIER_MODE_3)
             } 
         })
+
+        this.app.emitter.on("onStartIntro", ()=>{
+            gsap.to(this, {
+                INTRO_OPACITY_FACTOR: 1.0,
+                duration: 1.0,
+                ease: "none",
+                delay: 1+this.cityData.INTRO_PAUSE,
+            })
+        })
     }
     //----------------------------------------------
     // PUBLIC:
@@ -90,6 +139,9 @@ class City3D{
     updateRAF(){
         this._drawPosition()
         this._drawScale()
+        this.material.opacity = this.TYPE_OPACITY_FACTOR*this.INTRO_OPACITY_FACTOR
+        // console.log(this.stage.stageCamera.camera.position);
+        // this.mesh.lookAt(this.stage.stageCamera.get_WORLD_POSITION());
     }
     _drawPosition(){
         this.mesh.position.set(
@@ -109,36 +161,36 @@ class City3D{
 
     _precalc_DATA(){
         // TIER MODE 1:
-        if(this.city.tier == 1){
-            const city_position = this._getFilteredPosition(this.city.coordinates[0], this.city.coordinates[1])
+        if(this.cityData.tier == 1){
+            const city_position = this._getFilteredPosition(this.cityData.coordinates[0], this.cityData.coordinates[1])
             this.POSITION_IN_TIER_MODE_1.copy(city_position)
             this.POSITION_IN_TIER_MODE_2.copy(city_position)
             this.POSITION_IN_TIER_MODE_3.copy(city_position)
             //--
-            this.SCALE_IN_TIER_MODE_1 = this._getFilteredScale(this.city.getTotalPosts())
-            this.SCALE_IN_TIER_MODE_2 = this._getFilteredScale(this.city.getCityAndChild3Posts())*0.8
-            this.SCALE_IN_TIER_MODE_3 = this._getFilteredScale(this.city.getCityPosts())*0.4
-        }else if(this.city.tier == 2){
-            const parent_position = this._getFilteredPosition(this.city.parent.coordinates[0], this.city.parent.coordinates[1])
-            const city_position = this._getFilteredPosition(this.city.coordinates[0], this.city.coordinates[1])
+            this.SCALE_IN_TIER_MODE_1 = this._getFilteredScale(this.cityData.getTotalPosts())
+            this.SCALE_IN_TIER_MODE_2 = this._getFilteredScale(this.cityData.getCityAndChild3Posts())*0.8
+            this.SCALE_IN_TIER_MODE_3 = this._getFilteredScale(this.cityData.getCityPosts())*0.4
+        }else if(this.cityData.tier == 2){
+            const parent_position = this._getFilteredPosition(this.cityData.parent.coordinates[0], this.cityData.parent.coordinates[1])
+            const city_position = this._getFilteredPosition(this.cityData.coordinates[0], this.cityData.coordinates[1])
             this.POSITION_IN_TIER_MODE_1.copy(parent_position)
             this.POSITION_IN_TIER_MODE_2.copy(city_position)
             this.POSITION_IN_TIER_MODE_3.copy(city_position)
             //--
             this.SCALE_IN_TIER_MODE_1 = this._getFilteredScale(0)
-            this.SCALE_IN_TIER_MODE_2 = this._getFilteredScale(this.city.getCityAndChild3Posts())
-            this.SCALE_IN_TIER_MODE_3 = this._getFilteredScale(this.city.getCityPosts())*0.8
+            this.SCALE_IN_TIER_MODE_2 = this._getFilteredScale(this.cityData.getCityAndChild3Posts())
+            this.SCALE_IN_TIER_MODE_3 = this._getFilteredScale(this.cityData.getCityPosts())*0.8
         }else{
-            const grandparent_position = this._getFilteredPosition(this.city.getGrandParent().coordinates[0], this.city.getGrandParent().coordinates[1])
-            const parent_position = this._getFilteredPosition(this.city.parent.coordinates[0], this.city.parent.coordinates[1])
-            const city_position = this._getFilteredPosition(this.city.coordinates[0], this.city.coordinates[1])
+            const grandparent_position = this._getFilteredPosition(this.cityData.getGrandParent().coordinates[0], this.cityData.getGrandParent().coordinates[1])
+            const parent_position = this._getFilteredPosition(this.cityData.parent.coordinates[0], this.cityData.parent.coordinates[1])
+            const city_position = this._getFilteredPosition(this.cityData.coordinates[0], this.cityData.coordinates[1])
             this.POSITION_IN_TIER_MODE_1.copy(parent_position)
             this.POSITION_IN_TIER_MODE_2.copy(parent_position)
             this.POSITION_IN_TIER_MODE_3.copy(city_position)
             //--
             this.SCALE_IN_TIER_MODE_1 = this._getFilteredScale(0)
             this.SCALE_IN_TIER_MODE_2 = this._getFilteredScale(0)
-            this.SCALE_IN_TIER_MODE_3 = this._getFilteredScale(this.city.getCityPosts())
+            this.SCALE_IN_TIER_MODE_3 = this._getFilteredScale(this.cityData.getCityPosts())
         }
     }
     

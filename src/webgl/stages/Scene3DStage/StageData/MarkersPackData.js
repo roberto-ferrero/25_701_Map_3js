@@ -23,7 +23,6 @@ class MarkersPackData{
         //--
         this.max_posts_node = 0
         this.max_posts_city = 0
-        
         //------------
     }
     init(){

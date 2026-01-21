@@ -1,11 +1,11 @@
 //import gsap from "gsap"
 //import * as THREE from 'three'
 
-import City3D from './City3D'
+import Marker3D from './Marker3D'
 
-class MarkersPack{
+class MarkersPack3D{
     constructor (obj){
-        console.log("(MarkersPack.CONSTRUCTORA): ", obj)
+        console.log("(MarkersPack3D.CONSTRUCTORA): ", obj)
         this.app = obj.app
         this.project = obj.project
         this.stage = obj.stage
@@ -21,7 +21,7 @@ class MarkersPack{
     init(){
         this.stage.stageData.get_arrayItems(this.type).forEach( (cityItem) => {
         // this.stage.stageData.array_cities.forEach( (cityItem) => {
-            const city3D = new City3D({
+            const marker3D = new Marker3D({
                 app: this.app,
                 project: this.project,
                 stage: this.stage,
@@ -31,7 +31,7 @@ class MarkersPack{
                 type: this.type,
                 parent3D: this.parent3D,
             })
-            this.items.push(city3D)
+            this.items.push(marker3D)
         });
     }
     //----------------------------------------------
@@ -52,4 +52,4 @@ class MarkersPack{
 
   
 }
-export default MarkersPack
+export default MarkersPack3D

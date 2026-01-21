@@ -3,7 +3,7 @@ import * as THREE from 'three'
 import MeshUtils from '../../../../core/utils/MeshUtils'
 
 import MapProjector from './MapProjector'
-import MarkersPack from './MarkersPack'
+import MarkersPack3D from './MarkersPack3D'
 // import City3D from './City3D'
 
 // import data from './fakeData.json'
@@ -40,7 +40,7 @@ class Map3D{
         // this._create_devMap()
         this._create_map()
         //--
-        this.cities = new MarkersPack({
+        this.cities = new MarkersPack3D({
             app: this.app,
             project: this.project,
             stage: this.stage,
@@ -49,7 +49,7 @@ class Map3D{
             type: "city",
             parent3D: this.markers_cont3D,
         })
-        this.events = new MarkersPack({
+        this.events = new MarkersPack3D({
             app: this.app,
             project: this.project,
             stage: this.stage,
@@ -58,7 +58,7 @@ class Map3D{
             type: "event",
             parent3D: this.markers_cont3D,
         })
-        this.shops = new MarkersPack({
+        this.shops = new MarkersPack3D({
             app: this.app,
             project: this.project,
             stage: this.stage,

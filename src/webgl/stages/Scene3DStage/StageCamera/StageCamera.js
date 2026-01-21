@@ -5,6 +5,8 @@ import MeshUtils from '../../../core/utils/MeshUtils'
 import DragMovingMouse from "./DragMovingMouse"
 import SphericalPanning from "./SphericalPanning"
 
+import CameraPlane from "./CameraPlane"
+
 // import CameraSpots from "./CameraSpots"
 
 import LensFlare from './LensFlare/LensFlare'
@@ -23,6 +25,7 @@ class StageCamera{
         this.MODE = "IDLE" // IDLE | TRAVELLING | DRAG&MOVE
         this.TRAVELLING = false
         this.DRAG_MOVING = false
+        this.WORLD_POSITION = new THREE.Vector3()
         //-----------------------------
         this.STATES ={}
         this.STATES.CURRENT ={
@@ -70,7 +73,13 @@ class StageCamera{
         //CAMERA REGISTRATION:
         this.app.render.set_stageCamera(this.camera)
         //-----------------------------
-
+        this.forePlane = new CameraPlane({
+            app:this.app,
+            project:this.project,
+            stage:this.stage,
+            camera:this.camera
+        })
+        //-----------------------------
         this.dragMoving = new DragMovingMouse({
             app:this.app,
             project:this.project,
@@ -132,6 +141,9 @@ class StageCamera{
     //----------------------------------------------
     get_POSITION(){
         return this.holder.position
+    }
+    get_WORLD_POSITION(){
+        return this.WORLD_POSITION
     }
     //----------------------------------------------
     start_dragMoving(){
@@ -248,6 +260,9 @@ class StageCamera{
         // this._update_lensflareScale()
         // if(this.bgPlane) this._update_bgPlane()
         //--
+        this.forePlane.updateRAF()
+        //--
+        this.camera.getWorldPosition(this.WORLD_POSITION)
         this.camera.updateProjectionMatrix();
         // console.log("this.camera.rotation: ", this.camera.rotation);
     }

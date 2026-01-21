@@ -101,12 +101,21 @@ class Scene3DStage extends StageSuper{
         console.log("shops_dataPath: ", this.app.data.shops_dataPath);
         console.log(this.app.loader_pathPrefix+"data/shops.json");
         console.log("--");
+
+
         
-        this.loader.add_gltf("scene", this.app.loader_pathPrefix+"glbs/pandora_scene.glb", true)       
-        this.loader.add_texture("map", this.app.loader_pathPrefix+"img/map.jpg", true)
-        this.loader.add_texture("city", this.app.loader_pathPrefix+"img/city.png", true)
-        this.loader.add_texture("event", this.app.loader_pathPrefix+"img/event.png", true)
-        this.loader.add_texture("shop", this.app.loader_pathPrefix+"img/shop.png", true)
+        this.loader.add_gltf("scene", this.app.loader_pathPrefix+"glbs/pandora_scene.glb", true)    
+        
+        const texture_options = {
+            // TODO
+        }
+
+        // this.loader.add_texture("map", this.app.loader_pathPrefix+"img/map.jpg", true)
+        this.loader.add_texture("city", this.app.loader_pathPrefix+"img/city.png", true, texture_options)
+        this.loader.add_texture("event", this.app.loader_pathPrefix+"img/event.png", true, texture_options)
+        this.loader.add_texture("event_ring", this.app.loader_pathPrefix+"img/event_ring.png", true, texture_options)
+        this.loader.add_texture("event_blur", this.app.loader_pathPrefix+"img/event_blur.png", true, texture_options)
+        this.loader.add_texture("shop", this.app.loader_pathPrefix+"img/shop.png", true, texture_options)
         //--
         // this.loader.add_json("city_data", this.app.loader_pathPrefix+"data/cities.json")
         // this.loader.add_json("event_data", this.app.loader_pathPrefix+"data/events.json")
@@ -211,40 +220,6 @@ class Scene3DStage extends StageSuper{
         pmremGenerator.dispose();
         */
 
-
-        // const geometry = new THREE.BoxGeometry(5000, 5000, 5000);
-        // const materialArray = [/* create materials using CubeTexture */];
-        // const skybox = new THREE.Mesh(geometry, materialArray);
-        // skybox.geometry.scale(1, 1, -1); // Invert the cube
-        // scene.add(skybox);
-
-        //------------------- 
-        // this.spots = new SpotsLib({
-        //     app:this.app,
-        //     project:this.project,
-        //     stage:this,
-        // })
-        // this.scentuaryScene = new Scenario3D({
-        //     app:this.app,
-        //     project:this.project,
-        //     stage:this,
-        //     parent3D:this.world3D,
-            
-        // })
-        // this.cameraManager = new CameraManager({
-        //     app:this.app,
-        //     project:this.project,
-        //     stage:this,
-        // })
-        // this.htmlLabels = new HtmlLabels({
-        //     app:this.app,
-        //     project:this.project,
-        //     stage:this,
-        //     parent3D:this.world3D,
-        // })
-        //------------------- 
-
-
         //------------------- 
         this.app.emitter.on("onAppScrollUpdate",(e)=>{
             if(e.id == "scroll_main"){
@@ -281,10 +256,12 @@ class Scene3DStage extends StageSuper{
         }
     }
     start(){
-        // console.log("(Scene3DStage.start)! <-----------------------------------------"+this.STARTED);
+        console.log("(Scene3DStage.start)! <-----------------------------------------"+this.STARTED);
         // this.stageCamera.start()
         // this.stageCamera.animateStateFromTo("camera0", "camera1", 2)
         // this.stageCamera.animateTargetFromTo("target0", "target1", 2)
+        this.app.emitter.emit("onStartIntro", {})
+        
     }
     //----------------------------------------------
     // PUBLIC API:
