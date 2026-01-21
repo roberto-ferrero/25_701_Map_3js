@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PandoraMap_3js</title>
+    <link rel="stylesheet" href="../dist/style.css"> 
+</head>
+<body>
+    <div id="webgl_app"></div>
+    <!-- <div id="content"> -->
+    <div id="tooltip" style="
+        position: fixed; 
+        pointer-events: none; 
+        display: none; 
+        background: rgba(0, 0, 0, 0.8); 
+        color: white; 
+        padding: 8px 12px; 
+        border-radius: 4px; 
+        font-family: Arial, sans-serif; 
+        font-size: 12px; 
+        z-index: 1000;
+    ">
+    </div>
+
+    </div>
+
+    <script src="../dist/bundle.js"></script>
+
+    <script>
+        // Esperamos a que el DOM y los scripts estén listos
+        window.addEventListener('load', () => {
+            if (window.PandoraMap) {
+                window.PandoraMap.init({
+                    $container: document.querySelector('#webgl_app'),
+                    $mouseEvents: document.querySelector('#webgl_app'),
+                    loader_pathPrefix: "../static/", // Ruta relativa a sus assets si fuera necesario
+                    cities_dataPath: "../static/data/cities.json",
+                    shops_dataPath: "../static/data/shops.json",
+                    events_dataPath: "../static/data/events.json"
+                });
+
+            window.platform.webglApp.emitter.on("onCityClicked", (data) => {
+                console.log("CITY Clicked:", data.id);
+                // Aquí puedes manejar el evento como desees
+            })
+            window.platform.webglApp.emitter.on("onEventClicked", (data) => {
+                console.log("EVENT Clicked:", data.id);
+                // Aquí puedes manejar el evento como desees
+            })
+            window.platform.webglApp.emitter.on("onShopClicked", (data) => {
+                console.log("SHOP Clicked:", data.id);
+                // Aquí puedes manejar el evento como desees
+            })
+
+            } else {
+                console.error("PandoraMap no se ha cargado correctamente.");
+            }
+        });
+    </script>
+
+</body>
+</html>
+
+
+
