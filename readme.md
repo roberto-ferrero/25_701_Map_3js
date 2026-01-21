@@ -1,5 +1,3 @@
-# This is a copy of Bruno Simon`s Three.js Journey boilerplate
-
 ## Setup
 Download [Node.js](https://nodejs.org/en/download/).
 Run this followed commands:
