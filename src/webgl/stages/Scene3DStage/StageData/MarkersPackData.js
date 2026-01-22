@@ -8,7 +8,7 @@ import MarkerData from './MarkerData'
 
 class MarkersPackData{
     constructor (obj){
-        console.log("(MarkersPackData.CONSTRUCTORA): ", obj)
+        // console.log("(MarkersPackData.CONSTRUCTORA): ", obj)
         this.app = obj.app
         this.project = obj.project
         this.stage = obj.stage
@@ -26,7 +26,7 @@ class MarkersPackData{
         //------------
     }
     init(){
-        console.log("(MarkersPackData.init_cities)!");
+        // console.log("(MarkersPackData.init_cities)!");
         //--
         const cities_data = this.stage.loader.get_json(this.type+"_data")
         //--
@@ -49,8 +49,8 @@ class MarkersPackData{
         this.arrayTiers[3].forEach(item => item.init())
         //--
         this.arrayItems.forEach(item => item.evalData())
-        console.log("this.max_posts_node: ", this.max_posts_node);
-        console.log("this.max_posts_city: ", this.max_posts_city);
+        // console.log("this.max_posts_node: ", this.max_posts_node);
+        // console.log("this.max_posts_city: ", this.max_posts_city);
     }
     //----------------------------------------------
     // INTERNAL:

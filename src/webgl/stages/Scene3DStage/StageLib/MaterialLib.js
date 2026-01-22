@@ -5,7 +5,7 @@ import Datos from '../../../core/utils/Datos'
 class MaterialLib{
     //app.project.stage.libs.materials
     constructor (obj){
-        console.log("(MaterialLib.CONSTRUCTORA): ", obj)
+        // console.log("(MaterialLib.CONSTRUCTORA): ", obj)
         this.app = obj.app
         this.project = obj.project
         this.stage = obj.stage
@@ -15,7 +15,7 @@ class MaterialLib{
         //-----------------------------
     }
     init(){
-        console.log("(MaterialLib.init)!")
+        // console.log("(MaterialLib.init)!")
         const sceneGround_texture = new THREE.MeshPhysicalMaterial({
             color: 0xaaaaaa,       // Blueish
             roughness: 0.9,        // Matte enough to diffuse light, glossy enough for soft sheen

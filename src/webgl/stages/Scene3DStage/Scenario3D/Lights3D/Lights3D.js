@@ -9,7 +9,7 @@ import SunLight3D from './SunLight3D'
 class Light3D{
     // this.app.project.stage.scenario3D.lights3D
     constructor (obj){
-        console.log("(Light3D.CONSTRUCTORA): ", obj)
+        // console.log("(Light3D.CONSTRUCTORA): ", obj)
         this.app = obj.app
         this.project = obj.project
         this.stage = obj.stage

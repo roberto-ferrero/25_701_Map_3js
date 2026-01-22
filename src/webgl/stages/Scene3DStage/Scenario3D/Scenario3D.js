@@ -11,7 +11,7 @@ import Map3D from './Map3D/Map3D'
 class Scenario3D{
     // this.app.project.stage.scenario3D
     constructor (obj){
-        console.log("(Scenario3D.CONSTRUCTORA): ", obj)
+        // console.log("(Scenario3D.CONSTRUCTORA): ", obj)
         this.app = obj.app
         this.project = obj.project
         this.stage = obj.stage
@@ -67,12 +67,12 @@ class Scenario3D{
 
 
     build_mesh(meshId, cont3D, positionOffset=new THREE.Vector3(0,0,0)){
-        console.log("(Scenario3D.build_mesh): ", meshId);
+        // console.log("(Scenario3D.build_mesh): ", meshId);
 
         // const mesh = this.stage.libs.meshes.getItem(meshId) // LOOKS GREAT!
         const mesh = this.stage.libs.meshes.getItem2(meshId) // LOKKS DIFFERENT!
 
-        console.log("materialId: ", mesh.__materialId);
+        // console.log("materialId: ", mesh.__materialId);
         if(mesh.__materialId && mesh.__materialId!="imported"){
             const material = this.stage.libs.materials.getItem(mesh.__materialId)
             mesh.material = material
@@ -85,7 +85,7 @@ class Scenario3D{
 
     build_meshGroup(groupId){
         const groupMeshes = this.stage.libs.meshgroups.getGroupMeshes(groupId)
-        console.log("groupMeshes: ", groupMeshes);
+        // console.log("groupMeshes: ", groupMeshes);
         groupMeshes.map( (mesh) => {
             mesh.material.castShadow = true
             mesh.material.receiveShadow = true

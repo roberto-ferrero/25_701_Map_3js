@@ -5,7 +5,7 @@ import Marker3D from './Marker3D'
 
 class MarkersPack3D{
     constructor (obj){
-        console.log("(MarkersPack3D.CONSTRUCTORA): ", obj)
+        // console.log("(MarkersPack3D.CONSTRUCTORA): ", obj)
         this.app = obj.app
         this.project = obj.project
         this.stage = obj.stage

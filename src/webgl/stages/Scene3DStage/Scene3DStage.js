@@ -19,7 +19,7 @@ import StageData from "./StageData/StageData"
 class Scene3DStage extends StageSuper{
     // this.app.project.stage
     constructor (obj){
-        console.log("(Scene3DStage.CONSTRUCTORA): ", obj)
+        // console.log("(Scene3DStage.CONSTRUCTORA): ", obj)
         super(obj)
         //-------------------
         this.START_REQUESTED = true
@@ -91,16 +91,16 @@ class Scene3DStage extends StageSuper{
 
         //------------------------------
         // LOADING MANIFEST:
-        console.log("--");
-        console.log("cities_dataPath: ", this.app.data.cities_dataPath);
-        console.log(this.app.loader_pathPrefix+"data/cities.json");
-        console.log("--");
-        console.log("events_dataPath: ", this.app.data.events_dataPath);
-        console.log(this.app.loader_pathPrefix+"data/events.json");
-        console.log("--");
-        console.log("shops_dataPath: ", this.app.data.shops_dataPath);
-        console.log(this.app.loader_pathPrefix+"data/shops.json");
-        console.log("--");
+        // console.log("--");
+        // console.log("cities_dataPath: ", this.app.data.cities_dataPath);
+        // console.log(this.app.loader_pathPrefix+"data/cities.json");
+        // console.log("--");
+        // console.log("events_dataPath: ", this.app.data.events_dataPath);
+        // console.log(this.app.loader_pathPrefix+"data/events.json");
+        // console.log("--");
+        // console.log("shops_dataPath: ", this.app.data.shops_dataPath);
+        // console.log(this.app.loader_pathPrefix+"data/shops.json");
+        // console.log("--");
 
 
         
@@ -149,7 +149,7 @@ class Scene3DStage extends StageSuper{
     //----------------------------------------------
     // PUBLIC API:
     zoomIn(){
-        console.log("(Scene3DStage.zoomIn)!");
+        // console.log("(Scene3DStage.zoomIn)!");
         if(!this.stageCamera.TRAVELLING){
             if(this.CURRENT_ZOOM<3){
                 this.CURRENT_ZOOM++
@@ -160,7 +160,7 @@ class Scene3DStage extends StageSuper{
         }
     }
     zoomOut(){
-        console.log("(Scene3DStage.zoomOut)!");
+        // console.log("(Scene3DStage.zoomOut)!");
         if(!this.stageCamera.TRAVELLING){
             if(this.CURRENT_ZOOM>0){
                 this.CURRENT_ZOOM--
@@ -183,12 +183,12 @@ class Scene3DStage extends StageSuper{
     //----------------------------------------------
     // INTERNAL:
     init(){ // Called by ProjectSuper
-        console.log("(Scene3DStage.init): "+this.id)
+        // console.log("(Scene3DStage.init): "+this.id)
     }
     build(){
-        console.log("(Scene3DStage.build): "+this.id)
+        // console.log("(Scene3DStage.build): "+this.id)
         this.GLB_PROJECT = this.loader.get_gltf("scene")
-        console.log("this.GLB_PROJECT: ", this.GLB_PROJECT);
+        // console.log("this.GLB_PROJECT: ", this.GLB_PROJECT);
 
         this.stageData.init()
         this.libs.init(this.GLB_PROJECT)
@@ -258,7 +258,7 @@ class Scene3DStage extends StageSuper{
         }
     }
     start(){
-        console.log("(Scene3DStage.start)! <-----------------------------------------"+this.STARTED);
+        // console.log("(Scene3DStage.start)! <-----------------------------------------"+this.STARTED);
         // this.stageCamera.start()
         // this.stageCamera.animateStateFromTo("camera0", "camera1", 2)
         // this.stageCamera.animateTargetFromTo("target0", "target1", 2)
@@ -302,7 +302,7 @@ class Scene3DStage extends StageSuper{
     //     return mesh
     // }
     get_mesh_from_GLB_PROJECT(meshId, PROJECT = this.GLB_PROJECT){
-        console.log("_extract_mesh_from_GLB_PROJECT: ", meshId);
+        // console.log("_extract_mesh_from_GLB_PROJECT: ", meshId);
         const mesh = PROJECT.children.find((mesh)=>{
             const result = mesh.name == meshId
             return result
@@ -311,7 +311,7 @@ class Scene3DStage extends StageSuper{
         // if(mesh){
             if(mesh?.type == "Group"){ // DOC: Algunas veces la exportación de Blender genera un grupo en vez de un mesh. La posicion es del group y de la copiamos al mesh
                 const position = mesh.position
-                console.log("Group!!");
+                // console.log("Group!!");
                 // console.log("   mesh: ", mesh);
                 const itemMesh = mesh.children[0]
                 itemMesh.position.set(position.x, position.y, position.z)

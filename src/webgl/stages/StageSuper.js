@@ -118,7 +118,7 @@ class StageSuper{
     // INTERNAL:
     __init(){ 
         if(this.AUTO_LOAD && !this.INITIALISED){
-            console.log("(StageSuper.__init): ------------- "+this.id)
+            // console.log("(StageSuper.__init): ------------- "+this.id)
             this.INITIALISED = true
             this.init()
             this.loader.start()

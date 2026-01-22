@@ -10,7 +10,7 @@ import MaterialLib from "./MaterialLib"
 class StageLibraries{
     // this.app.project.stage.libs
     constructor (obj){
-        console.log("(StageLibraries.CONSTRUCTORA): ", obj)
+        // console.log("(StageLibraries.CONSTRUCTORA): ", obj)
         this.app = obj.app
         this.project = obj.project
         this.stage = obj.stage
@@ -72,13 +72,13 @@ class StageLibraries{
     init(GLB_PROJECT){
         this.materials.init()
         //--------------------------
-        console.log("(StageLibraries.init)!");
+        // console.log("(StageLibraries.init)!");
         GLB_PROJECT.children.map((item)=>{
             const nameArray = item.name.split("-")
             const family = nameArray[0]
             const itemId = nameArray[1]
             const type = item.type
-            console.log("itemId: "+itemId+"family: "+family+" type: "+type);
+            // console.log("itemId: "+itemId+"family: "+family+" type: "+type);
             //--
             if(family === "spot"){
                 this.spots.addItem(itemId, item)

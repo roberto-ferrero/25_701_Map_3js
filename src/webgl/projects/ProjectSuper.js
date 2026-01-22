@@ -65,7 +65,7 @@ class ProjectSuper{
     //----------------------------------------------
     // SUPER INTERNAL:
     __init(){ 
-        console.log("(ProjectSuper.__init)!")
+        // console.log("(ProjectSuper.__init)!")
         //--------------
         // PROJECT EVENTS
         this.emitter.on("onShowStage", (data)=>{
@@ -103,7 +103,7 @@ class ProjectSuper{
         this.emitter.emit("onProjectInit", {})
     }
     __build(){
-        console.log("(ProjectSuper.__build)!")
+        // console.log("(ProjectSuper.__build)!")
         this.build_renderPlane()
         this.build()
         this.BUILT = true

@@ -10,7 +10,7 @@ import MarkersPack3D from './MarkersPack3D'
 
 class Map3D{
     constructor (obj){
-        console.log("(Map3D.CONSTRUCTORA): ", obj)
+        // console.log("(Map3D.CONSTRUCTORA): ", obj)
         this.app = obj.app
         this.project = obj.project
         this.stage = obj.stage
@@ -27,7 +27,7 @@ class Map3D{
         // this.markers = []
     }
     init(){
-        console.log("(Map3D.init)!")
+        // console.log("(Map3D.init)!")
         this.map_cont3D = new THREE.Object3D()
         this.map_cont3D.name = "map3D"
         this.parent3D.add(this.map_cont3D)
@@ -107,8 +107,8 @@ class Map3D{
             const city_type = hoveredMesh.userData.city_type;
 
             
-            console.log("CLICK on:", cityId);
-            console.log("city_type:", city_type);
+            // console.log("CLICK on:", cityId);
+            // console.log("city_type:", city_type);
 
             if(city_type == "city"){
                 this.app.emitter.emit("onCityClicked", { id: cityId });
@@ -135,7 +135,7 @@ class Map3D{
                 this._handleRollOver(cityId, hoveredMesh);
             }
         }else{
-            console.log("CLICK on: nothing");
+            // console.log("CLICK on: nothing");
             if (this.hoveredObjectId !== null) {
                 this._handleRollOut(this.hoveredObjectId);
                 this.hoveredObjectId = null;
@@ -225,7 +225,7 @@ class Map3D{
 
 
     _create_map(){
-        console.log("(Map3D._create_map)!")
+        // console.log("(Map3D._create_map)!")
         this.scenario3D.build_mesh("level1", this.map_cont3D)
         this.scenario3D.build_mesh("level2", this.map_cont3D)
         this.scenario3D.build_mesh("level3", this.map_cont3D)

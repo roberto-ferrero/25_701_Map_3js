@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 class Platform{
     constructor (obj){
-        console.log("(Platform.CONSTRUCTORA): ", obj)
+        // console.log("(Platform.CONSTRUCTORA): ", obj)
         //--
         const $webglContainer = document.querySelector('#webgl_app')
         const $mouseEvents = document.querySelector('#webgl_app')
@@ -70,7 +70,7 @@ class Platform{
     //----------------------------------------------
     // PUBLIC:
     init_scrollTriger(){
-        console.log("(Platform.init_scrollTriger)!");
+        // console.log("(Platform.init_scrollTriger)!");
         //--
         this.scroll_main = ScrollTrigger.create({
             trigger: document.querySelector('#content'),

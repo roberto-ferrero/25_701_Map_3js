@@ -15,7 +15,7 @@ class JSONLib {
     //----------------------
     // PUBLIC:
     start() {
-        console.log("(JSONLib.start)!")
+        // console.log("(JSONLib.start)!")
         if (this.data.arrayItems.length != 0) {
             // Use Three.js LoadingManager for consistency with other libs
             this.loadingManager = new THREE.LoadingManager(
@@ -31,18 +31,18 @@ class JSONLib {
                 const itemId = this.data.arrayItems[i]
                 const item = this.data.getItemAt(i)
                 
-                console.log("Loading JSON:", item.path)
+                // console.log("Loading JSON:", item.path)
                 this.fileLoader.load(
                     item.path,
                     (response) => {
                         // Success
-                        console.log("Successfully loaded JSON:", itemId);
+                        // console.log("Successfully loaded JSON:", itemId);
                         item.json = response
                         this.itemsLoaded++
                     },
                     undefined, // onProgress
                     (err) => {
-                        console.error('(JSONLib) Error loading: ' + itemId, err);
+                        // console.error('(JSONLib) Error loading: ' + itemId, err);
                     }
                 )
             }

@@ -30,7 +30,7 @@ class MarkerData{
         this.MAP_CENTER = [52.218905, -0.911451] // Northampton
         this.DIST_FROM_CENTER_KM = this.getDistanceFromLatLonInKm(this.coordinates, this.MAP_CENTER)
         this.INTRO_PAUSE = Math.min(1, this.DIST_FROM_CENTER_KM / 600)*4
-        console.log(this.name+": " + this.DIST_FROM_CENTER_KM+" pause: "+this.INTRO_PAUSE);
+        // console.log(this.name+": " + this.DIST_FROM_CENTER_KM+" pause: "+this.INTRO_PAUSE);
     }
     init(){
         // console.log("(MarkerData.init): ", this.id);

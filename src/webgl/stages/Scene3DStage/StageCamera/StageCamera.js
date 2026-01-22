@@ -13,7 +13,7 @@ import LensFlare from './LensFlare/LensFlare'
 
 class StageCamera{
     constructor (obj){ 
-        console.log("------------------- (StageCamera.CONSTRUCTORA): ", obj)
+        // console.log("------------------- (StageCamera.CONSTRUCTORA): ", obj)
         this.app = obj.app
         this.project = obj.project
         this.stage = obj.stage
@@ -104,7 +104,7 @@ class StageCamera{
     //----------------------------------------------
     // PUBLIC:
     init(){
-        console.log("(StageCamera.init)!")
+        // console.log("(StageCamera.init)!")
         this.INITIALIZED = true
         // this.placeInSpot(this.initialShotId)
     }
@@ -150,7 +150,7 @@ class StageCamera{
         this.DRAG_MOVING = true
     }
     placeInSpot(spotId){
-        console.log("(StageCamera.placeInSpot) spotId: ", spotId);
+        // console.log("(StageCamera.placeInSpot) spotId: ", spotId);
         this.cameraAnim?.kill()
         this.TRAVELLING = false
         //--
@@ -169,7 +169,7 @@ class StageCamera{
         this._drawSTATE()
     }
     travelToSpot(spotId, secs = 3, ease="power2.inOut"){
-        console.log("(StageCamera.travelToSpot) spotId: ", spotId);
+        // console.log("(StageCamera.travelToSpot) spotId: ", spotId);
         //const spot = this.SPOTS.get_spot(spotId)
         const cameraRef = this.stage.libs.cameraspots.getItem(spotId)
         const cameraPos = this.stage.libs.cameraspots.getItemPosition(spotId)

@@ -28,7 +28,7 @@ class CameraManager{
         this.app.dev.gui?.add(this, '_dev_zoomOut').name('ZOOM OUT')
         //------------------------
         this.app.emitter.on("onAppZoomChange", (event)=>{
-            console.log("(CameraManager.onAppZoomChange): ", event.zoom);
+            // console.log("(CameraManager.onAppZoomChange): ", event.zoom);
             this.SPOT_POS = event.zoom
             this.stageCamera.travelToSpot(this.CAMERA_SPOTS[this.SPOT_POS], 1)
         })  
@@ -37,7 +37,7 @@ class CameraManager{
     //----------------------------------------------
     // PUBLIC:
     init(){
-        console.log("(CameraManager.init)!")
+        // console.log("(CameraManager.init)!")
         this.stageCamera.placeInSpot("zoom0")  
         this.stageCamera.start_dragMoving()  
 

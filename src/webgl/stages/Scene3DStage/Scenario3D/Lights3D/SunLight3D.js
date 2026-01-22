@@ -6,7 +6,7 @@ import GeomUtils from "../../../../core/utils/GeomUtils"
 
 class SunLight3D{
     constructor (obj){
-        console.log("(SunLight3D.CONSTRUCTORA): ", obj)
+        // console.log("(SunLight3D.CONSTRUCTORA): ", obj)
         this.app = obj.app
         this.project = obj.project
         this.stage = obj.stage
@@ -15,7 +15,7 @@ class SunLight3D{
         //--
     }
     init(){
-        console.log("(SunLight3D.init)!")
+        // console.log("(SunLight3D.init)!")
         const importedSun = this.stage.libs.sunlights.getItem(this.sunId)
         //--
         this.ORIGIN = new THREE.Vector3(0, 0, 0)

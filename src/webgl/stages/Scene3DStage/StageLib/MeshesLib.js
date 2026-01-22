@@ -16,7 +16,7 @@ class MeshesLib{ //this.stage.spots
     //----------------------------------------------
     // PUBLIC:
     addItem(meshId, obj3D, materialId){
-        console.log("(MeshesLib.addItem): ", meshId, materialId);
+        // console.log("(MeshesLib.addItem): ", meshId, materialId);
         obj3D.__materialId = materialId
         this.DATA.nuevoItem(meshId, obj3D)
     }

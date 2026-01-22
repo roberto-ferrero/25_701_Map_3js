@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Library = {
     init: (config) => {
-        console.log("Inicializando PandoraMap...", config);
+        // console.log("Inicializando PandoraMap...", config);
 
         // window.platform = new Platform({
         //     $container: config.$container || document.querySelector('#webgl_app'),

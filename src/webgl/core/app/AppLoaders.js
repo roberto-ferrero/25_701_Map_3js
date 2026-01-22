@@ -11,7 +11,7 @@ const EventEmitter = require('events');
 
 class AppLoaders{
     constructor (obj){
-        console.log("(AppLoaders.CONSTRUCTORA): ", obj)
+        // console.log("(AppLoaders.CONSTRUCTORA): ", obj)
         this.app = obj.app
         this.pathPrefix = obj.pathPrefix
         //--
@@ -28,7 +28,7 @@ class AppLoaders{
     //----------------------------------------------
     // PUBLIC:
     start(){
-        console.log("(AppLoaders.start)!");
+        // console.log("(AppLoaders.start)!");
         this.textureLib.start()
         this.hdrLib.start()
         this.gltfLib.start()
@@ -51,7 +51,7 @@ class AppLoaders{
     }
     // NEW METHODS FOR JSON
     add_json(itemId, path){
-        console.log("(AppLoaders.add_json): ", itemId, path);
+        // console.log("(AppLoaders.add_json): ", itemId, path);
         this.jsonLib.addLoad(itemId, path)
     }
     //--
