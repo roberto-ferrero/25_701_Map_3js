@@ -115,7 +115,9 @@ class Scene3DStage extends StageSuper{
         this.loader.add_texture("event", this.app.loader_pathPrefix+"img/event.png", true, texture_options)
         this.loader.add_texture("event_ring", this.app.loader_pathPrefix+"img/event_ring.png", true, texture_options)
         this.loader.add_texture("event_blur", this.app.loader_pathPrefix+"img/event_blur.png", true, texture_options)
-        this.loader.add_texture("shop", this.app.loader_pathPrefix+"img/shop.png", true, texture_options)
+        this.loader.add_texture("shop", this.app.loader_pathPrefix+"img/shop2.png", true, texture_options)
+        this.loader.add_texture("shop_ring", this.app.loader_pathPrefix+"img/shop_ring2.png", true, texture_options)
+        this.loader.add_texture("shop_blur", this.app.loader_pathPrefix+"img/shop_blur2.png", true, texture_options)
         //--
         // this.loader.add_json("city_data", this.app.loader_pathPrefix+"data/cities.json")
         // this.loader.add_json("event_data", this.app.loader_pathPrefix+"data/events.json")

@@ -22,11 +22,11 @@ class City3D{
             this.TYPE_SCALE_FACTOR = 1.0
             this.TYPE_OPACITY_FACTOR = 0.7+Math.random()*0.3
         }else if(this.type === "event"){
-            this.TYPE_SCALE_FACTOR = 1.65
+            this.TYPE_SCALE_FACTOR = 1.35
             this.TYPE_OPACITY_FACTOR = 1
         }else if(this.type === "shop"){
-            this.TYPE_SCALE_FACTOR = 0.65
-            this.TYPE_OPACITY_FACTOR = 2
+            this.TYPE_SCALE_FACTOR = 1.25
+            this.TYPE_OPACITY_FACTOR = 1
         }
         this.INTRO_OPACITY_FACTOR = 0.0
         //-------------
