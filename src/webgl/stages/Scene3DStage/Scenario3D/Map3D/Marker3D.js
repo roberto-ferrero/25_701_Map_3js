@@ -6,9 +6,9 @@ import ShopBullet from "./ShopBullet"
 import EventBullet from "./EventBullet"
 import CityBullet from "./CityBullet"
 
-class City3D{
+class Marker3D{
     constructor (obj){
-        // console.log("(City3D.CONSTRUCTORA): ", obj)
+        // console.log("(Marker3D.CONSTRUCTORA): ", obj)
         this.app = obj.app
         this.project = obj.project
         this.stage = obj.stage
@@ -20,7 +20,7 @@ class City3D{
         //-------------
         if(this.type === "city"){
             this.TYPE_SCALE_FACTOR = 1.0
-            this.TYPE_OPACITY_FACTOR = 0.7+Math.random()*0.3
+            this.TYPE_OPACITY_FACTOR = 1
         }else if(this.type === "event"){
             this.TYPE_SCALE_FACTOR = 1.35
             this.TYPE_OPACITY_FACTOR = 1
@@ -107,7 +107,7 @@ class City3D{
 
         //------------
         this.app.emitter.on("onAppTierModeChange", ()=>{
-            console.log("*");
+            // console.log("*");
             if(this.stage.CURRENT_TIER_MODE == 1){
                 this.EASED_POSITION_X.set(this.POSITION_IN_TIER_MODE_1.x)
                 this.EASED_POSITION_Y.set(this.POSITION_IN_TIER_MODE_1.y)
@@ -139,9 +139,10 @@ class City3D{
     updateRAF(){
         this._drawPosition()
         this._drawScale()
-        this.material.opacity = this.TYPE_OPACITY_FACTOR*this.INTRO_OPACITY_FACTOR
+        //this.material.opacity = this.TYPE_OPACITY_FACTOR*this.INTRO_OPACITY_FACTOR
         // console.log(this.stage.stageCamera.camera.position);
         // this.mesh.lookAt(this.stage.stageCamera.get_WORLD_POSITION());
+        this.bullet.updateRAF();
     }
     _drawPosition(){
         this.mesh.position.set(
@@ -224,4 +225,4 @@ class City3D{
 
   
 }
-export default City3D
+export default Marker3D

@@ -115,6 +115,10 @@ class EventBullet{
         this._initAnimations();
     }
 
+    updateRAF(){
+        this.material.opacity = this.marker.TYPE_OPACITY_FACTOR*this.marker.INTRO_OPACITY_FACTOR
+    }
+
     _initAnimations(){
         // 1. Expand the Ring Scale
         gsap.to(this.meshRing.scale, {

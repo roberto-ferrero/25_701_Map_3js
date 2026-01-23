@@ -29,7 +29,9 @@ class CityBullet{
     }
     //----------------------------------------------
     // PUBLIC:
-    
+    updateRAF(){
+        this.material.opacity = this.marker.TYPE_OPACITY_FACTOR*this.marker.INTRO_OPACITY_FACTOR
+    }
     //----------------------------------------------
     // EVENTS:
 

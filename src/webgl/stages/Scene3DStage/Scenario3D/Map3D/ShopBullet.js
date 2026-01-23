@@ -8,9 +8,14 @@ class ShopBullet{
         this.stage = obj.stage
         this.parent3D = obj.parent3D
         this.marker = obj.marker
+        //---
+        this.BULLET_ALPHA = 0
+        this.GSAP_ANIM = null
+        this.SHOWING_BULLET = false
 
         // 1. Create a container Group to hold the composite parts (Blur, Ring, Core)
         this.mesh = new THREE.Group()
+        
 
         // 2. Load Textures
         const base_texture = this.stage.loader.get_texture("shop")
@@ -89,60 +94,53 @@ class ShopBullet{
         this.parent3D.add(this.mesh)
 
         // ------------------------------------------------
-        // 7. Material Proxy (The Secret Sauce)
-        // ------------------------------------------------
-        // Marker3D updates "this.material.opacity" every frame. 
-        // We create a proxy to intercept that value and apply it to all our layers.
-        
-        this.pulseData = { alpha: 1 }; // Internal animation value for the ring fade
-
-        const scope = this;
-        this.material = {
-            set opacity(val) {
-                // Apply global opacity (fade in/out of the map) to all parts
-                scope.matCore.opacity = val;
-                scope.matBlur.opacity = val * scope.pulseData.alpha; // Keep blur slightly softer
-                
-                // For the ring, we multiply the Global Opacity (val) by the Pulse Animation (scope.pulseData.alpha)
-                scope.matRing.opacity = val * scope.pulseData.alpha; 
-            },
-            get opacity() {
-                return scope.matCore.opacity;
-            }
-        };
-
-        // ------------------------------------------------
         // 8. Animations
         // ------------------------------------------------
         //this._initAnimations();
+
+        this.app.emitter.on("onAppZoomChange", (zoomLevel)=>{
+            // console.log("Zoom level changed:", zoomLevel);
+            if(this.stage.CURRENT_ZOOM == 0 || this.stage.CURRENT_ZOOM == 1 || this.stage.CURRENT_ZOOM == 2){
+                this._hideBullet()
+            }else{
+                this._showBullet()
+            }
+        });
+    }
+    _hideBullet(){
+        // console.log("(ShopBullet._hideBullet)!");
+        if(this.SHOWING_BULLET){
+            this.SHOWING_BULLET = false
+            this.GSAP_ANIM?.kill()
+            this.GSAP_ANIM= gsap.to(this, {
+                BULLET_ALPHA: 0.0,
+                duration: 0.5,
+                ease: "none",
+                onComplete: ()=>{
+                    this.mesh.visible = false
+                }
+            });
+                
+        }
+    }
+    _showBullet(){
+        // console.log("(ShopBullet._showBullet)!");
+        if(!this.SHOWING_BULLET){
+            this.SHOWING_BULLET = true
+            this.GSAP_ANIM?.kill()
+            this.mesh.visible = true
+            this.GSAP_ANIM= gsap.to(this, {
+                BULLET_ALPHA: 1.0,
+                duration: 0.5,
+                ease: "none"
+            });
+        }
     }
 
-    _initAnimations(){
-        // 1. Expand the Ring Scale
-        gsap.to(this.meshRing.scale, {
-            x: 1.5, 
-            y: 1.5,
-            duration: 2.0,
-            ease: "power1.out",
-            repeat: -1
-        });
-        // 2. Fade out the Ring Opacity
-        gsap.to(this.pulseData, {
-            alpha: 0, 
-            duration: 2.0,
-            ease: "power1.out",
-            repeat: -1
-        });
-
-        gsap.to(this.meshBlur.scale, {
-            x: 1.5, 
-            y: 1.5,
-            duration: 2.0,
-            ease: "power1.out",
-            repeat: -1
-        });
-
-
+    updateRAF(){
+        this.matCore.opacity = this.marker.TYPE_OPACITY_FACTOR*this.marker.INTRO_OPACITY_FACTOR*this.BULLET_ALPHA
+        this.matBlur.opacity = this.marker.TYPE_OPACITY_FACTOR*this.marker.INTRO_OPACITY_FACTOR*this.BULLET_ALPHA*0.8
+        this.matRing.opacity = this.marker.TYPE_OPACITY_FACTOR*this.marker.INTRO_OPACITY_FACTOR*this.BULLET_ALPHA
     }
 }
 export default ShopBullet
