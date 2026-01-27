@@ -30,7 +30,8 @@ class Platform{
                 iOS:this.__get_iOS(),
                 cities_dataPath: obj.cities_dataPath,
                 shops_dataPath: obj.shops_dataPath,
-                events_dataPath: obj.events_dataPath
+                events_dataPath: obj.events_dataPath,
+                settings_dataPath: obj.settings_dataPath
             },
 
 

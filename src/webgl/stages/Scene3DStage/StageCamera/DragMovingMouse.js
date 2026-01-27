@@ -70,7 +70,7 @@ class DragMovingMouse {
 
             //console.log("this.app.size.CURRENT.aspect:", this.app.size.CURRENT.aspect);
             
-            let zoom_mod = [0.072, 0.0400, 0.0285, 0.0150];
+            let zoom_mod = [0.072, 0.0400, 0.0285, 0.0150, 0.0100];
             let responsive_mod_x = 947/this.app.size.CURRENT.height;
 
             let responsive_mod_y = 1920/this.app.size.CURRENT.width;

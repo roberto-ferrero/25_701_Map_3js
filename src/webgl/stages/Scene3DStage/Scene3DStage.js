@@ -28,6 +28,7 @@ class Scene3DStage extends StageSuper{
         //-------------------
         this.STAGE_SIZE = this.app.size.CURRENT
         //-------------------
+        this.ZOOM_LEVELS = 5
         this.CURRENT_ZOOM = 0
         this.CURRENT_TIER_MODE = 1 // 1,2,3
         //-------------------
@@ -125,6 +126,7 @@ class Scene3DStage extends StageSuper{
         this.loader.add_json("city_data", this.app.data.cities_dataPath)
         this.loader.add_json("event_data", this.app.data.events_dataPath)
         this.loader.add_json("shop_data", this.app.data.shops_dataPath)
+        this.loader.add_json("settings_data", this.app.data.settings_dataPath)
         //------------------------------
         
 
@@ -149,10 +151,11 @@ class Scene3DStage extends StageSuper{
     //----------------------------------------------
     // PUBLIC API:
     zoomIn(){
-        // console.log("(Scene3DStage.zoomIn)!");
+        console.log("(Scene3DStage.zoomIn)!");
         if(!this.stageCamera.TRAVELLING){
-            if(this.CURRENT_ZOOM<3){
+            if(this.CURRENT_ZOOM<this.ZOOM_LEVELS-1){
                 this.CURRENT_ZOOM++
+                console.log("this.CURRENT_ZOOM: ", this.CURRENT_ZOOM);
                 this.app.emitter.emit("onAppZoomChange", {zoom:this.CURRENT_ZOOM})
                 //--
                 this.eval_TIER_MODE()
@@ -176,6 +179,8 @@ class Scene3DStage extends StageSuper{
         }else if(this.CURRENT_ZOOM==2){
             this.CURRENT_TIER_MODE = 2
         }else if(this.CURRENT_ZOOM==3){
+            this.CURRENT_TIER_MODE = 3
+        }else if(this.CURRENT_ZOOM==4){
             this.CURRENT_TIER_MODE = 3
         }
         this.app.emitter.emit("onAppTierModeChange", {})

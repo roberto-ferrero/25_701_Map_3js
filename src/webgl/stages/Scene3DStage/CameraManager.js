@@ -11,7 +11,7 @@ class CameraManager{
         this.stageCamera = this.stage.stageCamera
         //------------------------
         this.SPOT_POS = 0
-        this.CAMERA_SPOTS = ["zoom0", "zoom1", "zoom2", "zoom3"]
+        this.CAMERA_SPOTS = ["zoom0", "zoom1", "zoom2", "zoom3", "zoom4"]
         //------------------------
 
         //------------------------

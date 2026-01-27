@@ -79,28 +79,6 @@ class Marker3D{
         this.material = this.bullet.material
         //------------
 
-
-
-        //------------
-        // const geometry = new THREE.PlaneGeometry(1, 1)
-        // const texture = this.stage.loader.get_texture(this.type)
-        // this.material = new THREE.MeshBasicMaterial({ 
-        //     map: texture,
-        //     transparent: true,
-        //     depthWrite: false,
-        //     combine : THREE.MixOperation,
-        //     opacity: this.TYPE_OPACITY_FACTOR*this.INTRO_OPACITY_FACTOR,
-        // });
-        // this.mesh = new THREE.Mesh( geometry, this.material );
-        
-        // //--
-        // this.mesh.userData.city_id = this.city_id;
-        // this.mesh.userData.city_type = this.type;
-        // this.mesh.userData.parentInstance = this; // Opcional, por si quieres acceder a la clase completa
-        // //--
-        // // this.mesh.rotation.x = - Math.PI /2
-        // this.parent3D.add(this.mesh)
-
         //------------
         this._drawPosition()
         this._drawScale()

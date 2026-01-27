@@ -1,0 +1,40 @@
+{
+  "settings": {
+    "drag_factors": [0.072, 0.0400, 0.0285, 0.0150, 0.0100],
+
+    "city_scale_factor": 1,
+    "event_scale_factor": 1.35,
+    "shop_scale_factor": 1.25,
+
+    "city_opacity_factor": 1,
+    "event_opacity_factor": 1,
+    "shop_opacity_factor": 1,
+
+    "tier_1_in_zoom_0_scale_factor": 1,
+    "tier_2_in_zoom_0_scale_factor": 1,
+    "tier_3_in_zoom_0_scale_factor": 1,
+    "tier_4_in_zoom_0_scale_factor": 1,
+
+    "tier_1_in_zoom_1_scale_factor": 1,
+    "tier_2_in_zoom_1_scale_factor": 1,
+    "tier_3_in_zoom_1_scale_factor": 1,
+    "tier_4_in_zoom_1_scale_factor": 1,
+
+    "tier_1_in_zoom_2_scale_factor": 1,
+    "tier_2_in_zoom_2_scale_factor": 1,
+    "tier_3_in_zoom_2_scale_factor": 1,
+    "tier_4_in_zoom_2_scale_factor": 1,
+
+    "tier_1_in_zoom_3_scale_factor": 1,
+    "tier_2_in_zoom_3_scale_factor": 1,
+    "tier_3_in_zoom_3_scale_factor": 1,
+    "tier_4_in_zoom_3_scale_factor": 1,
+
+    "tier_1_in_zoom_4_scale_factor": 1,
+    "tier_2_in_zoom_4_scale_factor": 1,
+    "tier_3_in_zoom_4_scale_factor": 1,
+    "tier_4_in_zoom_4_scale_factor": 1
+
+
+  }
+}

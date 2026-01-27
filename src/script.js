@@ -26,7 +26,8 @@ const Library = {
             loader_pathPrefix: config.loader_pathPrefix,
             cities_dataPath: config.cities_dataPath,
             shops_dataPath: config.shops_dataPath,
-            events_dataPath: config.events_dataPath
+            events_dataPath: config.events_dataPath,
+            settings_dataPath: config.settings_dataPath
         });
 
                 
