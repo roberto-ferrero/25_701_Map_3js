@@ -18,15 +18,22 @@ class Marker3D{
         this.type = obj.type
         this.parent3D = obj.parent3D
         //-------------
+        console.log("this.stage.stageData.settings: ", this.stage.stageData.settings);
         if(this.type === "city"){
-            this.TYPE_SCALE_FACTOR = 1.0
-            this.TYPE_OPACITY_FACTOR = 1
+            // this.TYPE_SCALE_FACTOR = 1.0
+            // this.TYPE_OPACITY_FACTOR = 1
+            this.TYPE_SCALE_FACTOR = this.stage.stageData.settings.city_scale_factor
+            this.TYPE_OPACITY_FACTOR = this.stage.stageData.settings.city_opacity_factor
         }else if(this.type === "event"){
-            this.TYPE_SCALE_FACTOR = 1.35
-            this.TYPE_OPACITY_FACTOR = 1
+            // this.TYPE_SCALE_FACTOR = 1.35
+            // this.TYPE_OPACITY_FACTOR = 1
+            this.TYPE_SCALE_FACTOR = this.stage.stageData.settings.event_scale_factor
+            this.TYPE_OPACITY_FACTOR = this.stage.stageData.settings.event_opacity_factor
         }else if(this.type === "shop"){
-            this.TYPE_SCALE_FACTOR = 1.25
-            this.TYPE_OPACITY_FACTOR = 1
+            // this.TYPE_SCALE_FACTOR = 1.25
+            // this.TYPE_OPACITY_FACTOR = 1
+            this.TYPE_SCALE_FACTOR = this.stage.stageData.settings.shop_scale_factor
+            this.TYPE_OPACITY_FACTOR = this.stage.stageData.settings.shop_opacity_factor
         }
         this.INTRO_OPACITY_FACTOR = 0.0
         //-------------
@@ -45,7 +52,7 @@ class Marker3D{
         //------------
         this.EASED_POSITION_X = new EasedOutValue(this.POSITION_IN_TIER_MODE_1.x, 0.1, 0.001, this.app.emitter, "onUpdateRAF")
         this.EASED_POSITION_Y = new EasedOutValue(this.POSITION_IN_TIER_MODE_1.y, 0.1, 0.001, this.app.emitter, "onUpdateRAF")
-        this.EASED_SCALE = new EasedOutValue(this.SCALE_IN_TIER_MODE_1, 0.1, 0.001, this.app.emitter, "onUpdateRAF")
+        this.EASED_SCALE = new EasedOutValue(this.SCALE_IN_ZOOM_LEVEL_0, 0.1, 0.001, this.app.emitter, "onUpdateRAF")
         //------------
         
 
@@ -84,22 +91,46 @@ class Marker3D{
         this._drawScale()
 
         //------------
-        this.app.emitter.on("onAppTierModeChange", ()=>{
-            // console.log("*");
-            if(this.stage.CURRENT_TIER_MODE == 1){
+        this.app.emitter.on("onAppZoomChange", ()=>{
+            if(this.stage.CURRENT_ZOOM == 0){
                 this.EASED_POSITION_X.set(this.POSITION_IN_TIER_MODE_1.x)
                 this.EASED_POSITION_Y.set(this.POSITION_IN_TIER_MODE_1.y)
-                this.EASED_SCALE.set(this.SCALE_IN_TIER_MODE_1)
-            }else if(this.stage.CURRENT_TIER_MODE == 2){
+                this.EASED_SCALE.set(this.SCALE_IN_ZOOM_LEVEL_0)
+            }else if(this.stage.CURRENT_ZOOM == 1){
+                this.EASED_POSITION_X.set(this.POSITION_IN_TIER_MODE_1.x)
+                this.EASED_POSITION_Y.set(this.POSITION_IN_TIER_MODE_1.y)
+                this.EASED_SCALE.set(this.SCALE_IN_ZOOM_LEVEL_1)
+            }else if(this.stage.CURRENT_ZOOM == 2){
                 this.EASED_POSITION_X.set(this.POSITION_IN_TIER_MODE_2.x)
                 this.EASED_POSITION_Y.set(this.POSITION_IN_TIER_MODE_2.y)
-                this.EASED_SCALE.set(this.SCALE_IN_TIER_MODE_2)
-            }else if(this.stage.CURRENT_TIER_MODE == 3){
+                this.EASED_SCALE.set(this.SCALE_IN_ZOOM_LEVEL_2)
+            }else if(this.stage.CURRENT_ZOOM == 3){
                 this.EASED_POSITION_X.set(this.POSITION_IN_TIER_MODE_3.x)
                 this.EASED_POSITION_Y.set(this.POSITION_IN_TIER_MODE_3.y)
-                this.EASED_SCALE.set(this.SCALE_IN_TIER_MODE_3)
-            } 
+                this.EASED_SCALE.set(this.SCALE_IN_ZOOM_LEVEL_3)
+            }else if(this.stage.CURRENT_ZOOM == 4){
+                this.EASED_POSITION_X.set(this.POSITION_IN_TIER_MODE_3.x)
+                this.EASED_POSITION_Y.set(this.POSITION_IN_TIER_MODE_3.y)
+                this.EASED_SCALE.set(this.SCALE_IN_ZOOM_LEVEL_4)
+            }
         })
+
+        // this.app.emitter.on("onAppTierModeChange", ()=>{
+        //     // console.log("*");
+        //     if(this.stage.CURRENT_TIER_MODE == 1){
+        //         this.EASED_POSITION_X.set(this.POSITION_IN_TIER_MODE_1.x)
+        //         this.EASED_POSITION_Y.set(this.POSITION_IN_TIER_MODE_1.y)
+        //         this.EASED_SCALE.set(this.SCALE_IN_TIER_MODE_1)
+        //     }else if(this.stage.CURRENT_TIER_MODE == 2){
+        //         this.EASED_POSITION_X.set(this.POSITION_IN_TIER_MODE_2.x)
+        //         this.EASED_POSITION_Y.set(this.POSITION_IN_TIER_MODE_2.y)
+        //         this.EASED_SCALE.set(this.SCALE_IN_TIER_MODE_2)
+        //     }else if(this.stage.CURRENT_TIER_MODE == 3){
+        //         this.EASED_POSITION_X.set(this.POSITION_IN_TIER_MODE_3.x)
+        //         this.EASED_POSITION_Y.set(this.POSITION_IN_TIER_MODE_3.y)
+        //         this.EASED_SCALE.set(this.SCALE_IN_TIER_MODE_3)
+        //     } 
+        // })
 
         this.app.emitter.on("onStartIntro", ()=>{
             gsap.to(this, {
@@ -149,6 +180,12 @@ class Marker3D{
             this.SCALE_IN_TIER_MODE_1 = this._getFilteredScale(this.cityData.getTotalPosts())
             this.SCALE_IN_TIER_MODE_2 = this._getFilteredScale(this.cityData.getCityAndChild3Posts())*0.8
             this.SCALE_IN_TIER_MODE_3 = this._getFilteredScale(this.cityData.getCityPosts())*0.4
+
+            this.SCALE_IN_ZOOM_LEVEL_0 = this._getFilteredScale(this.cityData.getTotalPosts())*this.stage.stageData.settings.tier_1_in_zoom_0_scale_factor
+            this.SCALE_IN_ZOOM_LEVEL_1 = this._getFilteredScale(this.cityData.getTotalPosts())*this.stage.stageData.settings.tier_1_in_zoom_1_scale_factor
+            this.SCALE_IN_ZOOM_LEVEL_2 = this._getFilteredScale(this.cityData.getCityAndChild3Posts())*this.stage.stageData.settings.tier_1_in_zoom_2_scale_factor
+            this.SCALE_IN_ZOOM_LEVEL_3 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_1_in_zoom_3_scale_factor
+            this.SCALE_IN_ZOOM_LEVEL_4 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_1_in_zoom_4_scale_factor
         }else if(this.cityData.tier == 2){
             const parent_position = this._getFilteredPosition(this.cityData.parent.coordinates[0], this.cityData.parent.coordinates[1])
             const city_position = this._getFilteredPosition(this.cityData.coordinates[0], this.cityData.coordinates[1])
@@ -159,6 +196,12 @@ class Marker3D{
             this.SCALE_IN_TIER_MODE_1 = this._getFilteredScale(0)
             this.SCALE_IN_TIER_MODE_2 = this._getFilteredScale(this.cityData.getCityAndChild3Posts())
             this.SCALE_IN_TIER_MODE_3 = this._getFilteredScale(this.cityData.getCityPosts())*0.8
+            
+            this.SCALE_IN_ZOOM_LEVEL_0 = this._getFilteredScale(0) // *this.stage.stageData.settings.tier_2_in_zoom_0_scale_factor
+            this.SCALE_IN_ZOOM_LEVEL_1 = this._getFilteredScale(0) // *this.stage.stageData.settings.tier_2_in_zoom_1_scale_factor
+            this.SCALE_IN_ZOOM_LEVEL_2 = this._getFilteredScale(this.cityData.getCityAndChild3Posts())*this.stage.stageData.settings.tier_2_in_zoom_2_scale_factor
+            this.SCALE_IN_ZOOM_LEVEL_3 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_2_in_zoom_3_scale_factor
+            this.SCALE_IN_ZOOM_LEVEL_4 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_2_in_zoom_4_scale_factor
         }else{
             const grandparent_position = this._getFilteredPosition(this.cityData.getGrandParent().coordinates[0], this.cityData.getGrandParent().coordinates[1])
             const parent_position = this._getFilteredPosition(this.cityData.parent.coordinates[0], this.cityData.parent.coordinates[1])
@@ -170,6 +213,12 @@ class Marker3D{
             this.SCALE_IN_TIER_MODE_1 = this._getFilteredScale(0)
             this.SCALE_IN_TIER_MODE_2 = this._getFilteredScale(0)
             this.SCALE_IN_TIER_MODE_3 = this._getFilteredScale(this.cityData.getCityPosts())
+
+            this.SCALE_IN_ZOOM_LEVEL_0 = this._getFilteredScale(0) // *this.stage.stageData.settings.tier_3_in_zoom_0_scale_factor
+            this.SCALE_IN_ZOOM_LEVEL_1 = this._getFilteredScale(0) // *this.stage.stageData.settings.tier_3_in_zoom_1_scale_factor
+            this.SCALE_IN_ZOOM_LEVEL_2 = this._getFilteredScale(0) // *this.stage.stageData.settings.tier_3_in_zoom_2_scale_factor
+            this.SCALE_IN_ZOOM_LEVEL_3 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_3_in_zoom_3_scale_factor
+            this.SCALE_IN_ZOOM_LEVEL_4 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_3_in_zoom_4_scale_factor
         }
     }
     

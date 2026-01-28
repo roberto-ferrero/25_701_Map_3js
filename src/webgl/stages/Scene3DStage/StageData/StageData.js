@@ -10,6 +10,8 @@ class StageData{
         this.project = obj.project
         this.stage = obj.stage
         //---
+        this.settings = null // To be loaded in init()
+        //---
         this.city_data = new MarkersPackData({
             app: this.app,
             project: this.project,
@@ -31,6 +33,8 @@ class StageData{
         //------------
     }
     init(){
+        this.settings = this.stage.loader.get_json("settings_data")
+        //--
         this.city_data.init()
         this.event_data.init()
         this.shop_data.init()
