@@ -156,9 +156,9 @@ class Scene3DStage extends StageSuper{
             if(this.CURRENT_ZOOM<this.ZOOM_LEVELS-1){
                 this.CURRENT_ZOOM++
                 console.log("this.CURRENT_ZOOM: ", this.CURRENT_ZOOM);
+                this.eval_TIER_MODE()
                 this.app.emitter.emit("onAppZoomChange", {zoom:this.CURRENT_ZOOM})
                 //--
-                this.eval_TIER_MODE()
             }
         }
     }
@@ -167,22 +167,34 @@ class Scene3DStage extends StageSuper{
         if(!this.stageCamera.TRAVELLING){
             if(this.CURRENT_ZOOM>0){
                 this.CURRENT_ZOOM--
+                this.eval_TIER_MODE()
                 this.app.emitter.emit("onAppZoomChange", {zoom:this.CURRENT_ZOOM})
                 //--
-                this.eval_TIER_MODE()
             }
         }
     }
+    moveToMarker(markerId, typeId){
+        console.log("(Scene3DStage.moveToMarker) markerId:", markerId, " typeId:", typeId);
+        const markerData = this.stageData.getItemById(markerId, typeId)
+        console.log("markerData: ", markerData);
+        const filteredPosition = new THREE.Vector3(markerData.position.x, 1, -markerData.position.y)
+        // this.stageCamera.moveToPosition(filteredPosition)
+    }
     eval_TIER_MODE(){
-        if(this.CURRENT_ZOOM==0 || this.CURRENT_ZOOM==1){
+        if(this.CURRENT_ZOOM==0){
             this.CURRENT_TIER_MODE = 1
-        }else if(this.CURRENT_ZOOM==2){
+        }else if(this.CURRENT_ZOOM==1){
             this.CURRENT_TIER_MODE = 2
+        }else if(this.CURRENT_ZOOM==2){
+            this.CURRENT_TIER_MODE = 3
         }else if(this.CURRENT_ZOOM==3){
             this.CURRENT_TIER_MODE = 3
         }else if(this.CURRENT_ZOOM==4){
             this.CURRENT_TIER_MODE = 3
         }
+        console.log("CURRENT_ZOOM:", this.CURRENT_ZOOM);
+        console.log("CURRENT_TIER_MODE:", this.CURRENT_TIER_MODE);
+
         this.app.emitter.emit("onAppTierModeChange", {})
     }
     //----------------------------------------------

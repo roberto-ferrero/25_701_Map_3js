@@ -101,6 +101,7 @@ class StageLibraries{
                 this.sunlights.addItem(itemId, item)
             }
         })
+        //--------------------------
     }
     //----------------------------------------------
     // PUBLIC:

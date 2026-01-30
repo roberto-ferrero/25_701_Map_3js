@@ -17,7 +17,7 @@ class Map3D{
         this.scenario3D = obj.scenario
         this.parent3D = obj.parent3D
         //--
-        this.tooltip = document.getElementById('tooltip');
+        // this.tooltip = document.getElementById('tooltip');
         this.raycaster = new THREE.Raycaster();
         this.pointer = new THREE.Vector2();
         // Rastrear el objeto interceptado actualmente
@@ -110,20 +110,44 @@ class Map3D{
             // console.log("CLICK on:", cityId);
             // console.log("city_type:", city_type);
 
-            if(city_type == "city"){
-                this.app.emitter.emit("onCityClicked", { id: cityId });
-            }else if(city_type == "shop"){
-                this.app.emitter.emit("onShopClicked", { id: cityId });
-            }else if(city_type == "event"){
-                this.app.emitter.emit("onEventClicked", { id: cityId });
-
+            const markerData = this.stage.stageData.getItemById(cityId, city_type);
+            console.log("markerData:", markerData);
+            console.log("markerData.tier2_childs.length:", markerData.tier2_childs.length);
+            console.log("markerData.tier3_childs.length:", markerData.tier3_childs.length);
+            if(this.stage.CURRENT_TIER_MODE == 1){
+                console.log("*1");
+                if(markerData.tier2_childs.length == 0 && markerData.tier3_childs.length == 0){
+                    console.log("   *1.1");
+                    this._emitClickEvent(cityId, city_type)
+                    this.stage.moveToMarker(cityId, city_type)
+                }else{
+                    console.log("   *1.2");
+                    this.stage.moveToMarker(cityId, city_type)
+                    this.stage.zoomIn()
+                }
+            }else if(this.stage.CURRENT_TIER_MODE == 2){
+                console.log("*2");
+                if(markerData.tier3_childs.length == 0){
+                    console.log("   *2.1");
+                    this._emitClickEvent(cityId, city_type)
+                    this.stage.moveToMarker(cityId, city_type)
+                }else{
+                    console.log("   *2.2");
+                    this.stage.zoomIn()
+                    this.stage.moveToMarker(cityId, city_type)
+                }
+            }else if(this.stage.CURRENT_TIER_MODE == 3){
+                console.log("*3");
+                this._emitClickEvent(cityId, city_type)
+                this.stage.moveToMarker(cityId, city_type)
+                
             }
 
-
             // if (this.hoveredObjectId !== null) {
-            this.tooltip.style.left = (event.clientX + 15) + 'px';
-            this.tooltip.style.top = (event.clientY + 15) + 'px';
+            // this.tooltip.style.left = (event.clientX + 15) + 'px';
+            // this.tooltip.style.top = (event.clientY + 15) + 'px';
             // }
+
             if (this.hoveredObjectId !== cityId) {
                 
                 // Si antes estábamos sobre otro, disparamos rollout del anterior
@@ -140,6 +164,15 @@ class Map3D{
                 this._handleRollOut(this.hoveredObjectId);
                 this.hoveredObjectId = null;
             }
+        }
+    }
+    _emitClickEvent(cityId, city_type){
+        if(city_type == "city"){
+            this.app.emitter.emit("onCityClicked", { id: cityId });
+        }else if(city_type == "shop"){
+            this.app.emitter.emit("onShopClicked", { id: cityId });
+        }else if(city_type == "event"){
+            this.app.emitter.emit("onEventClicked", { id: cityId });
         }
     }
     onPointerMove(event) {
@@ -159,8 +192,8 @@ class Map3D{
 
             // Actualizar posición del tooltip si es visible
             if (this.hoveredObjectId !== null) {
-                this.tooltip.style.left = (event.clientX + 15) + 'px';
-                this.tooltip.style.top = (event.clientY + 15) + 'px';
+                // this.tooltip.style.left = (event.clientX + 15) + 'px';
+                // this.tooltip.style.top = (event.clientY + 15) + 'px';
             }
 
             // ¿Es un objeto nuevo? (ROLLOVER)

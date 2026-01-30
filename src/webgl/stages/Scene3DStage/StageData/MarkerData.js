@@ -22,7 +22,7 @@ class MarkerData{
         this.tier3_childs = [] 
         this.grandchilds = [] // All tier3
         //--
-        this.cityPosts = this.data.posts+((Math.random()*0.5-0.25)*this.data.posts)
+        this.cityPosts = this.data.posts
         this.tier2_childPosts = 0
         this.tier3_childPosts = 0
         this.grandchildPosts = 0

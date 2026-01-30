@@ -53,6 +53,12 @@ class EasedOutValue{
             this.active = false
         }
     }
+    setNoEasing(newValue){ ////console.log("(EasedOutValue.setNoEasing): "+newValue +"  ("+this.value+")")
+        this.factor_overrided = 1
+        this.active = false
+        this.value = newValue
+        this.value_wanted = newValue
+    }
     update(dt = 0.016){
         // UPDATE: Accept dt (default to 1/60 roughly 0.016 if undefined for safety)
         if(this.active){

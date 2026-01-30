@@ -18,7 +18,12 @@ class Marker3D{
         this.type = obj.type
         this.parent3D = obj.parent3D
         //-------------
-        console.log("this.stage.stageData.settings: ", this.stage.stageData.settings);
+        this.DEV_ITEM = false
+        if(this.city_id == 166){
+            this.DEV_ITEM = true
+        }
+        //-------------
+        // console.log("this.stage.stageData.settings: ", this.stage.stageData.settings);
         if(this.type === "city"){
             // this.TYPE_SCALE_FACTOR = 1.0
             // this.TYPE_OPACITY_FACTOR = 1
@@ -38,6 +43,8 @@ class Marker3D{
         this.INTRO_OPACITY_FACTOR = 0.0
         //-------------
         this.cityData = this.stage.stageData.getItemById(this.city_id, this.type)
+        this.cityData.position = this._getFilteredPosition(this.cityData.coordinates[0], this.cityData.coordinates[1])
+        console.log("cityData:", this.cityData);
         //-------------
         this.Z_POS = 0.85
         this.POSITION_IN_TIER_MODE_1 = new THREE.Vector3(0, 0, this.Z_POS)
@@ -92,23 +99,29 @@ class Marker3D{
 
         //------------
         this.app.emitter.on("onAppZoomChange", ()=>{
+            if(this.DEV_ITEM) console.log("onAppZoomChange!");
             if(this.stage.CURRENT_ZOOM == 0){
+                if(this.DEV_ITEM) console.log("*1");
                 this.EASED_POSITION_X.set(this.POSITION_IN_TIER_MODE_1.x)
                 this.EASED_POSITION_Y.set(this.POSITION_IN_TIER_MODE_1.y)
                 this.EASED_SCALE.set(this.SCALE_IN_ZOOM_LEVEL_0)
             }else if(this.stage.CURRENT_ZOOM == 1){
+                if(this.DEV_ITEM) console.log("*2");
                 this.EASED_POSITION_X.set(this.POSITION_IN_TIER_MODE_1.x)
                 this.EASED_POSITION_Y.set(this.POSITION_IN_TIER_MODE_1.y)
                 this.EASED_SCALE.set(this.SCALE_IN_ZOOM_LEVEL_1)
             }else if(this.stage.CURRENT_ZOOM == 2){
+                if(this.DEV_ITEM) console.log("*3");
                 this.EASED_POSITION_X.set(this.POSITION_IN_TIER_MODE_2.x)
                 this.EASED_POSITION_Y.set(this.POSITION_IN_TIER_MODE_2.y)
                 this.EASED_SCALE.set(this.SCALE_IN_ZOOM_LEVEL_2)
             }else if(this.stage.CURRENT_ZOOM == 3){
+                if(this.DEV_ITEM) console.log("*4");
                 this.EASED_POSITION_X.set(this.POSITION_IN_TIER_MODE_3.x)
                 this.EASED_POSITION_Y.set(this.POSITION_IN_TIER_MODE_3.y)
                 this.EASED_SCALE.set(this.SCALE_IN_ZOOM_LEVEL_3)
             }else if(this.stage.CURRENT_ZOOM == 4){
+                if(this.DEV_ITEM) console.log("*5");
                 this.EASED_POSITION_X.set(this.POSITION_IN_TIER_MODE_3.x)
                 this.EASED_POSITION_Y.set(this.POSITION_IN_TIER_MODE_3.y)
                 this.EASED_SCALE.set(this.SCALE_IN_ZOOM_LEVEL_4)
@@ -150,7 +163,7 @@ class Marker3D{
         this._drawScale()
         //this.material.opacity = this.TYPE_OPACITY_FACTOR*this.INTRO_OPACITY_FACTOR
         // console.log(this.stage.stageCamera.camera.position);
-        // this.mesh.lookAt(this.stage.stageCamera.get_WORLD_POSITION());
+        // this.mesh.lookAt(this.stage.stageCamera.get_CAMERA_WORLD_POSITION());
         this.bullet.updateRAF();
     }
     _drawPosition(){
@@ -177,9 +190,9 @@ class Marker3D{
             this.POSITION_IN_TIER_MODE_2.copy(city_position)
             this.POSITION_IN_TIER_MODE_3.copy(city_position)
             //--
-            this.SCALE_IN_TIER_MODE_1 = this._getFilteredScale(this.cityData.getTotalPosts())
-            this.SCALE_IN_TIER_MODE_2 = this._getFilteredScale(this.cityData.getCityAndChild3Posts())*0.8
-            this.SCALE_IN_TIER_MODE_3 = this._getFilteredScale(this.cityData.getCityPosts())*0.4
+            // this.SCALE_IN_TIER_MODE_1 = this._getFilteredScale(this.cityData.getTotalPosts())
+            // this.SCALE_IN_TIER_MODE_2 = this._getFilteredScale(this.cityData.getCityAndChild3Posts())*0.8
+            // this.SCALE_IN_TIER_MODE_3 = this._getFilteredScale(this.cityData.getCityPosts())*0.4
 
             this.SCALE_IN_ZOOM_LEVEL_0 = this._getFilteredScale(this.cityData.getTotalPosts())*this.stage.stageData.settings.tier_1_in_zoom_0_scale_factor
             this.SCALE_IN_ZOOM_LEVEL_1 = this._getFilteredScale(this.cityData.getTotalPosts())*this.stage.stageData.settings.tier_1_in_zoom_1_scale_factor
@@ -193,9 +206,9 @@ class Marker3D{
             this.POSITION_IN_TIER_MODE_2.copy(city_position)
             this.POSITION_IN_TIER_MODE_3.copy(city_position)
             //--
-            this.SCALE_IN_TIER_MODE_1 = this._getFilteredScale(0)
-            this.SCALE_IN_TIER_MODE_2 = this._getFilteredScale(this.cityData.getCityAndChild3Posts())
-            this.SCALE_IN_TIER_MODE_3 = this._getFilteredScale(this.cityData.getCityPosts())*0.8
+            // this.SCALE_IN_TIER_MODE_1 = this._getFilteredScale(0)
+            // this.SCALE_IN_TIER_MODE_2 = this._getFilteredScale(this.cityData.getCityAndChild3Posts())
+            // this.SCALE_IN_TIER_MODE_3 = this._getFilteredScale(this.cityData.getCityPosts())*0.8
             
             this.SCALE_IN_ZOOM_LEVEL_0 = this._getFilteredScale(0) // *this.stage.stageData.settings.tier_2_in_zoom_0_scale_factor
             this.SCALE_IN_ZOOM_LEVEL_1 = this._getFilteredScale(0) // *this.stage.stageData.settings.tier_2_in_zoom_1_scale_factor
@@ -210,9 +223,9 @@ class Marker3D{
             this.POSITION_IN_TIER_MODE_2.copy(parent_position)
             this.POSITION_IN_TIER_MODE_3.copy(city_position)
             //--
-            this.SCALE_IN_TIER_MODE_1 = this._getFilteredScale(0)
-            this.SCALE_IN_TIER_MODE_2 = this._getFilteredScale(0)
-            this.SCALE_IN_TIER_MODE_3 = this._getFilteredScale(this.cityData.getCityPosts())
+            // this.SCALE_IN_TIER_MODE_1 = this._getFilteredScale(0)
+            // this.SCALE_IN_TIER_MODE_2 = this._getFilteredScale(0)
+            // this.SCALE_IN_TIER_MODE_3 = this._getFilteredScale(this.cityData.getCityPosts())
 
             this.SCALE_IN_ZOOM_LEVEL_0 = this._getFilteredScale(0) // *this.stage.stageData.settings.tier_3_in_zoom_0_scale_factor
             this.SCALE_IN_ZOOM_LEVEL_1 = this._getFilteredScale(0) // *this.stage.stageData.settings.tier_3_in_zoom_1_scale_factor

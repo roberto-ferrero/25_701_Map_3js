@@ -3,13 +3,9 @@ import * as THREE from 'three'
 import MeshUtils from '../../../core/utils/MeshUtils'
 
 import DragMovingMouse from "./DragMovingMouse"
-import SphericalPanning from "./SphericalPanning"
 
 import CameraPlane from "./CameraPlane"
 
-// import CameraSpots from "./CameraSpots"
-
-import LensFlare from './LensFlare/LensFlare'
 
 class StageCamera{
     constructor (obj){ 
@@ -18,14 +14,12 @@ class StageCamera{
         this.project = obj.project
         this.stage = obj.stage
         this.parent3D = obj.parent3D
-        this.initialShotId = obj.initialShotId || "shot0"
         //-----------------------------
-        this.INITIALIZED = false
-        this.BUILT = false
-        this.MODE = "IDLE" // IDLE | TRAVELLING | DRAG&MOVE
-        this.TRAVELLING = false
-        this.DRAG_MOVING = false
-        this.WORLD_POSITION = new THREE.Vector3()
+        this.MODE = "IDLE" // IDLE | TRAVELLING | DRAGGING | ZOOMING
+        this.GSAP_ANIM = null
+        this.ZOOMING_ANIM = null
+
+        this.CAMERA_WORLD_POSITION = new THREE.Vector3()
         //-----------------------------
         this.STATES ={}
         this.STATES.CURRENT ={
@@ -49,19 +43,7 @@ class StageCamera{
         this.CAMERA_PROGRESS = 0
         this.TARGET_PROGRESS = 0
         //-----------------------------
-        this.AZIMUTH_ARCH = [-0.05, 0.05]
-        this.ELEVATION_ARCH = [-0.05, 0.05]
-        //-----------------------------
 
-
-        // this.TARGET_PROGRESS = 0
-        this.HOLDER_REF_POSITION = new THREE.Vector3()
-        this.LENSFLARE_DISTANCE = -0.12
-        this.CURRENT_PAN_AZIMUTH = 0
-        this.CURRENT_PAN_ELEVATION = 0
-        //-----------------------------
-        this.raycaster = new THREE.Raycaster();
-        this.mouseV2 = new THREE.Vector2();
 
 
         //-----------------------------
@@ -80,18 +62,14 @@ class StageCamera{
             camera:this.camera
         })
         //-----------------------------
-        this.dragMoving = new DragMovingMouse({
+        this.dragMove = new DragMovingMouse({
             app:this.app,
             project:this.project,
             stage:this.stage,
             stageCamera:this,
             domElement: this.app.$mouseEvents
         })
-        this.sphericalPanning = new SphericalPanning({
-            maxPanRads: Math.PI / 24
-        })
-
-
+        
         //-----------------------------
         // HEPLPERS:
         this.camera_helper = new THREE.CameraHelper( this.camera );
@@ -99,60 +77,83 @@ class StageCamera{
         this.app.register_helper(this.camera_helper)
         //-----------------------------
 
+
+        this.stage.emitter.on("onStartDragMoving", ()=>{
+            console.log("(StageCamera.onStartDragMoving)!");
+            this.GSAP_ANIM?.kill()
+            this._setMode("DRAGGING")
+            this.STATES.INITIAL.camera_position.copy(this.STATES.CURRENT.camera_position)
+            this.STATES.INITIAL.target_position.copy(this.STATES.CURRENT.target_position)
+        })
+        this.stage.emitter.on("onStopDragMoving", ()=>{
+            console.log("(StageCamera.onStopDragMoving)!");
+            this._setMode("IDLE")
+            this.STATES.CURRENT.camera_position.copy(this.holder.position)
+            this.STATES.CURRENT.target_position.copy(this.target.position)
+        })
+        this.app.emitter.on("onAppZoomChange", ()=>{
+            console.log("(StageCamera.onAppZoomChange)!");
+            const spotId = "zoom"+this.stage.CURRENT_ZOOM
+            this.zoomTo(spotId, 1)
+        })
         
     }
     //----------------------------------------------
     // PUBLIC:
     init(){
-        // console.log("(StageCamera.init)!")
-        this.INITIALIZED = true
-        // this.placeInSpot(this.initialShotId)
+
     }
     build(GLB_PROJECT){
-        //console.log("(StageCamera.build)!")
-        //------------
-        //------------
-        // this.lensFlare = new LensFlare({
-        //     app:this.app,
-        //     project:this.project,
-        //     stage:this.stage,
-        //     parent3D:this.camera,
-        //     stageCamera:this,
-        //     width: this.app.size.REF.width,
-        //     height: this.app.size.REF.height,
-        //     progress: 0,
-        //     USE_MOUSE: false,
-        //     X_RANGE: [-2, 2], 
-        //     Y_RANGE: [0.0, -0.4], 
-        // })
-        //--
-        // this.app.emitter.on("onAppSizeUpdate", ()=>{
-        //     this._update_lensflareScale()
-        // })
-        //------------
-        //--
-        this.BUILT = true
-
-       
-    }
-    start(){
 
     }
+    // start(){
+
+    // }
     //----------------------------------------------
-    get_POSITION(){
+    get_CAMERA_WORLD_POSITION(){
+        return this.CAMERA_WORLD_POSITION
+    }
+    get_position(){
         return this.holder.position
     }
-    get_WORLD_POSITION(){
-        return this.WORLD_POSITION
+    get_targetPosition(){
+        return this.target.position
     }
     //----------------------------------------------
-    start_dragMoving(){
-        this.DRAG_MOVING = true
+    zoomTo(spotId, secs = 3, ease="power2.inOut"){
+        console.log("(StageCamera.zoomTo) spotId: ", spotId);
+        this.GSAP_ANIM?.kill()
+        this._setMode("ZOOMING")
+        //--
+        const cameraRef = this.stage.libs.cameraspots.getItem(spotId)
+        const zoomIncrV3 = this.stage.cameraManager["RELATIVE_POSITIONS_ZOOM_"+this.stage.CURRENT_ZOOM] // Relative position vector of camera to target
+        //--
+        this.STATES.INITIAL.camera_position.copy(this.STATES.CURRENT.camera_position)
+        this.STATES.INITIAL.target_position.copy(this.STATES.CURRENT.target_position)
+        this.STATES.INITIAL.camera_fov = this.STATES.CURRENT.camera_fov
+
+        this.STATES.FINAL.camera_position.copy(this.STATES.CURRENT.target_position).add(zoomIncrV3) // We copy the target position and add the relative vector
+        this.STATES.FINAL.target_position.copy(this.STATES.CURRENT.target_position)
+        this.STATES.FINAL.camera_fov = cameraRef.fov
+        //-----------------
+        // GSAP ANIM:
+        this.CAMERA_PROGRESS = 0
+        this.GSAP_ANIM = gsap.to(this, {
+            CAMERA_PROGRESS:1,
+            duration:secs,
+            ease:ease,
+            onUpdate:()=>{
+                // this._drawSTATE()
+            },
+            onComplete:()=>{
+                this._setMode("IDLE")
+            },
+        })
     }
     placeInSpot(spotId){
         // console.log("(StageCamera.placeInSpot) spotId: ", spotId);
-        this.cameraAnim?.kill()
-        this.TRAVELLING = false
+        this.GSAP_ANIM?.kill()
+        this._setMode("IDLE")
         //--
         const cameraRef = this.stage.libs.cameraspots.getItem(spotId)
         const cameraPos = this.stage.libs.cameraspots.getItemPosition(spotId)
@@ -164,12 +165,13 @@ class StageCamera{
         
         this.STATES.CURRENT.camera_fov = cameraRef.fov
         //--
-        this.MODE = "IDLE"
         //--
         this._drawSTATE()
     }
     travelToSpot(spotId, secs = 3, ease="power2.inOut"){
-        // console.log("(StageCamera.travelToSpot) spotId: ", spotId);
+        console.log("(StageCamera.travelToSpot) spotId: ", spotId);
+        this.GSAP_ANIM?.kill()
+        this._setMode("TRAVELLING")
         //const spot = this.SPOTS.get_spot(spotId)
         const cameraRef = this.stage.libs.cameraspots.getItem(spotId)
         const cameraPos = this.stage.libs.cameraspots.getItemPosition(spotId)
@@ -188,11 +190,8 @@ class StageCamera{
         this.STATES.FINAL.camera_fov = cameraRef.fov
         //-----------------
         // GSAP ANIM:
-        this.cameraAnim?.kill()
         this.CAMERA_PROGRESS = 0
-        this.TRAVELLING = true
-        this.MODE = "TRAVELLING"
-        this.cameraAnim = gsap.to(this, {
+        this.GSAP_ANIM = gsap.to(this, {
             CAMERA_PROGRESS:1,
             duration:secs,
             ease:ease,
@@ -200,156 +199,55 @@ class StageCamera{
                 // this._drawSTATE()
             },
             onComplete:()=>{
-                this.TRAVELLING = false
-                this.MODE = "IDLE"
+                this._setMode("IDLE")
             },
         })
     }
-    _drawSTATE(){
+   
+    
+    //----------------------------------------------
+
+   
+    //----------------------------------------------
+    // UPDATES:
+    update_RAF(){
+        this.forePlane.updateRAF()
+        this.camera.getWorldPosition(this.CAMERA_WORLD_POSITION)
+        this._drawSTATE()
+        this._update_camera_data()
+    }
+     _drawSTATE(){
         // console.log("this.CAMERA_PROGRESS: ", this.CAMERA_PROGRESS);
-        if(this.TRAVELLING){
+        if(this.MODE == "TRAVELLING"){
+            console.log("travelling...");
+            this.STATES.CURRENT.camera_position.lerpVectors(this.STATES.INITIAL.camera_position, this.STATES.FINAL.camera_position, this.CAMERA_PROGRESS) 
+            this.STATES.CURRENT.target_position.lerpVectors(this.STATES.INITIAL.target_position, this.STATES.FINAL.target_position, this.CAMERA_PROGRESS)
+            this.STATES.CURRENT.camera_fov = THREE.MathUtils.lerp(this.STATES.INITIAL.camera_fov, this.STATES.FINAL.camera_fov, this.CAMERA_PROGRESS)
+            this.STATES.CURRENT.camera_offset.lerpVectors(this.STATES.INITIAL.camera_offset, this.STATES.FINAL.camera_offset, this.CAMERA_PROGRESS)
+        }else if(this.MODE == "DRAGGING"){
+            console.log("dragging...");
+            this.STATES.CURRENT.camera_position.x = this.STATES.INITIAL.camera_position.x+this.dragMove.DRAG_POSITION.x
+            this.STATES.CURRENT.camera_position.z = this.STATES.INITIAL.camera_position.z+this.dragMove.DRAG_POSITION.y
+            this.STATES.CURRENT.target_position.x = this.STATES.INITIAL.target_position.x+this.dragMove.DRAG_POSITION.x
+            this.STATES.CURRENT.target_position.z = this.STATES.INITIAL.target_position.z+this.dragMove.DRAG_POSITION.y
+        }else if(this.MODE == "ZOOMING"){
+            console.log("zooming...");
             this.STATES.CURRENT.camera_position.lerpVectors(this.STATES.INITIAL.camera_position, this.STATES.FINAL.camera_position, this.CAMERA_PROGRESS) 
             this.STATES.CURRENT.target_position.lerpVectors(this.STATES.INITIAL.target_position, this.STATES.FINAL.target_position, this.CAMERA_PROGRESS)
             this.STATES.CURRENT.camera_fov = THREE.MathUtils.lerp(this.STATES.INITIAL.camera_fov, this.STATES.FINAL.camera_fov, this.CAMERA_PROGRESS)
             this.STATES.CURRENT.camera_offset.lerpVectors(this.STATES.INITIAL.camera_offset, this.STATES.FINAL.camera_offset, this.CAMERA_PROGRESS)
         }
         //------
-        // OLD PANNING:
-        // const PANNED_POSITION = this._update_pan(this.STATES.CURRENT.camera_position)
-        // this.holder.position.copy(PANNED_POSITION)
-        //------
         this.holder.position.copy(this.STATES.CURRENT.camera_position)
         this.target.position.copy(this.STATES.CURRENT.target_position)
         this.camera.fov = this.STATES.CURRENT.camera_fov
-        //------
-        // NEW PANNING:
-        const panningIncr = this.sphericalPanning.getPanRel(this.app.mouse.POSITION_EASED.x.get(), this.app.mouse.POSITION_EASED.y.get(), this.STATES.CURRENT.camera_position, this.STATES.CURRENT.target_position)
-        this.holder.position.add(panningIncr)
-        // console.log("panningIncr: ", panningIncr);
-        //------
-        // NEW DRAGGING:
-        if(this.DRAG_MOVING){
-            this.holder.position.x += this.dragMoving.EASED_DRAG_POSITION_X.get()
-            this.holder.position.z += this.dragMoving.EASED_DRAG_POSITION_Y.get()
-            //---
-            this.target.position.x += this.dragMoving.EASED_DRAG_POSITION_X.get()
-            this.target.position.z += this.dragMoving.EASED_DRAG_POSITION_Y.get()
-        }
-        // console.log("this.target.position: ", this.target.position);
-        //--
-        this._update_camera_data()
-    }
-    
-    //----------------------------------------------
-
-    get_position(){
-        return this.holder.position
-    }
-    get_targetPosition(){
-        return this.target.position
-    }
-    //----------------------------------------------
-    // UPDATES:
-    update_RAF(){
-        this._drawSTATE()
-        // console.log("this.holder.position: ", this.holder.position);
-        // this._update_positions()
-        // this._update_pan()
-        // this._update_camera_data()
-        // this._update_lensFlare()
-        // this._update_lensflareScale()
-        // if(this.bgPlane) this._update_bgPlane()
-        //--
-        this.forePlane.updateRAF()
-        //--
-        this.camera.getWorldPosition(this.WORLD_POSITION)
-        this.camera.updateProjectionMatrix();
-        // console.log("this.camera.rotation: ", this.camera.rotation);
-    }
-    _update_lensflareScale(){
-        const dimensions = this._get_planeSizeAtDistance(this.camera, this.LENSFLARE_DISTANCE)
-        // console.log("dimensions: ", dimensions);
-        const xscale = dimensions.width/this.app.size.REF.width
-        const yscale = dimensions.height/this.app.size.REF.height
-        // console.log("xscale: ", xscale, " yscale: ", yscale);
-        this.lensFlare.cont3D.scale.set(xscale, yscale, 1)
-        //----------
-        this.lensFlare.cont3D.position.x = -this.STATES.CURRENT.camera_offset.x*dimensions.width
-        this.lensFlare.cont3D.position.y = this.STATES.CURRENT.camera_offset.y*dimensions.height
-    }
-    // _update_lensFlare(){
-    //     // const distance = 1;
-    //     // const cameraWorldPosition = new THREE.Vector3();
-    //     // this.camera.getWorldPosition(cameraWorldPosition);
-    //     // const cameraDirection = new THREE.Vector3();
-    //     // this.camera.getWorldDirection(cameraDirection);
-
-    //     // // Step 2: Calculate the new position for cont3D
-    //     // const lensFlarePosition = new THREE.Vector3();
-    //     // lensFlarePosition.copy(cameraWorldPosition).add(cameraDirection.multiplyScalar(distance));
-
-    //     // // Step 3: Update cont3D's position and make it look at the camera
-    //     // this.lensFlare.cont3D.position.copy(lensFlarePosition);
-    //     // this.lensFlare.cont3D.lookAt(cameraWorldPosition);
-    //     this.lensFlare.cont3D.position.set(0, 0, this.LENSFLARE_DISTANCE)
-    //     const lensScale = 1;
-    //     this.lensFlare.cont3D.scale.set(lensScale, lensScale, lensScale);
-    //     //--
-    //     this.lensFlare.update_RAF()
-    //     this.lensFlare.update_progress(this.camera.rotation.x, this.camera.rotation.y)
-    // }
-
-    _update_pan(REF_POSITION){
-        // console.log("this.stage.MOUSE_PAN_FACTOR_EASED.get()", this.stage.MOUSE_PAN_FACTOR_EASED.get());
-        const rad180 = Math.PI*0.5
-
-        const pan_azimuth_range = this.AZIMUTH_ARCH[1]-this.AZIMUTH_ARCH[0]
-        const pan_azimuth_half = this.AZIMUTH_ARCH[0]+(pan_azimuth_range*0.5)
-        const pan_azimuth_incr = (this.app.mouse.POSITION_EASED.x.get()*pan_azimuth_range)
-        const pan_azimuth = pan_azimuth_half + (pan_azimuth_incr)
-        this.CURRENT_PAN_AZIMUTH = pan_azimuth
-        // const pan_azimuth_half = this.AZIMUTH_ARCH[1]-this.AZIMUTH_ARCH[0]
-        // const pan_azimuth = this.AZIMUTH_ARCH[0] + (this.app.mouse.POSITION2_EASED.x.get()*(this.AZIMUTH_ARCH[1] - this.AZIMUTH_ARCH[0])*this.stage.MOUSE_PAN_FACTOR_EASED.get() )
-        
-        const pan_elevation_range = this.ELEVATION_ARCH[1]-this.ELEVATION_ARCH[0]
-        const pan_elevation_half  =this.ELEVATION_ARCH[0]+(pan_elevation_range*0.5)
-        // const pan_elevation_incr = (this.app.mouse.POSITION_EASED.y.get()*pan_elevation_range*this.stage.MOUSE_PAN_FACTOR_EASED.get())
-        const pan_elevation_incr = (this.app.mouse.POSITION_EASED.y.get()*pan_elevation_range*1)
-        const pan_elevation = pan_elevation_half + (pan_elevation_incr)
-        this.CURRENT_PAN_ELEVATION = pan_elevation
-
-        const distance = REF_POSITION.distanceTo(this.target.position)
-        const holder_azimuth = -this._get_azimuth( this.target.position, REF_POSITION)
-        const holder_elevation = this._get_elevation(this.target.position, REF_POSITION)
-        //--
-        const PANNED_POSITION = this._get_star(this.target.position, holder_azimuth+rad180+pan_azimuth, holder_elevation+pan_elevation, distance)
-        return PANNED_POSITION
-        // console.log("PANNED_POSITION: ", PANNED_POSITION);
-        //this.holder.position.copy(this._get_star(this.target.position, holder_azimuth+rad180+pan_azimuth, holder_elevation+pan_elevation, distance))
-        // console.log("this.holder.position: ", this.holder.position);
     }
 
-    _update_bgPlane(){
-        // const fov = this.camera.fov * (Math.PI / 180); // Convert FOV to radians
-        // const distance = Math.abs(this.bgPlane.position.z); // Distance from camera to plane
-        // const aspect = this.app.size.CURRENT.aspect;
-        
-        // const height = 2 * distance * Math.tan(fov / 2);
-        // const width = height * aspect;
-        // this.bgPlane.scale.set(height, width, 1);
-        // //--
-        // const cameraWorldPosition = new THREE.Vector3();
-        // this.camera.getWorldPosition(cameraWorldPosition);
-        // console.log("cameraWorldPosition: ", cameraWorldPosition);
-        // //--
-        // this.mouseV2.x = this.app.mouse.POSITION_NORM.x
-        // this.mouseV2.y = this.app.mouse.POSITION_NORM.y
-        // this.raycaster.setFromCamera(this.mouseV2, this.camera)
-        // this.intersects = this.raycaster.intersectObjects(this.holder);
-        // console.log("intersects: ", this.intersects);
-    }
     //----------------------------------------------
     // PRIVATE:
+    _setMode(mode){
+        this.MODE = mode
+    }
     _create_structure(){
         this.holder = new THREE.Object3D()
         this.parent3D.add(this.holder)
@@ -450,75 +348,7 @@ class StageCamera{
         if(this.camera_helper) this.camera_helper.update()
     }
 
-    _get_star(_observer, _azimuthX, _elevationY, _distance) {
-        /**
-         * Calculates the position of a star given an observer's position, azimuth, elevation, and distance.
-         * 
-         * @param {THREE.Vector3} _observer - The position of the observer.
-         * @param {number} _azimuthX - Azimuth angle in radians (rotation around the Y-axis).
-         * @param {number} _elevationY - Elevation angle in radians (angle above the XZ-plane).
-         * @param {number} _distance - Distance to the star.
-         * @returns {THREE.Vector3} The position of the star as a THREE.Vector3.
-         */
-        // Calculate the position of the star relative to the origin
-        const x = _distance * Math.cos(_elevationY) * Math.sin(_azimuthX);
-        const y = _distance * Math.sin(_elevationY);
-        const z = _distance * Math.cos(_elevationY) * Math.cos(_azimuthX);
-
-        // Create a Vector3 for the star's position relative to the observer
-        const starPosition = new THREE.Vector3(x, y, z);
-
-        // Add the observer's position to the star's relative position
-        return starPosition.add(_observer);
-    }
-
-    _get_azimuth(_center, _position) {
-        /**
-         * Calculate the azimuth angle (in radians) between a center point and a position in 3D space
-         * relative to the x-z reference plane.
-         * 
-         * @param {THREE.Vector3} _center - The center point in 3D space (THREE.Vector3).
-         * @param {THREE.Vector3} _position - The position point in 3D space (THREE.Vector3).
-         * @returns {number} - The azimuth angle in radians.
-         */
-        // Calculate the vector from the center to the position
-        const direction = new THREE.Vector3().subVectors(_position, _center);
-        
-        // Project the direction vector onto the x-z plane
-        direction.y = 0;
-
-        // Normalize the direction vector
-        direction.normalize();
-
-        // Calculate the azimuth angle
-        // atan2 gives the angle in the range [-π, π]
-        const azimuth = Math.atan2(direction.z, direction.x);
-
-        // Return the azimuth angle in radians
-        return azimuth;
-    }
-    _get_elevation(_center, _position) {
-        /**
-         * Calculate the elevation angle (in radians) between a center point and a position in 3D space
-         * relative to the x-z reference plane.
-         * 
-         * @param {THREE.Vector3} _center - The center point in 3D space (THREE.Vector3).
-         * @param {THREE.Vector3} _position - The position point in 3D space (THREE.Vector3).
-         * @returns {number} - The elevation angle in radians.
-         */
-        // Calculate the vector from the center to the position
-        const direction = new THREE.Vector3().subVectors(_position, _center);
-        
-        // Calculate the magnitude of the projection onto the x-z plane
-        const projectedLength = Math.sqrt(direction.x ** 2 + direction.z ** 2);
-        
-        // Calculate the elevation angle
-        // atan2 gives the angle in the range [-π/2, π/2]
-        const elevation = Math.atan2(direction.y, projectedLength);
-
-        // Return the elevation angle in radians
-        return elevation;
-    }
+   
     _get_planeSizeAtDistance(camera, distance) {
         // Vertical field of view in radians
         const vFov = THREE.MathUtils.degToRad(camera.fov);

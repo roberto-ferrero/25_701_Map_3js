@@ -48,6 +48,7 @@ class DragMovingMouse {
         }
         
         this.domElement.setPointerCapture(event.pointerId);
+        this.stage.emitter.emit("onStartDragMoving");
     }
 
     onPointerMove(event) {
@@ -130,7 +131,7 @@ class DragMovingMouse {
 
         this.prevPinchDistance = currentDistance;
     }
-
+    
     onPointerUp(event) {
         this.activePointers.delete(event.pointerId);
         
@@ -143,12 +144,14 @@ class DragMovingMouse {
         }
         
         this.domElement.releasePointerCapture(event.pointerId);
+        this.reset();
+        this.stage.emitter.emit("onStopDragMoving");
     }
 
     reset() {
         this.DRAG_POSITION.set(0, 0);
-        this.EASED_DRAG_POSITION_X.set(0);
-        this.EASED_DRAG_POSITION_Y.set(0);
+        this.EASED_DRAG_POSITION_X.setNoEasing(0);
+        this.EASED_DRAG_POSITION_Y.setNoEasing(0);
         this.activePointers.clear();
         this.prevPinchDistance = -1;
     }

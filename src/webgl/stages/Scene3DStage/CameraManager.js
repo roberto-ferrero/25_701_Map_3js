@@ -1,5 +1,5 @@
 import gsap from "gsap"
-//import * as THREE from 'three'
+import * as THREE from 'three'
 
 class CameraManager{
     constructor (obj){
@@ -15,12 +15,12 @@ class CameraManager{
         //------------------------
 
         //------------------------
-        this.app.emitter.on("onItemSelected", (data)=>{
-            console.log("(CameraManager.onItemSelected): ", data.ITEM_ID);
-            const spotId = this._get_SPOT(data.ITEM_ID)
-            this.SPOT_POS = this.CAMERA_SPOTS.indexOf(spotId)
-            this.stage.stageCamera.travelToSpot(spotId)
-        })  
+        // this.app.emitter.on("onItemSelected", (data)=>{
+        //     console.log("(CameraManager.onItemSelected): ", data.ITEM_ID);
+        //     const spotId = this._get_SPOT(data.ITEM_ID)
+        //     this.SPOT_POS = this.CAMERA_SPOTS.indexOf(spotId)
+        //     this.stage.stageCamera.travelToSpot(spotId)
+        // })  
         //------------------------
         // this.app.dev.gui?.add(this, '_dev_nextSpot').name('NEXT CAMERA SPOT')
         // this.app.dev.gui?.add(this, '_dev_prevSpot').name('PREV CAMERA SPOT')
@@ -30,16 +30,23 @@ class CameraManager{
         this.app.emitter.on("onAppZoomChange", (event)=>{
             // console.log("(CameraManager.onAppZoomChange): ", event.zoom);
             this.SPOT_POS = event.zoom
-            this.stageCamera.travelToSpot(this.CAMERA_SPOTS[this.SPOT_POS], 1)
+            // this.stageCamera.zoomTo(this.CAMERA_SPOTS[this.SPOT_POS], 1)
         })  
 
     }
     //----------------------------------------------
     // PUBLIC:
     init(){
+        this.RELATIVE_POSITIONS_ZOOM_0 = new THREE.Vector3().subVectors(this.stage.libs.cameraspots.getItem("zoom0").position, this.stage.libs.cameratargets.getItem("zoom0").position)
+        this.RELATIVE_POSITIONS_ZOOM_1 = new THREE.Vector3().subVectors(this.stage.libs.cameraspots.getItem("zoom1").position, this.stage.libs.cameratargets.getItem("zoom1").position)
+        this.RELATIVE_POSITIONS_ZOOM_2 = new THREE.Vector3().subVectors(this.stage.libs.cameraspots.getItem("zoom2").position, this.stage.libs.cameratargets.getItem("zoom2").position)
+        this.RELATIVE_POSITIONS_ZOOM_3 = new THREE.Vector3().subVectors(this.stage.libs.cameraspots.getItem("zoom3").position, this.stage.libs.cameratargets.getItem("zoom3").position)
+        this.RELATIVE_POSITIONS_ZOOM_4 = new THREE.Vector3().subVectors(this.stage.libs.cameraspots.getItem("zoom4").position, this.stage.libs.cameratargets.getItem("zoom4").position)
+        //
+        console.log("this.RELATIVE_POSITIONS_ZOOM_0: ", this.RELATIVE_POSITIONS_ZOOM_0);
         // console.log("(CameraManager.init)!")
         this.stageCamera.placeInSpot("zoom0")  
-        this.stageCamera.start_dragMoving()  
+        // this.stageCamera.start_dragMoving()  
 
         // this.stageCamera.travelToSpot("shot0")
         gsap.delayedCall(1, ()=>{
@@ -59,24 +66,6 @@ class CameraManager{
     }
     _dev_zoomOut(){
         this.stage.zoomOut()
-    }
-    _dev_nextSpot(){
-        // PRIVATE:
-        console.log("(CameraManager._dev_nextSpot): ", this.SPOT_POS);
-        this.SPOT_POS = this.SPOT_POS+1
-        if (this.SPOT_POS >= this.CAMERA_SPOTS.length) {
-            this.SPOT_POS = 0
-        }
-        // const itemId = this._get_ITEM(this.CAMERA_SPOTS[nextSpot])
-        this.stageCamera.travelToSpot(this.CAMERA_SPOTS[this.SPOT_POS])
-    }
-    _dev_prevSpot(){
-        this.SPOT_POS = this.SPOT_POS-1
-        if (this.SPOT_POS < 0) {
-            this.SPOT_POS = this.CAMERA_SPOTS.length - 1
-        }
-        // const itemId = this._get_ITEM(this.CAMERA_SPOTS[nextSpot])
-        this.stageCamera.travelToSpot(this.CAMERA_SPOTS[this.SPOT_POS])
     }
     //----------------------------------------------
     // AUX:
