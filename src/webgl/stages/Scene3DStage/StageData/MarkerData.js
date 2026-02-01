@@ -87,6 +87,12 @@ class MarkerData{
     getCityPosts(){
         return this.cityPosts
     }
+    hasTier2Childs(){
+        return this.tier2_childs.length > 0
+    }
+    hasTier3Childs(){
+        return this.tier3_childs.length > 0
+    }
     //----------------------------------------------
     // PUBLIC:
     

@@ -1,5 +1,6 @@
+import gsap from "gsap"
 import * as THREE from 'three';
-import EasedOutValue from '../../../core/utils/EasedOutValue';
+// import EasedOutValue from '../../../core/utils/EasedOutValue';
 
 class DragMovingMouse {
     constructor(obj) {
@@ -9,8 +10,8 @@ class DragMovingMouse {
         this.domElement = obj.domElement;
         
         this.DRAG_POSITION = new THREE.Vector2(0, 0);
-        this.EASED_DRAG_POSITION_X = new EasedOutValue(0, 0.1, 0.001, this.app.emitter, "onUpdateRAF");
-        this.EASED_DRAG_POSITION_Y = new EasedOutValue(0, 0.1, 0.001, this.app.emitter, "onUpdateRAF");
+        // this.EASED_DRAG_POSITION_X = new EasedOutValue(0, 0.1, 0.001, this.app.emitter, "onUpdateRAF");
+        // this.EASED_DRAG_POSITION_Y = new EasedOutValue(0, 0.1, 0.001, this.app.emitter, "onUpdateRAF");
         
         // --- Gestión de Punteros para Mobile ---
         this.activePointers = new Map(); // Para rastrear múltiples dedos
@@ -26,34 +27,47 @@ class DragMovingMouse {
     }
 
     _initListeners() {
-        this.domElement.addEventListener('pointerdown', this.onPointerDown.bind(this));
+        this.domElement.addEventListener('pointerdown', (event)=>{
+            gsap.delayedCall(0.0, ()=>{
+                this.onPointerDown(event)
+            });
+        });
         window.addEventListener('pointermove', this.onPointerMove.bind(this));
         window.addEventListener('pointerup', this.onPointerUp.bind(this));
         window.addEventListener('pointercancel', this.onPointerUp.bind(this)); // Importante para mobile
-        
-        this.domElement.addEventListener('contextmenu', (e) => e.preventDefault());
+
+        this.domElement.addEventListener('contextmenu', (e) => e.preventDefault()); // Previene el menú contextual al hacer clic derecho
         
         // CSS crítico para que el navegador no interfiera con el zoom nativo
         this.domElement.style.touchAction = 'none';
     }
 
     onPointerDown(event) {
-        // Añadimos el puntero al mapa
-        this.activePointers.set(event.pointerId, event);
+        console.log("(DragMovingMouse.onPointerDown) event.pointerId:", event.pointerId);
+        console.log("   MODE:", this.stage.get_MODE());
+        if(this.stage.get_MODE() == "IDLE"){
+            console.log("START DRAG. MODE IS IDLE");
+            // Añadimos el puntero al mapa
+            this.reset()
+            this.activePointers.set(event.pointerId, event);
 
-        if (this.activePointers.size === 1) {
-            this.isDragging = true;
-            this.pointerStart.set(event.clientX, event.clientY);
-            this.positionStart.copy(this.DRAG_POSITION);
+            if (this.activePointers.size === 1) {
+                this.isDragging = true;
+                this.pointerStart.set(event.clientX, event.clientY);
+                this.positionStart.copy(this.DRAG_POSITION);
+            }
+            
+            this.domElement.setPointerCapture(event.pointerId);
+            this.stage.emitter.emit("onStartDragMoving");
+        }else{
+            console.log("   NO DRAG. MODE IS NOT IDLE");
         }
-        
-        this.domElement.setPointerCapture(event.pointerId);
-        this.stage.emitter.emit("onStartDragMoving");
     }
 
     onPointerMove(event) {
         // Actualizamos la posición del puntero en nuestro mapa
         if (!this.activePointers.has(event.pointerId)) return;
+        console.log("(DragMovingMouse.onPointerMove) event.pointerId:", event.pointerId);
         this.activePointers.set(event.pointerId, event);
 
         // CASO 1: Pinch-to-Zoom (2 dedos)
@@ -101,8 +115,8 @@ class DragMovingMouse {
             // Actualizamos la posición de drag
             this.DRAG_POSITION.x = posX;
             this.DRAG_POSITION.y = posY;
-            this.EASED_DRAG_POSITION_X.set(posX);
-            this.EASED_DRAG_POSITION_Y.set(posY);
+            // this.EASED_DRAG_POSITION_X.set(posX);
+            // this.EASED_DRAG_POSITION_Y.set(posY);
         }
     }
 
@@ -133,25 +147,27 @@ class DragMovingMouse {
     }
     
     onPointerUp(event) {
-        this.activePointers.delete(event.pointerId);
-        
-        if (this.activePointers.size < 2) {
-            this.prevPinchDistance = -1; // Resetear distancia de zoom
+        if(this.stage.get_MODE() == "DRAGGING"){
+            this.activePointers.delete(event.pointerId);
+            
+            if (this.activePointers.size < 2) {
+                this.prevPinchDistance = -1; // Resetear distancia de zoom
+            }
+            
+            if (this.activePointers.size === 0) {
+                this.isDragging = false;
+            }
+            
+            this.domElement.releasePointerCapture(event.pointerId);
+            this.reset();
+            this.stage.emitter.emit("onStopDragMoving");
         }
-        
-        if (this.activePointers.size === 0) {
-            this.isDragging = false;
-        }
-        
-        this.domElement.releasePointerCapture(event.pointerId);
-        this.reset();
-        this.stage.emitter.emit("onStopDragMoving");
     }
 
     reset() {
         this.DRAG_POSITION.set(0, 0);
-        this.EASED_DRAG_POSITION_X.setNoEasing(0);
-        this.EASED_DRAG_POSITION_Y.setNoEasing(0);
+        // this.EASED_DRAG_POSITION_X.setNoEasing(0);
+        // this.EASED_DRAG_POSITION_Y.setNoEasing(0);
         this.activePointers.clear();
         this.prevPinchDistance = -1;
     }

@@ -19,7 +19,7 @@ class Marker3D{
         this.parent3D = obj.parent3D
         //-------------
         this.DEV_ITEM = false
-        if(this.city_id == 166){
+        if(this.city_id == this.stage.DEV_ITEM_ID){
             this.DEV_ITEM = true
         }
         //-------------
@@ -99,7 +99,7 @@ class Marker3D{
 
         //------------
         this.app.emitter.on("onAppZoomChange", ()=>{
-            if(this.DEV_ITEM) console.log("onAppZoomChange!");
+            if(this.DEV_ITEM) console.log("(Marker3D.onAppZoomChange) id:"+this.stage.DEV_ITEM_ID);
             if(this.stage.CURRENT_ZOOM == 0){
                 if(this.DEV_ITEM) console.log("*1");
                 this.EASED_POSITION_X.set(this.POSITION_IN_TIER_MODE_1.x)
@@ -107,13 +107,13 @@ class Marker3D{
                 this.EASED_SCALE.set(this.SCALE_IN_ZOOM_LEVEL_0)
             }else if(this.stage.CURRENT_ZOOM == 1){
                 if(this.DEV_ITEM) console.log("*2");
-                this.EASED_POSITION_X.set(this.POSITION_IN_TIER_MODE_1.x)
-                this.EASED_POSITION_Y.set(this.POSITION_IN_TIER_MODE_1.y)
+                this.EASED_POSITION_X.set(this.POSITION_IN_TIER_MODE_2.x)
+                this.EASED_POSITION_Y.set(this.POSITION_IN_TIER_MODE_2.y)
                 this.EASED_SCALE.set(this.SCALE_IN_ZOOM_LEVEL_1)
             }else if(this.stage.CURRENT_ZOOM == 2){
                 if(this.DEV_ITEM) console.log("*3");
-                this.EASED_POSITION_X.set(this.POSITION_IN_TIER_MODE_2.x)
-                this.EASED_POSITION_Y.set(this.POSITION_IN_TIER_MODE_2.y)
+                this.EASED_POSITION_X.set(this.POSITION_IN_TIER_MODE_3.x)
+                this.EASED_POSITION_Y.set(this.POSITION_IN_TIER_MODE_3.y)
                 this.EASED_SCALE.set(this.SCALE_IN_ZOOM_LEVEL_2)
             }else if(this.stage.CURRENT_ZOOM == 3){
                 if(this.DEV_ITEM) console.log("*4");
@@ -127,23 +127,6 @@ class Marker3D{
                 this.EASED_SCALE.set(this.SCALE_IN_ZOOM_LEVEL_4)
             }
         })
-
-        // this.app.emitter.on("onAppTierModeChange", ()=>{
-        //     // console.log("*");
-        //     if(this.stage.CURRENT_TIER_MODE == 1){
-        //         this.EASED_POSITION_X.set(this.POSITION_IN_TIER_MODE_1.x)
-        //         this.EASED_POSITION_Y.set(this.POSITION_IN_TIER_MODE_1.y)
-        //         this.EASED_SCALE.set(this.SCALE_IN_TIER_MODE_1)
-        //     }else if(this.stage.CURRENT_TIER_MODE == 2){
-        //         this.EASED_POSITION_X.set(this.POSITION_IN_TIER_MODE_2.x)
-        //         this.EASED_POSITION_Y.set(this.POSITION_IN_TIER_MODE_2.y)
-        //         this.EASED_SCALE.set(this.SCALE_IN_TIER_MODE_2)
-        //     }else if(this.stage.CURRENT_TIER_MODE == 3){
-        //         this.EASED_POSITION_X.set(this.POSITION_IN_TIER_MODE_3.x)
-        //         this.EASED_POSITION_Y.set(this.POSITION_IN_TIER_MODE_3.y)
-        //         this.EASED_SCALE.set(this.SCALE_IN_TIER_MODE_3)
-        //     } 
-        // })
 
         this.app.emitter.on("onStartIntro", ()=>{
             gsap.to(this, {
@@ -184,19 +167,18 @@ class Marker3D{
 
     _precalc_DATA(){
         // TIER MODE 1:
+        if(this.DEV_ITEM){
+            console.log("Marker3D._precalc_DATA) for id:"+this.stage.DEV_ITEM_ID+" - tier:"+this.cityData.tier);
+        }
         if(this.cityData.tier == 1){
             const city_position = this._getFilteredPosition(this.cityData.coordinates[0], this.cityData.coordinates[1])
             this.POSITION_IN_TIER_MODE_1.copy(city_position)
             this.POSITION_IN_TIER_MODE_2.copy(city_position)
             this.POSITION_IN_TIER_MODE_3.copy(city_position)
             //--
-            // this.SCALE_IN_TIER_MODE_1 = this._getFilteredScale(this.cityData.getTotalPosts())
-            // this.SCALE_IN_TIER_MODE_2 = this._getFilteredScale(this.cityData.getCityAndChild3Posts())*0.8
-            // this.SCALE_IN_TIER_MODE_3 = this._getFilteredScale(this.cityData.getCityPosts())*0.4
-
             this.SCALE_IN_ZOOM_LEVEL_0 = this._getFilteredScale(this.cityData.getTotalPosts())*this.stage.stageData.settings.tier_1_in_zoom_0_scale_factor
-            this.SCALE_IN_ZOOM_LEVEL_1 = this._getFilteredScale(this.cityData.getTotalPosts())*this.stage.stageData.settings.tier_1_in_zoom_1_scale_factor
-            this.SCALE_IN_ZOOM_LEVEL_2 = this._getFilteredScale(this.cityData.getCityAndChild3Posts())*this.stage.stageData.settings.tier_1_in_zoom_2_scale_factor
+            this.SCALE_IN_ZOOM_LEVEL_1 = this._getFilteredScale(this.cityData.getCityAndChild3Posts())*this.stage.stageData.settings.tier_1_in_zoom_1_scale_factor
+            this.SCALE_IN_ZOOM_LEVEL_2 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_1_in_zoom_2_scale_factor
             this.SCALE_IN_ZOOM_LEVEL_3 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_1_in_zoom_3_scale_factor
             this.SCALE_IN_ZOOM_LEVEL_4 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_1_in_zoom_4_scale_factor
         }else if(this.cityData.tier == 2){
@@ -205,14 +187,10 @@ class Marker3D{
             this.POSITION_IN_TIER_MODE_1.copy(parent_position)
             this.POSITION_IN_TIER_MODE_2.copy(city_position)
             this.POSITION_IN_TIER_MODE_3.copy(city_position)
-            //--
-            // this.SCALE_IN_TIER_MODE_1 = this._getFilteredScale(0)
-            // this.SCALE_IN_TIER_MODE_2 = this._getFilteredScale(this.cityData.getCityAndChild3Posts())
-            // this.SCALE_IN_TIER_MODE_3 = this._getFilteredScale(this.cityData.getCityPosts())*0.8
-            
+            //--            
             this.SCALE_IN_ZOOM_LEVEL_0 = this._getFilteredScale(0) // *this.stage.stageData.settings.tier_2_in_zoom_0_scale_factor
-            this.SCALE_IN_ZOOM_LEVEL_1 = this._getFilteredScale(0) // *this.stage.stageData.settings.tier_2_in_zoom_1_scale_factor
-            this.SCALE_IN_ZOOM_LEVEL_2 = this._getFilteredScale(this.cityData.getCityAndChild3Posts())*this.stage.stageData.settings.tier_2_in_zoom_2_scale_factor
+            this.SCALE_IN_ZOOM_LEVEL_1 = this._getFilteredScale(this.cityData.getCityAndChild3Posts())*this.stage.stageData.settings.tier_2_in_zoom_1_scale_factor
+            this.SCALE_IN_ZOOM_LEVEL_2 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_2_in_zoom_2_scale_factor
             this.SCALE_IN_ZOOM_LEVEL_3 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_2_in_zoom_3_scale_factor
             this.SCALE_IN_ZOOM_LEVEL_4 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_2_in_zoom_4_scale_factor
         }else{
@@ -223,13 +201,9 @@ class Marker3D{
             this.POSITION_IN_TIER_MODE_2.copy(parent_position)
             this.POSITION_IN_TIER_MODE_3.copy(city_position)
             //--
-            // this.SCALE_IN_TIER_MODE_1 = this._getFilteredScale(0)
-            // this.SCALE_IN_TIER_MODE_2 = this._getFilteredScale(0)
-            // this.SCALE_IN_TIER_MODE_3 = this._getFilteredScale(this.cityData.getCityPosts())
-
             this.SCALE_IN_ZOOM_LEVEL_0 = this._getFilteredScale(0) // *this.stage.stageData.settings.tier_3_in_zoom_0_scale_factor
             this.SCALE_IN_ZOOM_LEVEL_1 = this._getFilteredScale(0) // *this.stage.stageData.settings.tier_3_in_zoom_1_scale_factor
-            this.SCALE_IN_ZOOM_LEVEL_2 = this._getFilteredScale(0) // *this.stage.stageData.settings.tier_3_in_zoom_2_scale_factor
+            this.SCALE_IN_ZOOM_LEVEL_2 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_3_in_zoom_2_scale_factor
             this.SCALE_IN_ZOOM_LEVEL_3 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_3_in_zoom_3_scale_factor
             this.SCALE_IN_ZOOM_LEVEL_4 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_3_in_zoom_4_scale_factor
         }

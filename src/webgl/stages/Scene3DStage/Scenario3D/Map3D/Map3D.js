@@ -72,9 +72,19 @@ class Map3D{
         //--
         window.addEventListener('pointerdown', (event)=>{
             this.onPointerDown(event)
+            // this.app.emitter.emit("onMapPointerDown", { event: event });
         });
         window.addEventListener('pointermove', (event) => {
             this.onPointerMove(event);
+            // this.app.emitter.emit("onMapPointerMove", { event: event });
+        });
+        window.addEventListener('pointerup', (event) => {
+            this.onPointerMove(event);
+            // this.app.emitter.emit("onMapPointerUp", { event: event });
+        });
+        window.addEventListener('pointercancel', (event) => {
+            this.onPointerMove(event);
+            // this.app.emitter.emit("onMapPointerCancel", { event: event });
         });
     }
     //----------------------------------------------
@@ -90,57 +100,83 @@ class Map3D{
         // })
     }
     onPointerDown(event) {
+        console.log("(Map3D.onPointerDown)!");
         // 1. Normalizar coordenadas del puntero (-1 a +1)
         this.pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
         this.pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
+        
         // 2. Actualizar el rayo con la cámara del escenario
         // Nota: Asegúrate de que 'this.scenario3D.camera' sea accesible
         this.raycaster.setFromCamera(this.pointer, this.stage.stageCamera.camera);
-
+        
         // 3. Calcular intersecciones (solo contra los hijos del contenedor de marcadores)
         const intersects = this.raycaster.intersectObjects(this.markers_cont3D.children);
-
+        
         if (intersects.length > 0) {
+            this.stage.set_MODE("SELECTING")
+            //--
             const hoveredMesh = intersects[0].object;
             const cityId = hoveredMesh.userData.city_id;
             const city_type = hoveredMesh.userData.city_type;
-
-            
-            // console.log("CLICK on:", cityId);
-            // console.log("city_type:", city_type);
-
             const markerData = this.stage.stageData.getItemById(cityId, city_type);
-            console.log("markerData:", markerData);
-            console.log("markerData.tier2_childs.length:", markerData.tier2_childs.length);
-            console.log("markerData.tier3_childs.length:", markerData.tier3_childs.length);
+            
+            console.log("(Map3D.onPointerDown)! ON A MARKER -------------------> "+cityId+" type: "+city_type);
+            console.log("   markerData:", markerData);
+            console.log("   markerData.tier2_childs.length:", markerData.tier2_childs.length);
+            console.log("   markerData.tier3_childs.length:", markerData.tier3_childs.length);
+            this.stage.printState()
+
             if(this.stage.CURRENT_TIER_MODE == 1){
-                console.log("*1");
-                if(markerData.tier2_childs.length == 0 && markerData.tier3_childs.length == 0){
-                    console.log("   *1.1");
+
+                if(!markerData.hasTier2Childs() && !markerData.hasTier3Childs()){
+                    // NODO SIN HIJOS TIER 2 NI 3. CENTRAMOS Y EMITIMOS CLICK
+                    this.stage.moveAndZoom(cityId, city_type, this.stage.CURRENT_ZOOM)
                     this._emitClickEvent(cityId, city_type)
-                    this.stage.moveToMarker(cityId, city_type)
-                }else{
-                    console.log("   *1.2");
-                    this.stage.moveToMarker(cityId, city_type)
-                    this.stage.zoomIn()
+                }else if(markerData.hasTier3Childs()){
+                    // NODO CON HIJOS TIER 3.
+                    if(this.stage.CURRENT_ZOOM < 2){
+                        // SI EL ZOOM ES 0 o 1 ESOS HIJOS TIER 3 NO ESTAN DESPLEGADOS. CENTRAMOS Y HACEMOS ZOOM A 2
+                        this.stage.moveAndZoom(cityId, city_type, 2)
+                    }else{
+                        // SI EL ZOOM ES 2 O 3 YA ESTAN DESPLEGADOS. CENTRAMOS Y EMITIMOS CLICK
+                        this.stage.moveAndZoom(cityId, city_type, this.stage.CURRENT_ZOOM)
+                        this._emitClickEvent(cityId, city_type)
+                    }
+                }else if(markerData.hasTier2Childs()){
+                    // NODO CON HIJOS TIER 2.CENTRAMOS Y ZOOM A 1 (DESPLIEGA TIER 2)
+                    if(this.stage.CURRENT_ZOOM < 1){
+                        // SI EL ZOOM ES 0 ESOS HIJOS TIER 2 NO ESTAN DESPLEGADOS. CENTRAMOS Y HACEMOS ZOOM A 1
+                        this.stage.moveAndZoom(cityId, city_type, 1)
+                    }else{
+                        // SI EL ZOOM ES 1, 2 O 3 YA ESTAN DESPLEGADOS. CENTRAMOS Y EMITIMOS CLICK
+                        this.stage.moveAndZoom(cityId, city_type, this.stage.CURRENT_ZOOM)
+                        this._emitClickEvent(cityId, city_type)
+                    }
                 }
+
             }else if(this.stage.CURRENT_TIER_MODE == 2){
-                console.log("*2");
-                if(markerData.tier3_childs.length == 0){
-                    console.log("   *2.1");
+
+                if(!markerData.hasTier3Childs()){
+                    // NODO TIER 2 SIN HIJOS TIER 3. CENTRAMOS Y EMITIMOS CLICK
+                    this.stage.moveAndZoom(cityId, city_type, this.stage.CURRENT_ZOOM)
                     this._emitClickEvent(cityId, city_type)
-                    this.stage.moveToMarker(cityId, city_type)
                 }else{
-                    console.log("   *2.2");
-                    this.stage.zoomIn()
-                    this.stage.moveToMarker(cityId, city_type)
+                    // NODO CON HIJOS TIER 3.
+                    if(this.stage.CURRENT_ZOOM < 2){
+                        // SI EL ZOOM ES 0 o 1 ESOS HIJOS TIER 3 NO ESTAN DESPLEGADOS. CENTRAMOS Y HACEMOS ZOOM A 2
+                        this.stage.moveAndZoom(cityId, city_type, 2)
+                    }else{
+                        // SI EL ZOOM ES 2 O 3 YA ESTAN DESPLEGADOS. CENTRAMOS Y EMITIMOS CLICK
+                        this.stage.moveAndZoom(cityId, city_type, this.stage.CURRENT_ZOOM)
+                        this._emitClickEvent(cityId, city_type)
+                    }
                 }
+
             }else if(this.stage.CURRENT_TIER_MODE == 3){
-                console.log("*3");
-                this._emitClickEvent(cityId, city_type)
-                this.stage.moveToMarker(cityId, city_type)
-                
+
+                this.stage.moveAndZoom(cityId, city_type, this.stage.CURRENT_ZOOM)
+                this._emitClickEvent(cityId, city_type)  
+
             }
 
             // if (this.hoveredObjectId !== null) {
@@ -159,6 +195,7 @@ class Map3D{
                 this._handleRollOver(cityId, hoveredMesh);
             }
         }else{
+            console.log("NO MARKER CLICKED!");
             // console.log("CLICK on: nothing");
             if (this.hoveredObjectId !== null) {
                 this._handleRollOut(this.hoveredObjectId);
@@ -206,6 +243,9 @@ class Map3D{
 
                 this.hoveredObjectId = cityId;
                 this._handleRollOver(cityId, hoveredMesh);
+            }
+            if (this.stage.get_MODE() == "SELECTING"){
+                this.stage.set_MODE("IDLE") // Volvemos a IDLE si movemos fuera un marker
             }
         } else {
             // Si no hay intersecciones pero teníamos un objeto guardado (ROLLOUT)

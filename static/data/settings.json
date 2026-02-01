@@ -14,12 +14,12 @@
     "tier_3_in_zoom_0_scale_factor": 0,
 
     "tier_1_in_zoom_1_scale_factor": 1,
-    "tier_2_in_zoom_1_scale_factor": 0,
+    "tier_2_in_zoom_1_scale_factor": 1,
     "tier_3_in_zoom_1_scale_factor": 0,
 
     "tier_1_in_zoom_2_scale_factor": 0.8,
     "tier_2_in_zoom_2_scale_factor": 0.8,
-    "tier_3_in_zoom_2_scale_factor": 0,
+    "tier_3_in_zoom_2_scale_factor": 0.8,
 
     "tier_1_in_zoom_3_scale_factor": 0.6,
     "tier_2_in_zoom_3_scale_factor": 0.6,
