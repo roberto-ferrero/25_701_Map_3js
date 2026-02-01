@@ -1,24 +1,25 @@
 import gsap from "gsap"
 import * as THREE from 'three'
 
-class EventBullet{
-    constructor (obj){
+class EventBullet {
+    constructor(obj) {
         this.app = obj.app
         this.project = obj.project
         this.stage = obj.stage
         this.parent3D = obj.parent3D
         this.marker = obj.marker
 
-        // 1. Create a container Group to hold the composite parts (Blur, Ring, Core)
-        this.mesh = new THREE.Group()
+        // 1. Create a container Group
+        this.mesh = new THREE.Object3D()
+        this.parent3D.add(this.mesh)
+        this.scale3D = new THREE.Object3D()
+        this.scale3D.scale.set(0.9, 0.9, 1)
+        this.mesh.add(this.scale3D)
 
         // 2. Load Textures
         const base_texture = this.stage.loader.get_texture("event")
         base_texture.colorSpace = THREE.SRGBColorSpace
-        
-        const ring_texture = this.stage.loader.get_texture("event_ring")
-        ring_texture.colorSpace = THREE.SRGBColorSpace
-        
+
         const blur_texture = this.stage.loader.get_texture("event_blur")
         blur_texture.colorSpace = THREE.SRGBColorSpace
 
@@ -28,38 +29,56 @@ class EventBullet{
         // ------------------------------------------------
         // 3. LAYER 1: The Blur (Background Glow)
         // ------------------------------------------------
-        this.matBlur = new THREE.MeshBasicMaterial({ 
-            map: blur_texture,
-            transparent: true,
-            depthWrite: false,
-        });
-        this.meshBlur = new THREE.Mesh( geometry, this.matBlur );
-        // this.meshBlur.scale.set(2.5, 2.5, 2.5); // Make the glow larger than the core
-        this.meshBlur.position.z = -0.02; // Place behind
-        this.mesh.add(this.meshBlur);
+        // this.matBlur = new THREE.MeshBasicMaterial({
+        //     map: blur_texture,
+        //     transparent: true,
+        //     depthWrite: false,
+        //     combine : THREE.MixOperation
+        // });
+        // this.meshBlur = new THREE.Mesh(geometry, this.matBlur);
+        // this.meshBlur.position.z = 0.05; // Furthest back
+        // this.meshBlur.scale.set(1.0, 1.0, 1.0); // Initial big glow
+        // this.scale3D.add(this.meshBlur);
 
         // ------------------------------------------------
-        // 4. LAYER 2: The Ring (Animated Pulse)
+        // 4. LAYER 2: The Waves (Expanding Rings)
         // ------------------------------------------------
-        this.matRing = new THREE.MeshBasicMaterial({ 
-            map: ring_texture,
-            transparent: true,
-            depthWrite: false,
-        });
-        this.meshRing = new THREE.Mesh( geometry, this.matRing );
-        this.meshRing.position.z = -0.01; // Between blur and core
-        this.mesh.add(this.meshRing);
+        // We need multiple rings to create the "ripple" effect shown in the video
+        this.waves = [];
+        const waveCount = 3; 
+
+        for (let i = 0; i < waveCount; i++) {
+            // Each wave needs a unique material to handle independent fading
+            const mat = new THREE.MeshBasicMaterial({
+                map: base_texture,
+                transparent: true,
+                depthWrite: false,
+                combine : THREE.MixOperation
+            });
+            const mesh = new THREE.Mesh(geometry, mat);
+            // Stack them slightly in Z so they don't z-fight, but all behind core
+            mesh.position.z = -0.02 - (i * 0.001); 
+            
+            // Initialize custom data for the animation proxy
+            mesh.userData.animAlpha = 0; 
+            mesh.userData.city_id = this.marker.city_id;
+            mesh.userData.city_type = this.marker.type;
+            
+            this.scale3D.add(mesh);
+            this.waves.push(mesh);
+        }
 
         // ------------------------------------------------
         // 5. LAYER 3: The Core (Central Dot)
         // ------------------------------------------------
-        this.matCore = new THREE.MeshBasicMaterial({ 
+        this.matCore = new THREE.MeshBasicMaterial({
             map: base_texture,
             transparent: true,
             depthWrite: false,
+            combine : THREE.MixOperation
         });
-        this.meshCore = new THREE.Mesh( geometry, this.matCore );
-        this.mesh.add(this.meshCore);
+        this.meshCore = new THREE.Mesh(geometry, this.matCore);
+        this.scale3D.add(this.meshCore);
 
         // ------------------------------------------------
         // 6. User Data & Parent
@@ -67,42 +86,39 @@ class EventBullet{
         this.mesh.userData.city_id = this.marker.city_id;
         this.mesh.userData.city_type = this.marker.type;
         this.mesh.userData.parentInstance = this.marker;
-        //-- 
+        
         this.meshCore.userData.city_id = this.marker.city_id;
         this.meshCore.userData.city_type = this.marker.type;
-        this.meshCore.userData.parentInstance = this.marker; 
-        //-- 
-        this.meshRing.userData.city_id = this.marker.city_id;
-        this.meshRing.userData.city_type = this.marker.type;
-        this.meshRing.userData.parentInstance = this.marker; 
-        //-- 
-        this.meshRing.userData.city_id = this.marker.city_id;
-        this.meshRing.userData.city_type = this.marker.type;
-        this.meshRing.userData.parentInstance = this.marker; 
-        //-- 
-        this.meshBlur.userData.city_id = this.marker.city_id;
-        this.meshBlur.userData.city_type = this.marker.type;
-        this.meshBlur.userData.parentInstance = this.marker; 
-        
-        this.parent3D.add(this.mesh)
+        this.meshCore.userData.parentInstance = this.marker;
+
+        // this.meshBlur.userData.city_id = this.marker.city_id;
+        // this.meshBlur.userData.city_type = this.marker.type;
+        // this.meshBlur.userData.parentInstance = this.marker;
+
+       
 
         // ------------------------------------------------
-        // 7. Material Proxy (The Secret Sauce)
+        // 7. Material Proxy
         // ------------------------------------------------
-        // Marker3D updates "this.material.opacity" every frame. 
-        // We create a proxy to intercept that value and apply it to all our layers.
-        
-        this.pulseData = { alpha: 1 }; // Internal animation value for the ring fade
+        // We store the current "global" opacity from the marker logic
+        this.globalAlpha = 1;
 
         const scope = this;
         this.material = {
             set opacity(val) {
-                // Apply global opacity (fade in/out of the map) to all parts
-                scope.matCore.opacity = val;
-                scope.matBlur.opacity = val * scope.pulseData.alpha; // Keep blur slightly softer
+                scope.globalAlpha = val;
                 
-                // For the ring, we multiply the Global Opacity (val) by the Pulse Animation (scope.pulseData.alpha)
-                scope.matRing.opacity = val * scope.pulseData.alpha; 
+                // 1. Core Opacity
+                scope.matCore.opacity = val;
+                
+                // 2. Blur Opacity (keep it subtle)
+                // scope.matBlur.opacity = val * 0.8; 
+
+                // 3. Waves Opacity
+                // Combine global marker opacity (fade in/out) with local animation opacity (ripple fade)
+                scope.waves.forEach(wave => {
+                    wave.material.opacity = val * wave.userData.animAlpha;
+                });
             },
             get opacity() {
                 return scope.matCore.opacity;
@@ -115,36 +131,65 @@ class EventBullet{
         this._initAnimations();
     }
 
-    updateRAF(){
-        this.material.opacity = this.marker.TYPE_OPACITY_FACTOR*this.marker.INTRO_OPACITY_FACTOR
+    updateRAF() {
+        // console.log("this.mesh.scale:", this.mesh.scale);
+        this.material.opacity = this.marker.TYPE_OPACITY_FACTOR * this.marker.INTRO_OPACITY_FACTOR
     }
 
-    _initAnimations(){
-        // 1. Expand the Ring Scale
-        gsap.to(this.meshRing.scale, {
-            x: 1.5, 
-            y: 1.5,
-            duration: 2.0,
-            ease: "power1.out",
-            repeat: -1
-        });
-        // 2. Fade out the Ring Opacity
-        gsap.to(this.pulseData, {
-            alpha: 0, 
-            duration: 2.0,
-            ease: "power1.out",
-            repeat: -1
+    _initAnimations() {
+        // 1. Core Pulse (Subtle heartbeat)
+        gsap.to(this.meshCore.scale, {
+            x: 1.15,
+            y: 1.15,
+            duration: 1,
+            yoyo: true,
+            repeat: -1,
+            ease: "sine.inOut"
         });
 
-        gsap.to(this.meshBlur.scale, {
-            x: 1.5, 
-            y: 1.5,
-            duration: 2.0,
-            ease: "power1.out",
-            repeat: -1
+        // 2. Blur Pulse (Slow breathing)
+        // gsap.to(this.meshBlur.scale, {
+        //     x: 2.5,
+        //     y: 2.5,
+        //     duration: 2.0,
+        //     yoyo: true,
+        //     repeat: -1,
+        //     ease: "sine.inOut"
+        // });
+
+        // 3. Wave Ripples
+        const duration = 3;
+        
+        this.waves.forEach((wave, i) => {
+            // Distribute start times evenly
+            const delay = i * (duration / this.waves.length); 
+
+            // Create a timeline for each wave
+            const tl = gsap.timeline({ 
+                repeat: -1, 
+                delay: delay 
+            });
+
+            // Init state
+            tl.set(wave.scale, { x: 1.0, y: 1.0 });
+            tl.set(wave.userData, { animAlpha: 1.0 });
+
+            // Animate Scale (Expand outwards)
+            tl.to(wave.scale, {
+                x: 2.0,
+                y: 2.0,
+                duration: duration,
+                ease: "power1.out"
+            }, 0);
+
+            // Animate Opacity (Fade out)
+            // We animate the userData property, which is applied to the material in updateRAF via the proxy
+            tl.to(wave.userData, {
+                animAlpha: 0.0,
+                duration: duration,
+                ease: "power1.out" 
+            }, 0);
         });
-
-
     }
 }
 export default EventBullet

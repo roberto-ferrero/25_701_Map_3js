@@ -44,7 +44,7 @@ class Marker3D{
         //-------------
         this.cityData = this.stage.stageData.getItemById(this.city_id, this.type)
         this.cityData.position = this._getFilteredPosition(this.cityData.coordinates[0], this.cityData.coordinates[1])
-        console.log("cityData:", this.cityData);
+        // console.log("cityData:", this.cityData);s
         //-------------
         this.Z_POS = 0.85
         this.POSITION_IN_TIER_MODE_1 = new THREE.Vector3(0, 0, this.Z_POS)
@@ -176,7 +176,7 @@ class Marker3D{
             this.POSITION_IN_TIER_MODE_2.copy(city_position)
             this.POSITION_IN_TIER_MODE_3.copy(city_position)
             //--
-            this.SCALE_IN_ZOOM_LEVEL_0 = this._getFilteredScale(this.cityData.getTotalPosts())*this.stage.stageData.settings.tier_1_in_zoom_0_scale_factor
+            this.SCALE_IN_ZOOM_LEVEL_0 = this._getZoom0Scale()
             this.SCALE_IN_ZOOM_LEVEL_1 = this._getFilteredScale(this.cityData.getCityAndChild3Posts())*this.stage.stageData.settings.tier_1_in_zoom_1_scale_factor
             this.SCALE_IN_ZOOM_LEVEL_2 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_1_in_zoom_2_scale_factor
             this.SCALE_IN_ZOOM_LEVEL_3 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_1_in_zoom_3_scale_factor
@@ -209,10 +209,14 @@ class Marker3D{
         }
     }
     
+    _getZoom0Scale(numPosts){
+        return 5
+    }
+
     _getFilteredScale(numPosts){
         let scaleFactor = 0
         if(numPosts > 0){
-            scaleFactor = 0.5 + (numPosts / this.stage.stageData.get_max_posts_node(this.type)) * 10;
+            scaleFactor = 1 + (numPosts / this.stage.stageData.get_max_posts_node(this.type)) * 10;
         }else{
             scaleFactor = 0.0;
         }

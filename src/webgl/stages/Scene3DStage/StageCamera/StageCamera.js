@@ -16,7 +16,11 @@ class StageCamera{
         this.parent3D = obj.parent3D
         //-----------------------------
         this.GSAP_ANIM = null
-        this.ZOOMING_ANIM = null
+        this.ANIM_PROGRESS = 0
+        //--
+        this.OFFSET_ANIM = null
+        this.OFFSET_PROGRESS = 0
+        this.OFFSETTED = false
 
         this.CAMERA_WORLD_POSITION = new THREE.Vector3()
         //-----------------------------
@@ -39,8 +43,6 @@ class StageCamera{
             camera_offset: new THREE.Vector2(0,0),
             target_position: new THREE.Vector3(),
         }
-        this.CAMERA_PROGRESS = 0
-        this.TARGET_PROGRESS = 0
         //-----------------------------
 
 
@@ -79,6 +81,7 @@ class StageCamera{
 
         this.stage.emitter.on("onStartDragMoving", ()=>{
             console.log("(StageCamera.onStartDragMoving)!");
+            this.resetOffset()
             this.GSAP_ANIM?.kill()
             this.stage.set_MODE("DRAGGING")
             this.STATES.INITIAL.camera_position.copy(this.STATES.CURRENT.camera_position)
@@ -96,6 +99,15 @@ class StageCamera{
                 const spotId = "zoom"+this.stage.CURRENT_ZOOM
                 this.zoomTo(spotId, 1)
             }
+        })
+        this.app.emitter.on("onCityClicked", (event)=>{
+            this.applyOffset()
+        })
+        this.app.emitter.on("onShopClicked", (event)=>{
+            this.applyOffset()
+        })
+        this.app.emitter.on("onEventClicked", (event)=>{
+            this.applyOffset()
         })
         
     }
@@ -149,9 +161,9 @@ class StageCamera{
 
         //-----------------
         // GSAP ANIM:
-        this.CAMERA_PROGRESS = 0
+        this.ANIM_PROGRESS = 0
         this.GSAP_ANIM = gsap.to(this, {
-            CAMERA_PROGRESS:1,
+            ANIM_PROGRESS:1,
             duration:secs,
             ease:ease,
             onUpdate:()=>{
@@ -182,9 +194,9 @@ class StageCamera{
         //--
         //-----------------
         // GSAP ANIM:
-        this.CAMERA_PROGRESS = 0
+        this.ANIM_PROGRESS = 0
         this.GSAP_ANIM = gsap.to(this, {
-            CAMERA_PROGRESS:1,
+            ANIM_PROGRESS:1,
             duration:secs,
             ease:ease,
             onUpdate:()=>{
@@ -236,9 +248,9 @@ class StageCamera{
         this.STATES.FINAL.camera_fov = cameraRef.fov
         //-----------------
         // GSAP ANIM:
-        this.CAMERA_PROGRESS = 0
+        this.ANIM_PROGRESS = 0
         this.GSAP_ANIM = gsap.to(this, {
-            CAMERA_PROGRESS:1,
+            ANIM_PROGRESS:1,
             duration:secs,
             ease:ease,
             onUpdate:()=>{
@@ -262,14 +274,60 @@ class StageCamera{
         this._drawSTATE()
         this._update_camera_data()
     }
+    applyOffset(){
+        if(!this.OFFSETTED){
+            console.log("(StageCamera.applyOffset)!");
+            this.OFFSETTED = true
+            this.STATES.INITIAL.camera_offset.copy(this.STATES.CURRENT.camera_offset)
+            this.STATES.FINAL.camera_offset.set(0, 0.33)
+            this.OFFSET_ANIM?.kill()
+            this.OFFSET_PROGRESS = 0
+            this.OFFSET_ANIM = gsap.to(this, {
+                OFFSET_PROGRESS:1,
+                duration:1,
+                ease:"power2.inOut",
+                onUpdate:()=>{
+                    this.STATES.CURRENT.camera_offset.lerpVectors(this.STATES.INITIAL.camera_offset, this.STATES.FINAL.camera_offset, this.OFFSET_PROGRESS)
+                    console.log("applying offset...", this.STATES.CURRENT.camera_offset);
+                },
+                onComplete:()=>{
+                },
+            })
+        }
+    }
+    resetOffset(){
+        if(this.OFFSETTED){
+            console.log("(StageCamera.resetOffset)!");
+            this.OFFSETTED = false
+            this.STATES.INITIAL.camera_offset.copy(this.STATES.CURRENT.camera_offset)
+            this.STATES.FINAL.camera_offset.set(0, 0.0)
+            console.log("this.STATES.CURRENT.camera_offset before reset: ", this.STATES.CURRENT.camera_offset);
+            console.log("this.STATES.INITIAL.camera_offset: ", this.STATES.INITIAL.camera_offset);
+            console.log("this.STATES.FINAL.camera_offset: ", this.STATES.FINAL.camera_offset);
+
+            this.OFFSET_ANIM?.kill()
+            this.OFFSET_PROGRESS = 0
+            this.OFFSET_ANIM = gsap.to(this, {
+                OFFSET_PROGRESS:1,
+                duration:1,
+                ease:"power2.inOut",
+                onUpdate:()=>{
+                    this.STATES.CURRENT.camera_offset.lerpVectors(this.STATES.INITIAL.camera_offset, this.STATES.FINAL.camera_offset, this.OFFSET_PROGRESS)
+                    console.log("resetting offset...", this.STATES.CURRENT.camera_offset);
+                },
+                onComplete:()=>{
+                },
+            })
+        }
+    }
      _drawSTATE(){
         // console.log("this.stage.get_MODE(): ", this.stage.get_MODE());
         if(this.stage.get_MODE() == "TRAVELLING"){
             console.log("travelling...");
-            this.STATES.CURRENT.camera_position.lerpVectors(this.STATES.INITIAL.camera_position, this.STATES.FINAL.camera_position, this.CAMERA_PROGRESS) 
-            this.STATES.CURRENT.target_position.lerpVectors(this.STATES.INITIAL.target_position, this.STATES.FINAL.target_position, this.CAMERA_PROGRESS)
-            this.STATES.CURRENT.camera_fov = THREE.MathUtils.lerp(this.STATES.INITIAL.camera_fov, this.STATES.FINAL.camera_fov, this.CAMERA_PROGRESS)
-            this.STATES.CURRENT.camera_offset.lerpVectors(this.STATES.INITIAL.camera_offset, this.STATES.FINAL.camera_offset, this.CAMERA_PROGRESS)
+            this.STATES.CURRENT.camera_position.lerpVectors(this.STATES.INITIAL.camera_position, this.STATES.FINAL.camera_position, this.ANIM_PROGRESS) 
+            this.STATES.CURRENT.target_position.lerpVectors(this.STATES.INITIAL.target_position, this.STATES.FINAL.target_position, this.ANIM_PROGRESS)
+            this.STATES.CURRENT.camera_fov = THREE.MathUtils.lerp(this.STATES.INITIAL.camera_fov, this.STATES.FINAL.camera_fov, this.ANIM_PROGRESS)
+            // this.STATES.CURRENT.camera_offset.lerpVectors(this.STATES.INITIAL.camera_offset, this.STATES.FINAL.camera_offset, this.ANIM_PROGRESS)
         }else if(this.stage.get_MODE() == "DRAGGING"){
             console.log("dragging...", this.dragMove.DRAG_POSITION);
             this.STATES.CURRENT.camera_position.x = this.STATES.INITIAL.camera_position.x+this.dragMove.DRAG_POSITION.x
@@ -278,10 +336,10 @@ class StageCamera{
             this.STATES.CURRENT.target_position.z = this.STATES.INITIAL.target_position.z+this.dragMove.DRAG_POSITION.y
         }else if(this.stage.get_MODE() == "ZOOMING"){
             console.log("zooming...");
-            this.STATES.CURRENT.camera_position.lerpVectors(this.STATES.INITIAL.camera_position, this.STATES.FINAL.camera_position, this.CAMERA_PROGRESS) 
-            this.STATES.CURRENT.target_position.lerpVectors(this.STATES.INITIAL.target_position, this.STATES.FINAL.target_position, this.CAMERA_PROGRESS)
-            this.STATES.CURRENT.camera_fov = THREE.MathUtils.lerp(this.STATES.INITIAL.camera_fov, this.STATES.FINAL.camera_fov, this.CAMERA_PROGRESS)
-            this.STATES.CURRENT.camera_offset.lerpVectors(this.STATES.INITIAL.camera_offset, this.STATES.FINAL.camera_offset, this.CAMERA_PROGRESS)
+            this.STATES.CURRENT.camera_position.lerpVectors(this.STATES.INITIAL.camera_position, this.STATES.FINAL.camera_position, this.ANIM_PROGRESS) 
+            this.STATES.CURRENT.target_position.lerpVectors(this.STATES.INITIAL.target_position, this.STATES.FINAL.target_position, this.ANIM_PROGRESS)
+            this.STATES.CURRENT.camera_fov = THREE.MathUtils.lerp(this.STATES.INITIAL.camera_fov, this.STATES.FINAL.camera_fov, this.ANIM_PROGRESS)
+            // this.STATES.CURRENT.camera_offset.lerpVectors(this.STATES.INITIAL.camera_offset, this.STATES.FINAL.camera_offset, this.ANIM_PROGRESS)
         }
         //------
         this.holder.position.copy(this.STATES.CURRENT.camera_position)

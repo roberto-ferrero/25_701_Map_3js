@@ -12,6 +12,8 @@ class CityBullet{
         //------------
         const geometry = new THREE.PlaneGeometry(1, 1)
         const texture = this.stage.loader.get_texture(this.marker.type)
+        texture.colorSpace = THREE.SRGBColorSpace
+        //--
         this.material = new THREE.MeshBasicMaterial({ 
             map: texture,
             transparent: true,

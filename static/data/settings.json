@@ -2,7 +2,7 @@
     "drag_factors": [0.072, 0.0400, 0.0285, 0.0150, 0.0100],
 
     "city_scale_factor": 1,
-    "event_scale_factor": 1.35,
+    "event_scale_factor": 1,
     "shop_scale_factor": 1.25,
 
     "city_opacity_factor": 1,

@@ -130,7 +130,7 @@ class Map3D{
 
                 if(!markerData.hasTier2Childs() && !markerData.hasTier3Childs()){
                     // NODO SIN HIJOS TIER 2 NI 3. CENTRAMOS Y EMITIMOS CLICK
-                    this.stage.moveAndZoom(cityId, city_type, this.stage.CURRENT_ZOOM)
+                    this.stage.moveAndZoom(cityId, city_type, this._getMinSelZoom())
                     this._emitClickEvent(cityId, city_type)
                 }else if(markerData.hasTier3Childs()){
                     // NODO CON HIJOS TIER 3.
@@ -139,7 +139,7 @@ class Map3D{
                         this.stage.moveAndZoom(cityId, city_type, 2)
                     }else{
                         // SI EL ZOOM ES 2 O 3 YA ESTAN DESPLEGADOS. CENTRAMOS Y EMITIMOS CLICK
-                        this.stage.moveAndZoom(cityId, city_type, this.stage.CURRENT_ZOOM)
+                        this.stage.moveAndZoom(cityId, city_type, this._getMinSelZoom())
                         this._emitClickEvent(cityId, city_type)
                     }
                 }else if(markerData.hasTier2Childs()){
@@ -149,7 +149,7 @@ class Map3D{
                         this.stage.moveAndZoom(cityId, city_type, 1)
                     }else{
                         // SI EL ZOOM ES 1, 2 O 3 YA ESTAN DESPLEGADOS. CENTRAMOS Y EMITIMOS CLICK
-                        this.stage.moveAndZoom(cityId, city_type, this.stage.CURRENT_ZOOM)
+                        this.stage.moveAndZoom(cityId, city_type, this._getMinSelZoom())
                         this._emitClickEvent(cityId, city_type)
                     }
                 }
@@ -158,7 +158,7 @@ class Map3D{
 
                 if(!markerData.hasTier3Childs()){
                     // NODO TIER 2 SIN HIJOS TIER 3. CENTRAMOS Y EMITIMOS CLICK
-                    this.stage.moveAndZoom(cityId, city_type, this.stage.CURRENT_ZOOM)
+                    this.stage.moveAndZoom(cityId, city_type, this._getMinSelZoom())
                     this._emitClickEvent(cityId, city_type)
                 }else{
                     // NODO CON HIJOS TIER 3.
@@ -167,7 +167,7 @@ class Map3D{
                         this.stage.moveAndZoom(cityId, city_type, 2)
                     }else{
                         // SI EL ZOOM ES 2 O 3 YA ESTAN DESPLEGADOS. CENTRAMOS Y EMITIMOS CLICK
-                        this.stage.moveAndZoom(cityId, city_type, this.stage.CURRENT_ZOOM)
+                        this.stage.moveAndZoom(cityId, city_type, this._getMinSelZoom())
                         this._emitClickEvent(cityId, city_type)
                     }
                 }
@@ -202,6 +202,13 @@ class Map3D{
                 this.hoveredObjectId = null;
             }
         }
+    }
+    _getMinSelZoom(){
+        let nextZoom = this.stage.CURRENT_ZOOM
+        if(this.stage.CURRENT_ZOOM == 0){
+            nextZoom = 1
+        }
+        return nextZoom
     }
     _emitClickEvent(cityId, city_type){
         if(city_type == "city"){
