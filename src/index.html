@@ -41,6 +41,7 @@
                     settings_dataPath: "./data/settings.json"
                 });
 
+            // EVENTOS:
             window.platform.webglApp.emitter.on("onCityClicked", (data) => {
                 console.log("CITY Clicked:", data.id);
                 // Aquí puedes manejar el evento como desees
@@ -53,6 +54,27 @@
                 console.log("SHOP Clicked:", data.id);
                 // Aquí puedes manejar el evento como desees
             })
+            window.platform.webglApp.emitter.on("onAppZoomChange", (data) => {
+                console.log("APP Zoom Changed:", data.zoom);
+                // Se ha cambiado el zoom de la app
+            })
+            window.platform.webglApp.emitter.on("onAppTierModeChange", (data) => {
+                console.log("APP Tier Mode Changed:", data.tierMode);
+                // Se ha cambiado el modo tier
+            })
+
+            // API:
+            // Metodos:
+            // window.platform.webglApp.stage.get_MODE() // {"IDLE", "ZOOMING", "TRAVELLING", "SELECTING"} Intentar usar comandos del API con "IDLE" 
+            // window.platform.webglApp.stage.get_ZOOM() // Obtiene el nivel de zoom actual
+            // window.platform.webglApp.stage.get_TIER_LEVEL() // Obtiene el modo actual (modo tier)
+            // window.platform.webglApp.stage.zoomIn() // Aumenta el zoom
+            // window.platform.webglApp.stage.zoomOut() // Disminuye el zoom
+            // window.platform.webglApp.stage.zoomToLevel(newZoomLevel) // Establece el zoom a un nivel específico
+            // window.platform.webglApp.stage.selectMarker(markerId, typeId, newZoomLevel) // Mueve la camara a una ciudad/evento/tienda y establece el zoom y aplica el offset correspondiente
+            // window.platform.webglApp.stage.resetOffset() // Deja de aplicar offset
+            // window.platform.webglApp.stage.applyOffset() // Aplica offset
+
 
             } else {
                 console.error("PandoraMap no se ha cargado correctamente.");

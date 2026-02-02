@@ -165,6 +165,12 @@ class Scene3DStage extends StageSuper{
     get_MODE(){
         return this.MODE
     }
+    get_ZOOM(){
+        return this.CURRENT_ZOOM
+    }
+    get_TIER_LEVEL(){
+        return this.CURRENT_ZOOM
+    }
     set_MODE(newMode){
         if(this.MODE != newMode){
             console.log("CHANGE MODE TO: " + newMode);
@@ -195,6 +201,22 @@ class Scene3DStage extends StageSuper{
         this.CURRENT_ZOOM = zoomLevel
         this.eval_TIER_MODE()
         this.app.emitter.emit("onAppZoomChange", {zoom:this.CURRENT_ZOOM, doZoomingAnim:true})
+    }
+
+    selectMarker(markerId, typeId, newZoomLevel){
+        this.moveAndZoom(markerId, typeId, newZoomLevel)
+        this.applyOffset()
+    }
+
+    deselectMarker(){
+        this.resetOffset()
+    }
+
+    applyOffset(){
+        this.stageCamera.applyOffset()
+    }
+    resetOffset(){
+        this.stageCamera.resetOffset()
     }
 
 
@@ -229,7 +251,7 @@ class Scene3DStage extends StageSuper{
         }else if(this.CURRENT_ZOOM==4){
             this.CURRENT_TIER_MODE = 3
         }
-        this.app.emitter.emit("onAppTierModeChange", {})
+        this.app.emitter.emit("onAppTierModeChange", {tier:this.CURRENT_TIER_MODE})
     }
     //----------------------------------------------
     // INTERNAL:
