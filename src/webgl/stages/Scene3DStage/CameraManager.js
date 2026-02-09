@@ -24,8 +24,8 @@ class CameraManager{
         //------------------------
         // this.app.dev.gui?.add(this, '_dev_nextSpot').name('NEXT CAMERA SPOT')
         // this.app.dev.gui?.add(this, '_dev_prevSpot').name('PREV CAMERA SPOT')
-        this.app.dev.gui?.add(this, '_dev_zoomIn').name('ZOOM IN')
-        this.app.dev.gui?.add(this, '_dev_zoomOut').name('ZOOM OUT')
+        this.app.dev?.gui?.add(this, '_dev_zoomIn').name('ZOOM IN')
+        this.app.dev?.gui?.add(this, '_dev_zoomOut').name('ZOOM OUT')
         //------------------------
         this.app.emitter.on("onAppZoomChange", (event)=>{
             // console.log("(CameraManager.onAppZoomChange): ", event.zoom);

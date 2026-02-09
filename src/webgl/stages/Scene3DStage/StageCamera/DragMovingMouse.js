@@ -21,6 +21,9 @@ class DragMovingMouse {
         this.pointerStart = new THREE.Vector2();
         this.positionStart = new THREE.Vector2();
 
+        this.app.emitter.on("onAppZoomChange", ()=>{
+            this.reset();
+        })
         
 
         this._initListeners();
@@ -43,9 +46,10 @@ class DragMovingMouse {
     }
 
     onPointerDown(event) {
-        console.log("(DragMovingMouse.onPointerDown) event.pointerId:", event.pointerId);
-        console.log("   MODE:", this.stage.get_MODE());
-        if(this.stage.get_MODE() == "IDLE"){
+        console.log("(DragMovingMouse.onPointerDown) event.pointerId:", event.pointerId+"/"+this.activePointers.size);
+        const currentMode = this.stage.get_MODE();
+        console.log("   MODE:", currentMode);
+        if(currentMode === "IDLE" && this.activePointers.size == 0){
             console.log("START DRAG. MODE IS IDLE");
             // Añadimos el puntero al mapa
             this.reset()
@@ -59,15 +63,24 @@ class DragMovingMouse {
             
             this.domElement.setPointerCapture(event.pointerId);
             this.stage.emitter.emit("onStartDragMoving");
+        }else if(this.activePointers.size == 1){
+            console.log("ADDING POINTER FOR ZOOM. MODE IS DRAGGING");
+            // this.reset()s
+            this.activePointers.set(event.pointerId, event);
+            this.isDragging = false;
+            this.pointerStart.set(event.clientX, event.clientY);
+            this.positionStart.copy(this.DRAG_POSITION);
+            this.domElement.setPointerCapture(event.pointerId);
+            this.stage.emitter.emit("onStopDragMoving");
         }else{
-            console.log("   NO DRAG. MODE IS NOT IDLE");
+            console.log("   NO DRAG. MODE IS NOT IDLE OR DRAGGING");
         }
     }
 
     onPointerMove(event) {
         // Actualizamos la posición del puntero en nuestro mapa
         if (!this.activePointers.has(event.pointerId)) return;
-        console.log("(DragMovingMouse.onPointerMove) event.pointerId:", event.pointerId);
+        console.log("(DragMovingMouse.onPointerMove) event.pointerId:", event.pointerId+"/"+this.activePointers.size);
         this.activePointers.set(event.pointerId, event);
 
         // CASO 1: Pinch-to-Zoom (2 dedos)

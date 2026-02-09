@@ -288,7 +288,7 @@ class StageCamera{
                 ease:"power2.inOut",
                 onUpdate:()=>{
                     this.STATES.CURRENT.camera_offset.lerpVectors(this.STATES.INITIAL.camera_offset, this.STATES.FINAL.camera_offset, this.OFFSET_PROGRESS)
-                    console.log("applying offset...", this.STATES.CURRENT.camera_offset);
+                    // console.log("applying offset...", this.STATES.CURRENT.camera_offset);
                 },
                 onComplete:()=>{
                 },
@@ -313,7 +313,7 @@ class StageCamera{
                 ease:"power2.inOut",
                 onUpdate:()=>{
                     this.STATES.CURRENT.camera_offset.lerpVectors(this.STATES.INITIAL.camera_offset, this.STATES.FINAL.camera_offset, this.OFFSET_PROGRESS)
-                    console.log("resetting offset...", this.STATES.CURRENT.camera_offset);
+                    // console.log("resetting offset...", this.STATES.CURRENT.camera_offset);
                 },
                 onComplete:()=>{
                 },
@@ -323,19 +323,19 @@ class StageCamera{
      _drawSTATE(){
         // console.log("this.stage.get_MODE(): ", this.stage.get_MODE());
         if(this.stage.get_MODE() == "TRAVELLING"){
-            console.log("travelling...");
+            // console.log("travelling...");
             this.STATES.CURRENT.camera_position.lerpVectors(this.STATES.INITIAL.camera_position, this.STATES.FINAL.camera_position, this.ANIM_PROGRESS) 
             this.STATES.CURRENT.target_position.lerpVectors(this.STATES.INITIAL.target_position, this.STATES.FINAL.target_position, this.ANIM_PROGRESS)
             this.STATES.CURRENT.camera_fov = THREE.MathUtils.lerp(this.STATES.INITIAL.camera_fov, this.STATES.FINAL.camera_fov, this.ANIM_PROGRESS)
             // this.STATES.CURRENT.camera_offset.lerpVectors(this.STATES.INITIAL.camera_offset, this.STATES.FINAL.camera_offset, this.ANIM_PROGRESS)
         }else if(this.stage.get_MODE() == "DRAGGING"){
-            console.log("dragging...", this.dragMove.DRAG_POSITION);
+            // console.log("dragging...", this.dragMove.DRAG_POSITION);
             this.STATES.CURRENT.camera_position.x = this.STATES.INITIAL.camera_position.x+this.dragMove.DRAG_POSITION.x
             this.STATES.CURRENT.camera_position.z = this.STATES.INITIAL.camera_position.z+this.dragMove.DRAG_POSITION.y
             this.STATES.CURRENT.target_position.x = this.STATES.INITIAL.target_position.x+this.dragMove.DRAG_POSITION.x
             this.STATES.CURRENT.target_position.z = this.STATES.INITIAL.target_position.z+this.dragMove.DRAG_POSITION.y
         }else if(this.stage.get_MODE() == "ZOOMING"){
-            console.log("zooming...");
+            // console.log("zooming...");
             this.STATES.CURRENT.camera_position.lerpVectors(this.STATES.INITIAL.camera_position, this.STATES.FINAL.camera_position, this.ANIM_PROGRESS) 
             this.STATES.CURRENT.target_position.lerpVectors(this.STATES.INITIAL.target_position, this.STATES.FINAL.target_position, this.ANIM_PROGRESS)
             this.STATES.CURRENT.camera_fov = THREE.MathUtils.lerp(this.STATES.INITIAL.camera_fov, this.STATES.FINAL.camera_fov, this.ANIM_PROGRESS)

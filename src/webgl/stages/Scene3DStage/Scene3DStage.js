@@ -19,7 +19,7 @@ import StageData from "./StageData/StageData"
 class Scene3DStage extends StageSuper{
     // this.app.project.stage
     constructor (obj){
-        // console.log("(Scene3DStage.CONSTRUCTORA): ", obj)
+        console.log("(Scene3DStage.CONSTRUCTORA) 20260205_1700: ", obj)
         super(obj)
         //-------------------
         this.START_REQUESTED = true
@@ -108,7 +108,8 @@ class Scene3DStage extends StageSuper{
 
 
         
-        this.loader.add_gltf("scene", this.app.loader_pathPrefix+"glbs/pandora_scene.glb", true)    
+        // this.loader.add_gltf("scene", this.app.loader_pathPrefix+"glbs/pandora_scene_20260203_1730.glb", true)    
+        this.loader.add_gltf("scene", this.app.loader_pathPrefix+"glbs/pandora_scene_20260204_1400.glb", true)    
         
         const texture_options = {
             // TODO
@@ -178,8 +179,8 @@ class Scene3DStage extends StageSuper{
         }
     }
     zoomIn(){
-        console.log("(Scene3DStage.zoomIn)!");
-        if(!this.stageCamera.TRAVELLING){
+        if(!this.stageCamera.TRAVELLING && this.MODE == "IDLE"){
+            console.log("(Scene3DStage.zoomIn)!");
             if(this.CURRENT_ZOOM<this.ZOOM_LEVELS-1){
                 const newZoom = this.CURRENT_ZOOM + 1
                 this.zoomToLevel(newZoom)
@@ -187,8 +188,8 @@ class Scene3DStage extends StageSuper{
         }
     }
     zoomOut(){
-        console.log("(Scene3DStage.zoomOut)!");
-        if(!this.stageCamera.TRAVELLING){
+        if(!this.stageCamera.TRAVELLING  && this.MODE == "IDLE"){
+            console.log("(Scene3DStage.zoomOut)!");
             if(this.CURRENT_ZOOM>0){
                 const newZoom = this.CURRENT_ZOOM - 1
                 this.zoomToLevel(newZoom)
@@ -261,7 +262,7 @@ class Scene3DStage extends StageSuper{
     build(){
         // console.log("(Scene3DStage.build): "+this.id)
         this.GLB_PROJECT = this.loader.get_gltf("scene")
-        // console.log("this.GLB_PROJECT: ", this.GLB_PROJECT);
+        console.log("this.GLB_PROJECT: ", this.GLB_PROJECT);
 
         this.stageData.init()
         this.libs.init(this.GLB_PROJECT)

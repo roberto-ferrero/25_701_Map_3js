@@ -52,7 +52,7 @@ class Platform{
             // socket_component:null,
 
             dev_active: true,        // Indicates if AppDev is instantiated
-            dev_gui: true,             // Indicates if dat.gui is created (only if dev_active=true)
+            dev_gui: false,             // Indicates if dat.gui is created (only if dev_active=true)
             dev_helpers: true,      // Indicates if helpers are instantiated  (only if dev_active=true) (false in prod)
 
             auto_active: true,
