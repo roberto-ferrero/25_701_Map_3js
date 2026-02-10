@@ -37,7 +37,7 @@ class Marker3D{
         }else if(this.type === "shop"){
             // this.TYPE_SCALE_FACTOR = 1.25
             // this.TYPE_OPACITY_FACTOR = 1
-            this.TYPE_SCALE_FACTOR = this.stage.stageData.settings.shop_scale_factor
+            this.TYPE_SCALE_FACTOR = this.stage.stageData.settings.shop_scale_factor*2
             this.TYPE_OPACITY_FACTOR = this.stage.stageData.settings.shop_opacity_factor
         }
         this.INTRO_OPACITY_FACTOR = 0.0
@@ -170,42 +170,54 @@ class Marker3D{
         if(this.DEV_ITEM){
             console.log("Marker3D._precalc_DATA) for id:"+this.stage.DEV_ITEM_ID+" - tier:"+this.cityData.tier);
         }
-        if(this.cityData.tier == 1){
-            const city_position = this._getFilteredPosition(this.cityData.coordinates[0], this.cityData.coordinates[1])
-            this.POSITION_IN_TIER_MODE_1.copy(city_position)
-            this.POSITION_IN_TIER_MODE_2.copy(city_position)
-            this.POSITION_IN_TIER_MODE_3.copy(city_position)
-            //--
-            this.SCALE_IN_ZOOM_LEVEL_0 = this._getZoom0Scale()
-            this.SCALE_IN_ZOOM_LEVEL_1 = this._getFilteredScale(this.cityData.getCityAndChild3Posts())*this.stage.stageData.settings.tier_1_in_zoom_1_scale_factor
-            this.SCALE_IN_ZOOM_LEVEL_2 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_1_in_zoom_2_scale_factor
-            this.SCALE_IN_ZOOM_LEVEL_3 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_1_in_zoom_3_scale_factor
-            this.SCALE_IN_ZOOM_LEVEL_4 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_1_in_zoom_4_scale_factor
-        }else if(this.cityData.tier == 2){
-            const parent_position = this._getFilteredPosition(this.cityData.parent.coordinates[0], this.cityData.parent.coordinates[1])
-            const city_position = this._getFilteredPosition(this.cityData.coordinates[0], this.cityData.coordinates[1])
-            this.POSITION_IN_TIER_MODE_1.copy(parent_position)
-            this.POSITION_IN_TIER_MODE_2.copy(city_position)
-            this.POSITION_IN_TIER_MODE_3.copy(city_position)
-            //--            
-            this.SCALE_IN_ZOOM_LEVEL_0 = this._getFilteredScale(0) // *this.stage.stageData.settings.tier_2_in_zoom_0_scale_factor
-            this.SCALE_IN_ZOOM_LEVEL_1 = this._getFilteredScale(this.cityData.getCityAndChild3Posts())*this.stage.stageData.settings.tier_2_in_zoom_1_scale_factor
-            this.SCALE_IN_ZOOM_LEVEL_2 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_2_in_zoom_2_scale_factor
-            this.SCALE_IN_ZOOM_LEVEL_3 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_2_in_zoom_3_scale_factor
-            this.SCALE_IN_ZOOM_LEVEL_4 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_2_in_zoom_4_scale_factor
+        if(this.type === "shop"){
+                const city_position = this._getFilteredPosition(this.cityData.coordinates[0], this.cityData.coordinates[1])
+                this.POSITION_IN_TIER_MODE_1.copy(city_position)
+                this.POSITION_IN_TIER_MODE_2.copy(city_position)
+                this.POSITION_IN_TIER_MODE_3.copy(city_position)
+                this.SCALE_IN_ZOOM_LEVEL_0 = this._getZoom0Scale()
+                this.SCALE_IN_ZOOM_LEVEL_1 = this._getZoom0Scale()
+                this.SCALE_IN_ZOOM_LEVEL_2 = this.TYPE_SCALE_FACTOR*this.stage.stageData.settings.tier_2_in_zoom_3_scale_factor
+                this.SCALE_IN_ZOOM_LEVEL_3 = this.TYPE_SCALE_FACTOR*this.stage.stageData.settings.tier_3_in_zoom_3_scale_factor
+                this.SCALE_IN_ZOOM_LEVEL_4 = this.TYPE_SCALE_FACTOR*this.stage.stageData.settings.tier_3_in_zoom_4_scale_factor
         }else{
-            const grandparent_position = this._getFilteredPosition(this.cityData.getGrandParent().coordinates[0], this.cityData.getGrandParent().coordinates[1])
-            const parent_position = this._getFilteredPosition(this.cityData.parent.coordinates[0], this.cityData.parent.coordinates[1])
-            const city_position = this._getFilteredPosition(this.cityData.coordinates[0], this.cityData.coordinates[1])
-            this.POSITION_IN_TIER_MODE_1.copy(parent_position)
-            this.POSITION_IN_TIER_MODE_2.copy(parent_position)
-            this.POSITION_IN_TIER_MODE_3.copy(city_position)
-            //--
-            this.SCALE_IN_ZOOM_LEVEL_0 = this._getFilteredScale(0) // *this.stage.stageData.settings.tier_3_in_zoom_0_scale_factor
-            this.SCALE_IN_ZOOM_LEVEL_1 = this._getFilteredScale(0) // *this.stage.stageData.settings.tier_3_in_zoom_1_scale_factor
-            this.SCALE_IN_ZOOM_LEVEL_2 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_3_in_zoom_2_scale_factor
-            this.SCALE_IN_ZOOM_LEVEL_3 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_3_in_zoom_3_scale_factor
-            this.SCALE_IN_ZOOM_LEVEL_4 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_3_in_zoom_4_scale_factor
+            if(this.cityData.tier == 1){
+                const city_position = this._getFilteredPosition(this.cityData.coordinates[0], this.cityData.coordinates[1])
+                this.POSITION_IN_TIER_MODE_1.copy(city_position)
+                this.POSITION_IN_TIER_MODE_2.copy(city_position)
+                this.POSITION_IN_TIER_MODE_3.copy(city_position)
+                //--
+                this.SCALE_IN_ZOOM_LEVEL_0 = this._getZoom0Scale()
+                this.SCALE_IN_ZOOM_LEVEL_1 = this._getFilteredScale(this.cityData.getCityAndChild3Posts())*this.stage.stageData.settings.tier_1_in_zoom_1_scale_factor
+                this.SCALE_IN_ZOOM_LEVEL_2 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_1_in_zoom_2_scale_factor
+                this.SCALE_IN_ZOOM_LEVEL_3 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_1_in_zoom_3_scale_factor
+                this.SCALE_IN_ZOOM_LEVEL_4 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_1_in_zoom_4_scale_factor
+            }else if(this.cityData.tier == 2){
+                const parent_position = this._getFilteredPosition(this.cityData.parent.coordinates[0], this.cityData.parent.coordinates[1])
+                const city_position = this._getFilteredPosition(this.cityData.coordinates[0], this.cityData.coordinates[1])
+                this.POSITION_IN_TIER_MODE_1.copy(parent_position)
+                this.POSITION_IN_TIER_MODE_2.copy(city_position)
+                this.POSITION_IN_TIER_MODE_3.copy(city_position)
+                //--            
+                this.SCALE_IN_ZOOM_LEVEL_0 = this._getFilteredScale(0) // *this.stage.stageData.settings.tier_2_in_zoom_0_scale_factor
+                this.SCALE_IN_ZOOM_LEVEL_1 = this._getFilteredScale(this.cityData.getCityAndChild3Posts())*this.stage.stageData.settings.tier_2_in_zoom_1_scale_factor
+                this.SCALE_IN_ZOOM_LEVEL_2 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_2_in_zoom_2_scale_factor
+                this.SCALE_IN_ZOOM_LEVEL_3 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_2_in_zoom_3_scale_factor
+                this.SCALE_IN_ZOOM_LEVEL_4 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_2_in_zoom_4_scale_factor
+            }else{
+                const grandparent_position = this._getFilteredPosition(this.cityData.getGrandParent().coordinates[0], this.cityData.getGrandParent().coordinates[1])
+                const parent_position = this._getFilteredPosition(this.cityData.parent.coordinates[0], this.cityData.parent.coordinates[1])
+                const city_position = this._getFilteredPosition(this.cityData.coordinates[0], this.cityData.coordinates[1])
+                this.POSITION_IN_TIER_MODE_1.copy(parent_position)
+                this.POSITION_IN_TIER_MODE_2.copy(parent_position)
+                this.POSITION_IN_TIER_MODE_3.copy(city_position)
+                //--
+                this.SCALE_IN_ZOOM_LEVEL_0 = this._getFilteredScale(0) // *this.stage.stageData.settings.tier_3_in_zoom_0_scale_factor
+                this.SCALE_IN_ZOOM_LEVEL_1 = this._getFilteredScale(0) // *this.stage.stageData.settings.tier_3_in_zoom_1_scale_factor
+                this.SCALE_IN_ZOOM_LEVEL_2 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_3_in_zoom_2_scale_factor
+                this.SCALE_IN_ZOOM_LEVEL_3 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_3_in_zoom_3_scale_factor
+                this.SCALE_IN_ZOOM_LEVEL_4 = this._getFilteredScale(this.cityData.getCityPosts())*this.stage.stageData.settings.tier_3_in_zoom_4_scale_factor
+            }
         }
     }
     

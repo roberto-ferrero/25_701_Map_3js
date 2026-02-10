@@ -70,21 +70,36 @@ class Map3D{
         //--
         // this._createMarkersFromData()
         //--
-        window.addEventListener('pointerdown', (event)=>{
+        this.domElement = this.app.render.renderer.domElement
+
+        this.domElement.addEventListener('pointerdown', (event)=>{
             this.onPointerDown(event)
             // this.app.emitter.emit("onMapPointerDown", { event: event });
         });
-        window.addEventListener('pointermove', (event) => {
+        this.domElement.addEventListener('pointermove', (event) => {
             this.onPointerMove(event);
             // this.app.emitter.emit("onMapPointerMove", { event: event });
         });
-        window.addEventListener('pointerup', (event) => {
+        this.domElement.addEventListener('pointerup', (event) => {
             this.onPointerMove(event);
             // this.app.emitter.emit("onMapPointerUp", { event: event });
         });
-        window.addEventListener('pointercancel', (event) => {
+        this.domElement.addEventListener('pointercancel', (event) => {
             this.onPointerMove(event);
             // this.app.emitter.emit("onMapPointerCancel", { event: event });
+        });
+        this.domElement.addEventListener('pointerleave', (event) => {
+            if (this.hoveredObjectId !== null) {
+                this._handleRollOut(this.hoveredObjectId);
+                this.hoveredObjectId = null;
+            }
+        });
+        this.domElement.addEventListener('wheel', (event) => {
+            if (event.deltaY < 0) {
+                this.stage.zoomIn()
+            } else if (event.deltaY > 0) {
+                this.stage.zoomOut()
+            }
         });
     }
     //----------------------------------------------
@@ -126,73 +141,82 @@ class Map3D{
             console.log("   markerData.tier3_childs.length:", markerData.tier3_childs.length);
             this.stage.printState()
 
-            if(this.stage.CURRENT_TIER_MODE == 1){
-
-                if(!markerData.hasTier2Childs() && !markerData.hasTier3Childs()){
-                    // NODO SIN HIJOS TIER 2 NI 3. CENTRAMOS Y EMITIMOS CLICK
-                    this.stage.moveAndZoom(cityId, city_type, this._getMinSelZoom())
+            if(city_type == "shop"){
+                console.log("SELECTING A SHOP. ZOOM LEVEL: "+this.stage.get_ZOOM());
+                if(this.stage.get_ZOOM() >= 3){
+                    this.stage.moveAndZoom(cityId, city_type, this.stage.get_ZOOM())
                     this._emitClickEvent(cityId, city_type)
-                }else if(markerData.hasTier3Childs()){
-                    // NODO CON HIJOS TIER 3.
-                    if(this.stage.CURRENT_ZOOM < 2){
-                        // SI EL ZOOM ES 0 o 1 ESOS HIJOS TIER 3 NO ESTAN DESPLEGADOS. CENTRAMOS Y HACEMOS ZOOM A 2
-                        this.stage.moveAndZoom(cityId, city_type, 2)
-                    }else{
-                        // SI EL ZOOM ES 2 O 3 YA ESTAN DESPLEGADOS. CENTRAMOS Y EMITIMOS CLICK
+                }
+            }else{
+
+                if(this.stage.CURRENT_TIER_MODE == 1){
+    
+                    if(!markerData.hasTier2Childs() && !markerData.hasTier3Childs()){
+                        // NODO SIN HIJOS TIER 2 NI 3. CENTRAMOS Y EMITIMOS CLICK
                         this.stage.moveAndZoom(cityId, city_type, this._getMinSelZoom())
                         this._emitClickEvent(cityId, city_type)
+                    }else if(markerData.hasTier3Childs()){
+                        // NODO CON HIJOS TIER 3.
+                        if(this.stage.CURRENT_ZOOM < 2){
+                            // SI EL ZOOM ES 0 o 1 ESOS HIJOS TIER 3 NO ESTAN DESPLEGADOS. CENTRAMOS Y HACEMOS ZOOM A 2
+                            this.stage.moveAndZoom(cityId, city_type, 2)
+                        }else{
+                            // SI EL ZOOM ES 2 O 3 YA ESTAN DESPLEGADOS. CENTRAMOS Y EMITIMOS CLICK
+                            this.stage.moveAndZoom(cityId, city_type, this._getMinSelZoom())
+                            this._emitClickEvent(cityId, city_type)
+                        }
+                    }else if(markerData.hasTier2Childs()){
+                        // NODO CON HIJOS TIER 2.CENTRAMOS Y ZOOM A 1 (DESPLIEGA TIER 2)
+                        if(this.stage.CURRENT_ZOOM < 1){
+                            // SI EL ZOOM ES 0 ESOS HIJOS TIER 2 NO ESTAN DESPLEGADOS. CENTRAMOS Y HACEMOS ZOOM A 1
+                            this.stage.moveAndZoom(cityId, city_type, 1)
+                        }else{
+                            // SI EL ZOOM ES 1, 2 O 3 YA ESTAN DESPLEGADOS. CENTRAMOS Y EMITIMOS CLICK
+                            this.stage.moveAndZoom(cityId, city_type, this._getMinSelZoom())
+                            this._emitClickEvent(cityId, city_type)
+                        }
                     }
-                }else if(markerData.hasTier2Childs()){
-                    // NODO CON HIJOS TIER 2.CENTRAMOS Y ZOOM A 1 (DESPLIEGA TIER 2)
-                    if(this.stage.CURRENT_ZOOM < 1){
-                        // SI EL ZOOM ES 0 ESOS HIJOS TIER 2 NO ESTAN DESPLEGADOS. CENTRAMOS Y HACEMOS ZOOM A 1
-                        this.stage.moveAndZoom(cityId, city_type, 1)
-                    }else{
-                        // SI EL ZOOM ES 1, 2 O 3 YA ESTAN DESPLEGADOS. CENTRAMOS Y EMITIMOS CLICK
+    
+                }else if(this.stage.CURRENT_TIER_MODE == 2){
+    
+                    if(!markerData.hasTier3Childs()){
+                        // NODO TIER 2 SIN HIJOS TIER 3. CENTRAMOS Y EMITIMOS CLICK
                         this.stage.moveAndZoom(cityId, city_type, this._getMinSelZoom())
                         this._emitClickEvent(cityId, city_type)
-                    }
-                }
-
-            }else if(this.stage.CURRENT_TIER_MODE == 2){
-
-                if(!markerData.hasTier3Childs()){
-                    // NODO TIER 2 SIN HIJOS TIER 3. CENTRAMOS Y EMITIMOS CLICK
-                    this.stage.moveAndZoom(cityId, city_type, this._getMinSelZoom())
-                    this._emitClickEvent(cityId, city_type)
-                }else{
-                    // NODO CON HIJOS TIER 3.
-                    if(this.stage.CURRENT_ZOOM < 2){
-                        // SI EL ZOOM ES 0 o 1 ESOS HIJOS TIER 3 NO ESTAN DESPLEGADOS. CENTRAMOS Y HACEMOS ZOOM A 2
-                        this.stage.moveAndZoom(cityId, city_type, 2)
                     }else{
-                        // SI EL ZOOM ES 2 O 3 YA ESTAN DESPLEGADOS. CENTRAMOS Y EMITIMOS CLICK
-                        this.stage.moveAndZoom(cityId, city_type, this._getMinSelZoom())
-                        this._emitClickEvent(cityId, city_type)
+                        // NODO CON HIJOS TIER 3.
+                        if(this.stage.CURRENT_ZOOM < 2){
+                            // SI EL ZOOM ES 0 o 1 ESOS HIJOS TIER 3 NO ESTAN DESPLEGADOS. CENTRAMOS Y HACEMOS ZOOM A 2
+                            this.stage.moveAndZoom(cityId, city_type, 2)
+                        }else{
+                            // SI EL ZOOM ES 2 O 3 YA ESTAN DESPLEGADOS. CENTRAMOS Y EMITIMOS CLICK
+                            this.stage.moveAndZoom(cityId, city_type, this._getMinSelZoom())
+                            this._emitClickEvent(cityId, city_type)
+                        }
                     }
+    
+                }else if(this.stage.CURRENT_TIER_MODE == 3){
+    
+                    this.stage.moveAndZoom(cityId, city_type, this.stage.CURRENT_ZOOM)
+                    this._emitClickEvent(cityId, city_type)  
+    
                 }
-
-            }else if(this.stage.CURRENT_TIER_MODE == 3){
-
-                this.stage.moveAndZoom(cityId, city_type, this.stage.CURRENT_ZOOM)
-                this._emitClickEvent(cityId, city_type)  
-
-            }
-
-            // if (this.hoveredObjectId !== null) {
-            // this.tooltip.style.left = (event.clientX + 15) + 'px';
-            // this.tooltip.style.top = (event.clientY + 15) + 'px';
-            // }
-
-            if (this.hoveredObjectId !== cityId) {
-                
-                // Si antes estábamos sobre otro, disparamos rollout del anterior
-                if (this.hoveredObjectId !== null) {
-                    this._handleRollOut(this.hoveredObjectId);
+    
+                // if (this.hoveredObjectId !== null) {
+                // this.tooltip.style.left = (event.clientX + 15) + 'px';
+                // this.tooltip.style.top = (event.clientY + 15) + 'px';
+                // }
+    
+                if (this.hoveredObjectId !== cityId) {
+                    
+                    // Si antes estábamos sobre otro, disparamos rollout del anterior
+                    if (this.hoveredObjectId !== null) {
+                        this._handleRollOut(this.hoveredObjectId);
+                    }
+    
+                    this.hoveredObjectId = cityId;
+                    this._handleRollOver(cityId, hoveredMesh);
                 }
-
-                this.hoveredObjectId = cityId;
-                this._handleRollOver(cityId, hoveredMesh);
             }
         }else{
             console.log("NO MARKER CLICKED!");

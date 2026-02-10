@@ -99,6 +99,16 @@ class ShopBullet{
         // ------------------------------------------------
         //this._initAnimations();
 
+        if(this.stage.CURRENT_ZOOM >= 3){
+            this.SHOWING_BULLET = true
+            this.mesh.visible = true
+            this.BULLET_ALPHA = 1.0
+        }else{
+            this.SHOWING_BULLET = false
+            this.mesh.visible = false
+            this.BULLET_ALPHA = 0.0
+        }
+
         this.app.emitter.on("onAppZoomChange", (zoomLevel)=>{
             // console.log("Zoom level changed:", zoomLevel);
             if(this.stage.CURRENT_ZOOM == 0 || this.stage.CURRENT_ZOOM == 1 || this.stage.CURRENT_ZOOM == 2){
@@ -109,7 +119,6 @@ class ShopBullet{
         });
     }
     _hideBullet(){
-        // console.log("(ShopBullet._hideBullet)!");
         if(this.SHOWING_BULLET){
             this.SHOWING_BULLET = false
             this.GSAP_ANIM?.kill()
@@ -140,8 +149,6 @@ class ShopBullet{
 
     updateRAF(){
         this.matCore.opacity = this.marker.TYPE_OPACITY_FACTOR*this.marker.INTRO_OPACITY_FACTOR*this.BULLET_ALPHA
-        // this.matBlur.opacity = this.marker.TYPE_OPACITY_FACTOR*this.marker.INTRO_OPACITY_FACTOR*this.BULLET_ALPHA*0.8
-        // this.matRing.opacity = this.marker.TYPE_OPACITY_FACTOR*this.marker.INTRO_OPACITY_FACTOR*this.BULLET_ALPHA
     }
 }
 export default ShopBullet

@@ -19,7 +19,7 @@ import StageData from "./StageData/StageData"
 class Scene3DStage extends StageSuper{
     // this.app.project.stage
     constructor (obj){
-        console.log("(Scene3DStage.CONSTRUCTORA) 20260205_1700: ", obj)
+        console.log("(Scene3DStage.CONSTRUCTORA) 20260210_0930: ", obj)
         super(obj)
         //-------------------
         this.START_REQUESTED = true
@@ -201,6 +201,7 @@ class Scene3DStage extends StageSuper{
         console.log("(Scene3DStage.zoomToLevel): "+zoomLevel);
         this.CURRENT_ZOOM = zoomLevel
         this.eval_TIER_MODE()
+        this.printState()
         this.app.emitter.emit("onAppZoomChange", {zoom:this.CURRENT_ZOOM, doZoomingAnim:true})
     }
 
@@ -269,32 +270,6 @@ class Scene3DStage extends StageSuper{
         this.scenario3D.init()
         this.cameraManager.init()
 
-        
-        
-
-        /*
-        const pmremGenerator = new THREE.PMREMGenerator(this.app.render.renderer);
-        pmremGenerator.compileEquirectangularShader();
-
-        const bg_hdrTexture = this.loader.get_texture("sky2")
-        // const bg_hdrTexture = this.loader.get_hdr("sky")
-        bg_hdrTexture.colorSpace = THREE.SRGBColorSpace;
-        const bg = pmremGenerator.fromEquirectangular(bg_hdrTexture).texture;
-        this.app.scene.background = bg; // this makes it your skybox
-        this.app.scene.backgroundIntensity = 1.0; // this makes it your skybox
-        
-        const envmap_hdrTexture = this.loader.get_hdr("envmap")
-        this.envmap = pmremGenerator.fromEquirectangular(envmap_hdrTexture).texture;
-        this.app.scene.environment = this.envmap;
-        this.app.scene.environmentIntensity = 1.00
-
-        this.app.scene.fog = new THREE.FogExp2(0x0072bc, 0.013);
-        // this.app.scene.background = new THREE.Color(0x0072bc);
-
-        bg_hdrTexture.dispose();
-        envmap_hdrTexture.dispose();
-        pmremGenerator.dispose();
-        */
 
         //------------------- 
         this.app.emitter.on("onAppScrollUpdate",(e)=>{
@@ -337,6 +312,13 @@ class Scene3DStage extends StageSuper{
         // this.stageCamera.animateStateFromTo("camera0", "camera1", 2)
         // this.stageCamera.animateTargetFromTo("target0", "target1", 2)
         this.app.emitter.emit("onStartIntro", {})
+
+        gsap.delayedCall(0.5, ()=>{
+            console.log("===============================");
+            console.log("onReady!");
+            console.log("===============================");
+            this.app.emitter.emit("onReady", {})
+        })
         
     }
     //----------------------------------------------

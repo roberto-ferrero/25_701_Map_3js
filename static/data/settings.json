@@ -3,7 +3,7 @@
 
     "city_scale_factor": 1,
     "event_scale_factor": 1,
-    "shop_scale_factor": 0.8,
+    "shop_scale_factor": 1,
 
     "city_opacity_factor": 1,
     "event_opacity_factor": 1,

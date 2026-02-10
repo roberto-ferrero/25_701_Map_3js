@@ -35,9 +35,9 @@ class DragMovingMouse {
                 this.onPointerDown(event)
             });
         });
-        window.addEventListener('pointermove', this.onPointerMove.bind(this));
-        window.addEventListener('pointerup', this.onPointerUp.bind(this));
-        window.addEventListener('pointercancel', this.onPointerUp.bind(this)); // Importante para mobile
+        this.domElement.addEventListener('pointermove', this.onPointerMove.bind(this));
+        this.domElement.addEventListener('pointerup', this.onPointerUp.bind(this));
+        this.domElement.addEventListener('pointercancel', this.onPointerUp.bind(this)); // Importante para mobile
 
         this.domElement.addEventListener('contextmenu', (e) => e.preventDefault()); // Previene el menú contextual al hacer clic derecho
         
