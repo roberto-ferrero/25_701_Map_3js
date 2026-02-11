@@ -19,7 +19,7 @@ import StageData from "./StageData/StageData"
 class Scene3DStage extends StageSuper{
     // this.app.project.stage
     constructor (obj){
-        console.log("(Scene3DStage.CONSTRUCTORA) 20260210_0930: ", obj)
+        console.log("(Scene3DStage.CONSTRUCTORA) 20260211_1000: ", obj)
         super(obj)
         //-------------------
         this.START_REQUESTED = true
@@ -203,6 +203,7 @@ class Scene3DStage extends StageSuper{
         this.eval_TIER_MODE()
         this.printState()
         this.app.emitter.emit("onAppZoomChange", {zoom:this.CURRENT_ZOOM, doZoomingAnim:true})
+        this.app.initObj.onZoomChange(this.CURRENT_ZOOM)
     }
 
     selectMarker(markerId, typeId, newZoomLevel){
@@ -230,6 +231,7 @@ class Scene3DStage extends StageSuper{
         this.CURRENT_ZOOM = newZoomLevel
         this.eval_TIER_MODE()
         this.app.emitter.emit("onAppZoomChange", {zoom:this.CURRENT_ZOOM, doZoomingAnim:false})
+        this.app.initObj.onZoomChange(this.CURRENT_ZOOM)
         this.stageCamera.moveAndZoom(filteredPosition, newZoomLevel)
 
     }
@@ -254,6 +256,7 @@ class Scene3DStage extends StageSuper{
             this.CURRENT_TIER_MODE = 3
         }
         this.app.emitter.emit("onAppTierModeChange", {tier:this.CURRENT_TIER_MODE})
+        this.app.initObj.onTierChange(this.CURRENT_TIER_MODE)
     }
     //----------------------------------------------
     // INTERNAL:
@@ -312,12 +315,10 @@ class Scene3DStage extends StageSuper{
         // this.stageCamera.animateStateFromTo("camera0", "camera1", 2)
         // this.stageCamera.animateTargetFromTo("target0", "target1", 2)
         this.app.emitter.emit("onStartIntro", {})
-
+        
         gsap.delayedCall(0.5, ()=>{
-            console.log("===============================");
-            console.log("onReady!");
-            console.log("===============================");
             this.app.emitter.emit("onReady", {})
+            this.app.initObj.onInit()
         })
         
     }

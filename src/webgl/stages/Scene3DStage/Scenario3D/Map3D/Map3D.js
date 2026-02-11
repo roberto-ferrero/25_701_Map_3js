@@ -146,6 +146,8 @@ class Map3D{
                 if(this.stage.get_ZOOM() >= 3){
                     this.stage.moveAndZoom(cityId, city_type, this.stage.get_ZOOM())
                     this._emitClickEvent(cityId, city_type)
+                }else{
+                    this.stage.set_MODE("IDLE")
                 }
             }else{
 
@@ -237,10 +239,13 @@ class Map3D{
     _emitClickEvent(cityId, city_type){
         if(city_type == "city"){
             this.app.emitter.emit("onCityClicked", { id: cityId });
+            this.app.initObj.onMarkerClicked(city_type, cityId)
         }else if(city_type == "shop"){
             this.app.emitter.emit("onShopClicked", { id: cityId });
+            this.app.initObj.onMarkerClicked(city_type, cityId)
         }else if(city_type == "event"){
             this.app.emitter.emit("onEventClicked", { id: cityId });
+            this.app.initObj.onMarkerClicked(city_type, cityId)
         }
     }
     onPointerMove(event) {

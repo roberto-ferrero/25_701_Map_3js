@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 class Platform{
     constructor (obj){
-        // console.log("(Platform.CONSTRUCTORA): ", obj)
+        console.log("(Platform.CONSTRUCTORA): ", obj)
         //--
         const $webglContainer = document.querySelector('#webgl_app')
         const $mouseEvents = document.querySelector('#webgl_app')
@@ -31,8 +31,12 @@ class Platform{
                 cities_dataPath: obj.cities_dataPath,
                 shops_dataPath: obj.shops_dataPath,
                 events_dataPath: obj.events_dataPath,
-                settings_dataPath: obj.settings_dataPath
+                settings_dataPath: obj.settings_dataPath,
             },
+            onInit: obj.onInit,
+            onZoomChange: obj.onZoomChange,
+            onMarkerClicked: obj.onMarkerClicked,
+            onTierChange: obj.onTierChange,
 
 
             render_background_alpha: 1,

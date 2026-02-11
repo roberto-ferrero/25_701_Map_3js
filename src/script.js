@@ -27,7 +27,11 @@ const Library = {
             cities_dataPath: config.cities_dataPath,
             shops_dataPath: config.shops_dataPath,
             events_dataPath: config.events_dataPath,
-            settings_dataPath: config.settings_dataPath
+            settings_dataPath: config.settings_dataPath,
+            onInit: config.onInit,
+            onZoomChange: config.onZoomChange,
+            onTierChange: config.onTierChange,
+            onMarkerClicked: config.onMarkerClicked
         });
 
                 

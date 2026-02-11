@@ -38,7 +38,27 @@
                     cities_dataPath: "./data/cities.json",
                     shops_dataPath: "./data/shops.json",
                     events_dataPath: "./data/events.json",
-                    settings_dataPath: "./data/settings.json"
+                    settings_dataPath: "./data/settings.json",
+                    onInit: () => {
+                        console.log("================================");
+                        console.log("onInit!");
+                        console.log("================================");
+                    },
+                    onZoomChange: (newZoomLevel) => {
+                        console.log("================================");
+                        console.log("ZOOM CHANGE: "+newZoomLevel);
+                        console.log("================================");
+                    },
+                    onTierChange: (newTierLevel) => {
+                        console.log("================================");
+                        console.log("TIER CHANGE: "+newTierLevel);
+                        console.log("================================");
+                    },
+                    onMarkerClicked: (type, id) => {
+                        console.log("================================");
+                        console.log("MARKER CLICKED: "+type+" - "+id);
+                        console.log("================================");
+                    }
                 });
 
             // EVENTOS:

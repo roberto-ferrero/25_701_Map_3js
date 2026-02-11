@@ -34,6 +34,7 @@ class WebGLApp{
         this.$mouseEvents = obj.$mouseEvents
         this.loader_pathPrefix = obj.loader_pathPrefix
         this.project = obj.project
+        this.initObj = obj
         //--
         this.appStore = obj.appStore
         this.appUi = obj.appUi
