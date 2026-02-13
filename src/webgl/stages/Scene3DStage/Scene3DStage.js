@@ -19,7 +19,7 @@ import StageData from "./StageData/StageData"
 class Scene3DStage extends StageSuper{
     // this.app.project.stage
     constructor (obj){
-        console.log("(Scene3DStage.CONSTRUCTORA) 20260211_1000: ", obj)
+        console.log("(Scene3DStage.CONSTRUCTORA) 20260211_1400: ", obj)
         super(obj)
         //-------------------
         this.START_REQUESTED = true

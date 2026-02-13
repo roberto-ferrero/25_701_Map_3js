@@ -1,26 +1,2751 @@
 [
-  {
-    "city_id": 1,
-    "city_name": "Shop1",
-    "city_tier": 1,
-    "parent_node": null,
-    "coordinates": [
-      51.5098625,
-      0.1576101
-    ],
-    "population": 1,
-    "posts": 1
-  },
-  {
-    "city_id": 2,
-    "city_name": "Shop2",
-    "city_tier": 1,
-    "parent_node": null,
-    "coordinates": [
-     50.960242,
-     -1.269392
-    ],
-    "population": 1,
-    "posts": 200
-  }
+    {
+        "city_id": 26,
+        "city_name": "Aberdeen",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            57.144353,
+            -2.096199
+        ],
+        "population": 1,
+        "posts": 4838
+    },
+    {
+        "city_id": 27,
+        "city_name": "Aberdeen Bon Accord",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            57.148968,
+            -2.100045
+        ],
+        "population": 1,
+        "posts": 8720
+    },
+    {
+        "city_id": 28,
+        "city_name": "Ashford",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.148616,
+            0.869598
+        ],
+        "population": 1,
+        "posts": 2850
+    },
+    {
+        "city_id": 30,
+        "city_name": "Aylesbury",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.815478,
+            -0.813218
+        ],
+        "population": 1,
+        "posts": 8692
+    },
+    {
+        "city_id": 31,
+        "city_name": "Ayr",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            55.461481,
+            -4.629415
+        ],
+        "population": 1,
+        "posts": 1,
+        "info_link": "https:\/\/maps.app.goo.gl\/GeCakcrRV2ECWLJi6"
+    },
+    {
+        "city_id": 32,
+        "city_name": "Banbury",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.063223,
+            -1.334726
+        ],
+        "population": 1,
+        "posts": 1056
+    },
+    {
+        "city_id": 33,
+        "city_name": "Bangor",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.226502,
+            -4.125534
+        ],
+        "population": 1,
+        "posts": 9397
+    },
+    {
+        "city_id": 34,
+        "city_name": "Barnstaple",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.082012,
+            -4.060686
+        ],
+        "population": 1,
+        "posts": 6310
+    },
+    {
+        "city_id": 35,
+        "city_name": "Basildon",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.569871,
+            0.461488
+        ],
+        "population": 1,
+        "posts": 8130
+    },
+    {
+        "city_id": 36,
+        "city_name": "Basingstoke",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.265056,
+            -1.087339
+        ],
+        "population": 1,
+        "posts": 2323
+    },
+    {
+        "city_id": 37,
+        "city_name": "Bath",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.379291,
+            -2.359946
+        ],
+        "population": 1,
+        "posts": 1
+    },
+    {
+        "city_id": 38,
+        "city_name": "Bedford",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.136151,
+            -0.469516
+        ],
+        "population": 1,
+        "posts": 1
+    },
+    {
+        "city_id": 39,
+        "city_name": "Belfast Corn Market",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            54.598982,
+            -5.927667
+        ],
+        "population": 1,
+        "posts": 2824
+    },
+    {
+        "city_id": 40,
+        "city_name": "Bexleyheath",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.456122,
+            0.146185
+        ],
+        "population": 1,
+        "posts": 9331
+    },
+    {
+        "city_id": 41,
+        "city_name": "Bicester Village",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.891821,
+            -1.155714
+        ],
+        "population": 1,
+        "posts": 3250
+    },
+    {
+        "city_id": 42,
+        "city_name": "Birkenhead",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.389242,
+            -3.026436
+        ],
+        "population": 1,
+        "posts": 8481
+    },
+    {
+        "city_id": 43,
+        "city_name": "Birmingham Bull Ring",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.477952,
+            -1.893899
+        ],
+        "population": 1,
+        "posts": 4162
+    },
+    {
+        "city_id": 44,
+        "city_name": "Birmingham High Street",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.4791570384898,
+            -1.89402000378131
+        ],
+        "population": 1,
+        "posts": 753
+    },
+    {
+        "city_id": 45,
+        "city_name": "Bishops Stortford",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.870921,
+            0.16017
+        ],
+        "population": 1,
+        "posts": 9026
+    },
+    {
+        "city_id": 46,
+        "city_name": "Blackburn",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.749048,
+            -2.483228
+        ],
+        "population": 1,
+        "posts": 5191
+    },
+    {
+        "city_id": 47,
+        "city_name": "Blackpool",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.816087,
+            -3.054092
+        ],
+        "population": 1,
+        "posts": 8024
+    },
+    {
+        "city_id": 49,
+        "city_name": "Bluewater Lower Thames",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.43826,
+            0.270837
+        ],
+        "population": 1,
+        "posts": 8152
+    },
+    {
+        "city_id": 50,
+        "city_name": "Bluewater Upper Rose",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.439425,
+            0.272881
+        ],
+        "population": 1,
+        "posts": 6169
+    },
+    {
+        "city_id": 51,
+        "city_name": "Bolton",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.581308,
+            -2.429656
+        ],
+        "population": 1,
+        "posts": 7797
+    },
+    {
+        "city_id": 52,
+        "city_name": "Bournemouth",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            50.720419,
+            -1.8831
+        ],
+        "population": 1,
+        "posts": 3955
+    },
+    {
+        "city_id": 53,
+        "city_name": "Bracknell",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.41782,
+            -0.749948
+        ],
+        "population": 1,
+        "posts": 6697
+    },
+    {
+        "city_id": 54,
+        "city_name": "Bradford",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.794013,
+            -1.751373
+        ],
+        "population": 1,
+        "posts": 9538
+    },
+    {
+        "city_id": 55,
+        "city_name": "Brent Cross",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.576419,
+            -0.223766
+        ],
+        "population": 1,
+        "posts": 721
+    },
+    {
+        "city_id": 56,
+        "city_name": "Brentwood",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.620207,
+            0.302807
+        ],
+        "population": 1,
+        "posts": 6077
+    },
+    {
+        "city_id": 57,
+        "city_name": "Brighton",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            50.824528,
+            -0.155473
+        ],
+        "population": 1,
+        "posts": 7374
+    },
+    {
+        "city_id": 58,
+        "city_name": "Bristol Cabot",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.4586681145723,
+            -2.58542692332298
+        ],
+        "population": 1,
+        "posts": 3558
+    },
+    {
+        "city_id": 59,
+        "city_name": "Bristol Cribbs",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.525157,
+            -2.595359
+        ],
+        "population": 1,
+        "posts": 8102
+    },
+    {
+        "city_id": 60,
+        "city_name": "Bromley",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.40389,
+            0.016607
+        ],
+        "population": 1,
+        "posts": 2554
+    },
+    {
+        "city_id": 61,
+        "city_name": "Buchanan Street",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            55.860041,
+            -4.253971
+        ],
+        "population": 1,
+        "posts": 1
+    },
+    {
+        "city_id": 62,
+        "city_name": "Burnley",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.790329,
+            -2.242752
+        ],
+        "population": 1,
+        "posts": 4525
+    },
+    {
+        "city_id": 63,
+        "city_name": "Burton-on-Trent",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.802589,
+            -1.631624
+        ],
+        "population": 1,
+        "posts": 1
+    },
+    {
+        "city_id": 64,
+        "city_name": "Bury",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.594909,
+            -2.291939
+        ],
+        "population": 1,
+        "posts": 7204
+    },
+    {
+        "city_id": 65,
+        "city_name": "Bury St Edmunds",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.24579,
+            0.709537
+        ],
+        "population": 1,
+        "posts": 157
+    },
+    {
+        "city_id": 66,
+        "city_name": "Camberley",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.338295,
+            -0.74845
+        ],
+        "population": 1,
+        "posts": 7545
+    },
+    {
+        "city_id": 67,
+        "city_name": "Cambridge",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.204141,
+            0.121518
+        ],
+        "population": 1,
+        "posts": 1851
+    },
+    {
+        "city_id": 68,
+        "city_name": "Canary Wharf",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.504454,
+            -0.017428
+        ],
+        "population": 1,
+        "posts": 4241
+    },
+    {
+        "city_id": 69,
+        "city_name": "Canterbury",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.276829,
+            1.080629
+        ],
+        "population": 1,
+        "posts": 7076
+    },
+    {
+        "city_id": 70,
+        "city_name": "Cardiff",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.479009,
+            -3.174923
+        ],
+        "population": 1,
+        "posts": 4467
+    },
+    {
+        "city_id": 71,
+        "city_name": "Carlisle",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            54.895257,
+            -2.934471
+        ],
+        "population": 1,
+        "posts": 9747
+    },
+    {
+        "city_id": 72,
+        "city_name": "Carmarthen",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.857021,
+            -4.309569
+        ],
+        "population": 1,
+        "posts": 1
+    },
+    {
+        "city_id": 73,
+        "city_name": "Chatham",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.383568,
+            0.525393
+        ],
+        "population": 1,
+        "posts": 2559
+    },
+    {
+        "city_id": 74,
+        "city_name": "Chelmsford",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.733963,
+            0.472217
+        ],
+        "population": 1,
+        "posts": 7973
+    },
+    {
+        "city_id": 75,
+        "city_name": "Cheltenham",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.899354,
+            -2.074954
+        ],
+        "population": 1,
+        "posts": 9061
+    },
+    {
+        "city_id": 76,
+        "city_name": "Cheshire Oaks",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.265018,
+            -2.882
+        ],
+        "population": 1,
+        "posts": 6642
+    },
+    {
+        "city_id": 77,
+        "city_name": "Chester",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.191084,
+            -2.891409
+        ],
+        "population": 1,
+        "posts": 1
+    },
+    {
+        "city_id": 78,
+        "city_name": "Chesterfield relocation",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.234751,
+            -1.425915
+        ],
+        "population": 1,
+        "posts": 333
+    },
+    {
+        "city_id": 79,
+        "city_name": "Chichester",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            50.836171,
+            -0.776709
+        ],
+        "population": 1,
+        "posts": 633
+    },
+    {
+        "city_id": 80,
+        "city_name": "Clyde",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            55.905803,
+            -4.403692
+        ],
+        "population": 1,
+        "posts": 3316
+    },
+    {
+        "city_id": 81,
+        "city_name": "Colchester",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.88838,
+            0.89791
+        ],
+        "population": 1,
+        "posts": 8300
+    },
+    {
+        "city_id": 82,
+        "city_name": "Coleraine",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            55.131838,
+            -6.670161
+        ],
+        "population": 1,
+        "posts": 2769
+    },
+    {
+        "city_id": 83,
+        "city_name": "Corby",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.486746,
+            -0.702331
+        ],
+        "population": 1,
+        "posts": 4686
+    },
+    {
+        "city_id": 86,
+        "city_name": "Covent Garden",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.512854,
+            -0.124103
+        ],
+        "population": 1,
+        "posts": 8263
+    },
+    {
+        "city_id": 87,
+        "city_name": "Coventry",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.408033,
+            -1.514371
+        ],
+        "population": 1,
+        "posts": 4048
+    },
+    {
+        "city_id": 88,
+        "city_name": "Craigavon",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            54.4494,
+            -6.389912
+        ],
+        "population": 1,
+        "posts": 3505
+    },
+    {
+        "city_id": 89,
+        "city_name": "Crawley",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.113593,
+            -0.185477
+        ],
+        "population": 1,
+        "posts": 8492
+    },
+    {
+        "city_id": 90,
+        "city_name": "Croydon",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.375678,
+            -0.102272
+        ],
+        "population": 1,
+        "posts": 5619
+    },
+    {
+        "city_id": 91,
+        "city_name": "Crystal Peaks",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.341658,
+            -1.351082
+        ],
+        "population": 1,
+        "posts": 3070
+    },
+    {
+        "city_id": 92,
+        "city_name": "Cwmbran",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.652936,
+            -3.021448
+        ],
+        "population": 1,
+        "posts": 120
+    },
+    {
+        "city_id": 93,
+        "city_name": "Darlington",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            54.52647,
+            -1.554745
+        ],
+        "population": 1,
+        "posts": 160
+    },
+    {
+        "city_id": 94,
+        "city_name": "Derby",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.919607,
+            -1.47426
+        ],
+        "population": 1,
+        "posts": 7235
+    },
+    {
+        "city_id": 95,
+        "city_name": "Didcot",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.606854,
+            -1.239925
+        ],
+        "population": 1,
+        "posts": 893
+    },
+    {
+        "city_id": 96,
+        "city_name": "Doncaster",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.522909,
+            -1.136605
+        ],
+        "population": 1,
+        "posts": 1373
+    },
+    {
+        "city_id": 99,
+        "city_name": "Dundee",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            56.460093,
+            -2.972729
+        ],
+        "population": 1,
+        "posts": 3423
+    },
+    {
+        "city_id": 101,
+        "city_name": "Dunfermline",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            56.071355,
+            -3.46013
+        ],
+        "population": 1,
+        "posts": 9799
+    },
+    {
+        "city_id": 102,
+        "city_name": "Durham",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            54.777008,
+            -1.574076
+        ],
+        "population": 1,
+        "posts": 9492
+    },
+    {
+        "city_id": 103,
+        "city_name": "Ealing",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.512523,
+            -0.303141
+        ],
+        "population": 1,
+        "posts": 1611
+    },
+    {
+        "city_id": 104,
+        "city_name": "East Kilbride",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            55.759946,
+            -4.179908
+        ],
+        "population": 1,
+        "posts": 6452
+    },
+    {
+        "city_id": 105,
+        "city_name": "Eastbourne",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            50.769278,
+            0.284661
+        ],
+        "population": 1,
+        "posts": 5172
+    },
+    {
+        "city_id": 106,
+        "city_name": "Edinburgh Gyle",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            55.938443,
+            -3.314418
+        ],
+        "population": 1,
+        "posts": 6813
+    },
+    {
+        "city_id": 107,
+        "city_name": "Edinburgh St James",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            55.954829,
+            -3.188432
+        ],
+        "population": 1,
+        "posts": 1
+    },
+    {
+        "city_id": 108,
+        "city_name": "Enfield",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.651474,
+            -0.081811
+        ],
+        "population": 1,
+        "posts": 1726
+    },
+    {
+        "city_id": 109,
+        "city_name": "Enniskillen",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            54.342544,
+            -7.635608
+        ],
+        "population": 1,
+        "posts": 1795
+    },
+    {
+        "city_id": 110,
+        "city_name": "Epsom",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.331273,
+            -0.268397
+        ],
+        "population": 1,
+        "posts": 6805
+    },
+    {
+        "city_id": 111,
+        "city_name": "Exeter",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            50.724405,
+            -3.527684
+        ],
+        "population": 1,
+        "posts": 6103
+    },
+    {
+        "city_id": 112,
+        "city_name": "Forest Side",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            54.563879,
+            -5.909487
+        ],
+        "population": 1,
+        "posts": 2151
+    },
+    {
+        "city_id": 113,
+        "city_name": "Fort Kinnaird",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            55.934248,
+            -3.103844
+        ],
+        "population": 1,
+        "posts": 1979
+    },
+    {
+        "city_id": 114,
+        "city_name": "Fosse Park Leicester",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.597462,
+            -1.180984
+        ],
+        "population": 1,
+        "posts": 3039
+    },
+    {
+        "city_id": 115,
+        "city_name": "Foyleside Londonderry",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            54.994491,
+            -7.31838
+        ],
+        "population": 1,
+        "posts": 6846
+    },
+    {
+        "city_id": 117,
+        "city_name": "Gatwick Airport",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.157925,
+            -0.163917
+        ],
+        "population": 1,
+        "posts": 4856
+    },
+    {
+        "city_id": 118,
+        "city_name": "Glasgow Braehead",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            55.876276,
+            -4.363464
+        ],
+        "population": 1,
+        "posts": 6429
+    },
+    {
+        "city_id": 119,
+        "city_name": "Glasgow Buchanan",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            55.863846,
+            -4.251378
+        ],
+        "population": 1,
+        "posts": 359
+    },
+    {
+        "city_id": 120,
+        "city_name": "Glasgow Fort",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            55.872614,
+            -4.138232
+        ],
+        "population": 1,
+        "posts": 9944
+    },
+    {
+        "city_id": 121,
+        "city_name": "Glasgow St Enoch",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            55.856857,
+            -4.253147
+        ],
+        "population": 1,
+        "posts": 6009
+    },
+    {
+        "city_id": 122,
+        "city_name": "Gloucester",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.865487,
+            -2.245339
+        ],
+        "population": 1,
+        "posts": 522
+    },
+    {
+        "city_id": 125,
+        "city_name": "Great Yarmouth",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.60811,
+            1.728601
+        ],
+        "population": 1,
+        "posts": 2410
+    },
+    {
+        "city_id": 126,
+        "city_name": "Grimsby",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.565792,
+            -0.0872
+        ],
+        "population": 1,
+        "posts": 5681
+    },
+    {
+        "city_id": 127,
+        "city_name": "Guildford Friary",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.237194,
+            -0.576315
+        ],
+        "population": 1,
+        "posts": 8061
+    },
+    {
+        "city_id": 128,
+        "city_name": "Gunwharf Quays",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            50.796382,
+            -1.106504
+        ],
+        "population": 1,
+        "posts": 2160
+    },
+    {
+        "city_id": 129,
+        "city_name": "Hanley",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.027555,
+            -2.17582
+        ],
+        "population": 1,
+        "posts": 9176
+    },
+    {
+        "city_id": 130,
+        "city_name": "Harlow",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.768176,
+            0.095359
+        ],
+        "population": 1,
+        "posts": 5837
+    },
+    {
+        "city_id": 131,
+        "city_name": "Harrogate",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.993351,
+            -1.539671
+        ],
+        "population": 1,
+        "posts": 2800
+    },
+    {
+        "city_id": 132,
+        "city_name": "Harrow",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.581023,
+            -0.336775
+        ],
+        "population": 1,
+        "posts": 3668
+    },
+    {
+        "city_id": 133,
+        "city_name": "Hartlepool",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            54.684713,
+            -1.213823
+        ],
+        "population": 1,
+        "posts": 4777
+    },
+    {
+        "city_id": 134,
+        "city_name": "Hastings",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            50.855992,
+            0.580844
+        ],
+        "population": 1,
+        "posts": 8193
+    },
+    {
+        "city_id": 135,
+        "city_name": "Hemel Hempstead",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.747588,
+            -0.473238
+        ],
+        "population": 1,
+        "posts": 7813
+    },
+    {
+        "city_id": 136,
+        "city_name": "Hempstead Valley",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.341628,
+            0.573072
+        ],
+        "population": 1,
+        "posts": 4567
+    },
+    {
+        "city_id": 138,
+        "city_name": "Hereford",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.058833,
+            -2.716854
+        ],
+        "population": 1,
+        "posts": 1947
+    },
+    {
+        "city_id": 139,
+        "city_name": "High Wycombe",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.629592,
+            -0.755143
+        ],
+        "population": 1,
+        "posts": 6143
+    },
+    {
+        "city_id": 140,
+        "city_name": "Horsham",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.063323,
+            -0.329732
+        ],
+        "population": 1,
+        "posts": 3048
+    },
+    {
+        "city_id": 141,
+        "city_name": "Hounslow",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.468133,
+            -0.363028
+        ],
+        "population": 1,
+        "posts": 4199
+    },
+    {
+        "city_id": 142,
+        "city_name": "Huddersfield",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.645926,
+            -1.779108
+        ],
+        "population": 1,
+        "posts": 9408
+    },
+    {
+        "city_id": 143,
+        "city_name": "Hull",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.743089,
+            -0.337116
+        ],
+        "population": 1,
+        "posts": 8374
+    },
+    {
+        "city_id": 144,
+        "city_name": "Hull St Stephens",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.745453,
+            -0.347501
+        ],
+        "population": 1,
+        "posts": 6786
+    },
+    {
+        "city_id": 145,
+        "city_name": "Ilford",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.559673,
+            0.072328
+        ],
+        "population": 1,
+        "posts": 8821
+    },
+    {
+        "city_id": 146,
+        "city_name": "Inverness",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            57.478987,
+            -4.220437
+        ],
+        "population": 1,
+        "posts": 7104
+    },
+    {
+        "city_id": 147,
+        "city_name": "Ipswich",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.058501,
+            1.153897
+        ],
+        "population": 1,
+        "posts": 4785
+    },
+    {
+        "city_id": 148,
+        "city_name": "Isle of Man",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            54.155097,
+            -4.479014
+        ],
+        "population": 1,
+        "posts": 3260
+    },
+    {
+        "city_id": 149,
+        "city_name": "Isle of Wight",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            50.699386,
+            -1.295629
+        ],
+        "population": 1,
+        "posts": 4571
+    },
+    {
+        "city_id": 151,
+        "city_name": "Kidderminster",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.3878,
+            -2.248652
+        ],
+        "population": 1,
+        "posts": 4848
+    },
+    {
+        "city_id": 154,
+        "city_name": "Kings Cross",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.531919,
+            -0.124098
+        ],
+        "population": 1,
+        "posts": 1
+    },
+    {
+        "city_id": 155,
+        "city_name": "King\u2019s Lynn",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.754088,
+            0.395482
+        ],
+        "population": 1,
+        "posts": 3286
+    },
+    {
+        "city_id": 156,
+        "city_name": "Kingston",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.411381,
+            -0.304747
+        ],
+        "population": 1,
+        "posts": 5933
+    },
+    {
+        "city_id": 157,
+        "city_name": "Kirkcaldy",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            56.109604,
+            -3.159656
+        ],
+        "population": 1,
+        "posts": 143
+    },
+    {
+        "city_id": 158,
+        "city_name": "Lakeside",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.487426,
+            0.283809
+        ],
+        "population": 1,
+        "posts": 9039
+    },
+    {
+        "city_id": 159,
+        "city_name": "Leamington Spa",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.291078,
+            -1.534635
+        ],
+        "population": 1,
+        "posts": 2181
+    },
+    {
+        "city_id": 160,
+        "city_name": "Leeds Trinity",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.796596,
+            -1.543936
+        ],
+        "population": 1,
+        "posts": 564
+    },
+    {
+        "city_id": 161,
+        "city_name": "Leeds White Rose",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.75787,
+            -1.574143
+        ],
+        "population": 1,
+        "posts": 402
+    },
+    {
+        "city_id": 162,
+        "city_name": "Leicester Highcross",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.635944,
+            -1.137325
+        ],
+        "population": 1,
+        "posts": 9272
+    },
+    {
+        "city_id": 163,
+        "city_name": "Lewisham",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.46188,
+            -0.012595
+        ],
+        "population": 1,
+        "posts": 1
+    },
+    {
+        "city_id": 167,
+        "city_name": "Lincoln",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.228013,
+            -0.540652
+        ],
+        "population": 1,
+        "posts": 8742
+    },
+    {
+        "city_id": 168,
+        "city_name": "Liverpool",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.4036411559502,
+            -2.98712217779423
+        ],
+        "population": 1,
+        "posts": 5202
+    },
+    {
+        "city_id": 169,
+        "city_name": "Liverpool Church Street",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.405312,
+            -2.982945
+        ],
+        "population": 1,
+        "posts": 4468
+    },
+    {
+        "city_id": 170,
+        "city_name": "Livingston",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            55.883007,
+            -3.516439
+        ],
+        "population": 1,
+        "posts": 556
+    },
+    {
+        "city_id": 171,
+        "city_name": "Llandudno",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.321333,
+            -3.821887
+        ],
+        "population": 1,
+        "posts": 3971
+    },
+    {
+        "city_id": 172,
+        "city_name": "London Bridge",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.504676,
+            -0.08598
+        ],
+        "population": 1,
+        "posts": 3161
+    },
+    {
+        "city_id": 173,
+        "city_name": "Lowestoft",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.476685,
+            1.751675
+        ],
+        "population": 1,
+        "posts": 5470
+    },
+    {
+        "city_id": 174,
+        "city_name": "Luton",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.879206,
+            -0.414459
+        ],
+        "population": 1,
+        "posts": 9473
+    },
+    {
+        "city_id": 175,
+        "city_name": "Luton Airport",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.877832,
+            -0.376314
+        ],
+        "population": 1,
+        "posts": 345
+    },
+    {
+        "city_id": 176,
+        "city_name": "Macclesfield",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.259776,
+            -2.125788
+        ],
+        "population": 1,
+        "posts": 1
+    },
+    {
+        "city_id": 177,
+        "city_name": "Maidenhead",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.52227,
+            -0.722138
+        ],
+        "population": 1,
+        "posts": 8516
+    },
+    {
+        "city_id": 178,
+        "city_name": "Maidstone",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.275343,
+            0.520587
+        ],
+        "population": 1,
+        "posts": 5256
+    },
+    {
+        "city_id": 179,
+        "city_name": "Manchester Airport",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.361897,
+            -2.27084
+        ],
+        "population": 1,
+        "posts": 4247
+    },
+    {
+        "city_id": 180,
+        "city_name": "Manchester Arndale",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.484256,
+            -2.242609
+        ],
+        "population": 1,
+        "posts": 9549
+    },
+    {
+        "city_id": 181,
+        "city_name": "Manchester Trafford",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.465704,
+            -2.348081
+        ],
+        "population": 1,
+        "posts": 2804
+    },
+    {
+        "city_id": 182,
+        "city_name": "Mansfield",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.145012,
+            -1.198363
+        ],
+        "population": 1,
+        "posts": 8063
+    },
+    {
+        "city_id": 183,
+        "city_name": "Marble Arch",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.513683,
+            -0.154811
+        ],
+        "population": 1,
+        "posts": 762
+    },
+    {
+        "city_id": 184,
+        "city_name": "Meadowhall",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.41398,
+            -1.411606
+        ],
+        "population": 1,
+        "posts": 6616
+    },
+    {
+        "city_id": 185,
+        "city_name": "Meadowhall Arcade",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.41398,
+            -1.411606
+        ],
+        "population": 1,
+        "posts": 9649
+    },
+    {
+        "city_id": 186,
+        "city_name": "Merry Hill",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.483512,
+            -2.110243
+        ],
+        "population": 1,
+        "posts": 3080
+    },
+    {
+        "city_id": 187,
+        "city_name": "Merthyr Tydfil",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.745146,
+            -3.378074
+        ],
+        "population": 1,
+        "posts": 275
+    },
+    {
+        "city_id": 188,
+        "city_name": "Metro Centre Blue",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            54.956678,
+            -1.668856
+        ],
+        "population": 1,
+        "posts": 1698
+    },
+    {
+        "city_id": 189,
+        "city_name": "Metro Centre Red",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            54.956426,
+            -1.668546
+        ],
+        "population": 1,
+        "posts": 1188
+    },
+    {
+        "city_id": 190,
+        "city_name": "Middlesbrough",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            54.577276,
+            -1.239206
+        ],
+        "population": 1,
+        "posts": 7244
+    },
+    {
+        "city_id": 191,
+        "city_name": "Milton Keynes",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.043411,
+            -0.757458
+        ],
+        "population": 1,
+        "posts": 8133
+    },
+    {
+        "city_id": 193,
+        "city_name": "Newbury Parkway",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.403953,
+            -1.323382
+        ],
+        "population": 1,
+        "posts": 9325
+    },
+    {
+        "city_id": 194,
+        "city_name": "Newcastle",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            54.975422,
+            -1.613399
+        ],
+        "population": 1,
+        "posts": 9462
+    },
+    {
+        "city_id": 195,
+        "city_name": "Newport",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.586877,
+            -2.99381
+        ],
+        "population": 1,
+        "posts": 4392
+    },
+    {
+        "city_id": 196,
+        "city_name": "Newtownabbey",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            54.655392,
+            -5.918938
+        ],
+        "population": 1,
+        "posts": 5643
+    },
+    {
+        "city_id": 197,
+        "city_name": "Northampton",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.238771,
+            -0.894907
+        ],
+        "population": 1,
+        "posts": 2487
+    },
+    {
+        "city_id": 198,
+        "city_name": "Norwich",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.625826,
+            1.289789
+        ],
+        "population": 1,
+        "posts": 4727
+    },
+    {
+        "city_id": 199,
+        "city_name": "Nottingham",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.956557,
+            -1.147414
+        ],
+        "population": 1,
+        "posts": 9181
+    },
+    {
+        "city_id": 200,
+        "city_name": "Nuneaton",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.521908,
+            -1.469654
+        ],
+        "population": 1,
+        "posts": 2608
+    },
+    {
+        "city_id": 201,
+        "city_name": "Oldham",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.541119,
+            -2.114853
+        ],
+        "population": 1,
+        "posts": 5376
+    },
+    {
+        "city_id": 202,
+        "city_name": "Oxford",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.750727,
+            -1.260909
+        ],
+        "population": 1,
+        "posts": 7401
+    },
+    {
+        "city_id": 203,
+        "city_name": "Oxford Circus",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.515019,
+            -0.142592
+        ],
+        "population": 1,
+        "posts": 1454
+    },
+    {
+        "city_id": 204,
+        "city_name": "Oxford Street East",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.516311,
+            -0.134468
+        ],
+        "population": 1,
+        "posts": 2892
+    },
+    {
+        "city_id": 205,
+        "city_name": "Oxford Street West",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.514428,
+            -0.150111
+        ],
+        "population": 1,
+        "posts": 9120
+    },
+    {
+        "city_id": 206,
+        "city_name": "Perth",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            56.396455,
+            -3.431566
+        ],
+        "population": 1,
+        "posts": 6721
+    },
+    {
+        "city_id": 207,
+        "city_name": "Peterborough",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.573311,
+            -0.245536
+        ],
+        "population": 1,
+        "posts": 462
+    },
+    {
+        "city_id": 208,
+        "city_name": "Plymouth",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            50.372508,
+            -4.137794
+        ],
+        "population": 1,
+        "posts": 9145
+    },
+    {
+        "city_id": 209,
+        "city_name": "Poole",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            50.717824,
+            -1.979359
+        ],
+        "population": 1,
+        "posts": 6347
+    },
+    {
+        "city_id": 210,
+        "city_name": "Portsmouth",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            50.801723,
+            -1.092424
+        ],
+        "population": 1,
+        "posts": 4482
+    },
+    {
+        "city_id": 211,
+        "city_name": "Preston",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.758845,
+            -2.701545
+        ],
+        "population": 1,
+        "posts": 2322
+    },
+    {
+        "city_id": 212,
+        "city_name": "Reading",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.4538505141206,
+            -0.970745078398352
+        ],
+        "population": 1,
+        "posts": 1666
+    },
+    {
+        "city_id": 213,
+        "city_name": "Redditch",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.306032,
+            -1.942939
+        ],
+        "population": 1,
+        "posts": 5018
+    },
+    {
+        "city_id": 214,
+        "city_name": "Romford",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.579287,
+            0.183911
+        ],
+        "population": 1,
+        "posts": 5265
+    },
+    {
+        "city_id": 215,
+        "city_name": "Rushden Lakes",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.300174,
+            -0.624857
+        ],
+        "population": 1,
+        "posts": 7482
+    },
+    {
+        "city_id": 216,
+        "city_name": "Sandersons Five Valley",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.746218,
+            -2.218865
+        ],
+        "population": 1,
+        "posts": 2796
+    },
+    {
+        "city_id": 217,
+        "city_name": "Sheffield Moor",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.376352,
+            -1.473032
+        ],
+        "population": 1,
+        "posts": 6938
+    },
+    {
+        "city_id": 218,
+        "city_name": "Shrewsbury",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.710464,
+            -2.753065
+        ],
+        "population": 1,
+        "posts": 8801
+    },
+    {
+        "city_id": 219,
+        "city_name": "Glasgow Silverburn",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            55.8190029077333,
+            -4.34351673306795
+        ],
+        "population": 1,
+        "posts": 1
+    },
+    {
+        "city_id": 220,
+        "city_name": "Skegness",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.142231,
+            0.338661
+        ],
+        "population": 1,
+        "posts": 2412
+    },
+    {
+        "city_id": 222,
+        "city_name": "Solihull",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.412796,
+            -1.779335
+        ],
+        "population": 1,
+        "posts": 1172
+    },
+    {
+        "city_id": 223,
+        "city_name": "Southampton",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            50.903663,
+            -1.406908
+        ],
+        "population": 1,
+        "posts": 7376
+    },
+    {
+        "city_id": 224,
+        "city_name": "Southend",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.53469,
+            0.715364
+        ],
+        "population": 1,
+        "posts": 1
+    },
+    {
+        "city_id": 225,
+        "city_name": "Southport",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.646862,
+            -3.005057
+        ],
+        "population": 1,
+        "posts": 4369
+    },
+    {
+        "city_id": 226,
+        "city_name": "St. Albans",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.751506,
+            -0.337908
+        ],
+        "population": 1,
+        "posts": 3307
+    },
+    {
+        "city_id": 227,
+        "city_name": "St. Helens",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.451893,
+            -2.736878
+        ],
+        "population": 1,
+        "posts": 6979
+    },
+    {
+        "city_id": 228,
+        "city_name": "Stafford",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.80622,
+            -2.116654
+        ],
+        "population": 1,
+        "posts": 4163
+    },
+    {
+        "city_id": 229,
+        "city_name": "Staines",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.434567,
+            -0.51096
+        ],
+        "population": 1,
+        "posts": 2701
+    },
+    {
+        "city_id": 230,
+        "city_name": "Stevenage",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.902387,
+            -0.201869
+        ],
+        "population": 1,
+        "posts": 9674
+    },
+    {
+        "city_id": 231,
+        "city_name": "Stirling",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            56.11714,
+            -3.93387
+        ],
+        "population": 1,
+        "posts": 989
+    },
+    {
+        "city_id": 232,
+        "city_name": "Stockport",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.410328,
+            -2.161541
+        ],
+        "population": 1,
+        "posts": 3175
+    },
+    {
+        "city_id": 233,
+        "city_name": "Stratford upon Avon",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.192982,
+            -1.707904
+        ],
+        "population": 1,
+        "posts": 2463
+    },
+    {
+        "city_id": 234,
+        "city_name": "Sunderland",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            54.906441,
+            -1.385499
+        ],
+        "population": 1,
+        "posts": 6285
+    },
+    {
+        "city_id": 235,
+        "city_name": "Sutton",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.364608,
+            -0.193892
+        ],
+        "population": 1,
+        "posts": 3427
+    },
+    {
+        "city_id": 236,
+        "city_name": "Sutton Coldfield",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.562223,
+            -1.824833
+        ],
+        "population": 1,
+        "posts": 7377
+    },
+    {
+        "city_id": 237,
+        "city_name": "Swansea",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.618525,
+            -3.945182
+        ],
+        "population": 1,
+        "posts": 8989
+    },
+    {
+        "city_id": 238,
+        "city_name": "Swindon",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.56093,
+            -1.784901
+        ],
+        "population": 1,
+        "posts": 9472
+    },
+    {
+        "city_id": 241,
+        "city_name": "Tamworth",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.632627,
+            -1.693556
+        ],
+        "population": 1,
+        "posts": 5279
+    },
+    {
+        "city_id": 242,
+        "city_name": "Taunton",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.01426,
+            -3.102507
+        ],
+        "population": 1,
+        "posts": 9797
+    },
+    {
+        "city_id": 243,
+        "city_name": "Teesside",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            54.555266,
+            -1.274219
+        ],
+        "population": 1,
+        "posts": 6418
+    },
+    {
+        "city_id": 244,
+        "city_name": "Telford",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.676063,
+            -2.447293
+        ],
+        "population": 1,
+        "posts": 7204
+    },
+    {
+        "city_id": 245,
+        "city_name": "Truro",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            50.263723,
+            -5.052096
+        ],
+        "population": 1,
+        "posts": 498
+    },
+    {
+        "city_id": 246,
+        "city_name": "Tunbridge Wells",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.134788,
+            0.265233
+        ],
+        "population": 1,
+        "posts": 8894
+    },
+    {
+        "city_id": 247,
+        "city_name": "Uxbridge",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            44.6236147,
+            -76.0624681
+        ],
+        "population": 1,
+        "posts": 1793
+    },
+    {
+        "city_id": 248,
+        "city_name": "Wakefield",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.684838,
+            -1.494676
+        ],
+        "population": 1,
+        "posts": 3405
+    },
+    {
+        "city_id": 249,
+        "city_name": "Walsall",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.584259,
+            -1.982949
+        ],
+        "population": 1,
+        "posts": 8652
+    },
+    {
+        "city_id": 250,
+        "city_name": "Wandsworth",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.454569,
+            -0.193136
+        ],
+        "population": 1,
+        "posts": 3685
+    },
+    {
+        "city_id": 251,
+        "city_name": "Warrington",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.39042,
+            -2.596607
+        ],
+        "population": 1,
+        "posts": 4786
+    },
+    {
+        "city_id": 252,
+        "city_name": "Washington",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            54.899591,
+            -1.532524
+        ],
+        "population": 1,
+        "posts": 451
+    },
+    {
+        "city_id": 254,
+        "city_name": "Watford",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.654713,
+            -0.393321
+        ],
+        "population": 1,
+        "posts": 599
+    },
+    {
+        "city_id": 255,
+        "city_name": "Welwyn",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.801213,
+            -0.204548
+        ],
+        "population": 1,
+        "posts": 1350
+    },
+    {
+        "city_id": 256,
+        "city_name": "West Bromwich",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.519515,
+            -1.991182
+        ],
+        "population": 1,
+        "posts": 4702
+    },
+    {
+        "city_id": 257,
+        "city_name": "Westfield Stratford",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.543247,
+            -0.006742
+        ],
+        "population": 1,
+        "posts": 6973
+    },
+    {
+        "city_id": 258,
+        "city_name": "Westfield Stratford Pop Up",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.544337,
+            -0.00632
+        ],
+        "population": 1,
+        "posts": 5349
+    },
+    {
+        "city_id": 259,
+        "city_name": "Westfield White City",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.508222,
+            -0.222156
+        ],
+        "population": 1,
+        "posts": 5110
+    },
+    {
+        "city_id": 260,
+        "city_name": "Westfield White City Pop Up",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.507459,
+            -0.222272
+        ],
+        "population": 1,
+        "posts": 4004
+    },
+    {
+        "city_id": 261,
+        "city_name": "Weston",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.348049,
+            -2.978927
+        ],
+        "population": 1,
+        "posts": 3278
+    },
+    {
+        "city_id": 262,
+        "city_name": "Westwood Cross",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.359563,
+            1.392642
+        ],
+        "population": 1,
+        "posts": 6329
+    },
+    {
+        "city_id": 264,
+        "city_name": "Weymouth",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            50.609377,
+            -2.45395
+        ],
+        "population": 1,
+        "posts": 4622
+    },
+    {
+        "city_id": 265,
+        "city_name": "Whiteley Village",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            50.885418,
+            -1.246567
+        ],
+        "population": 1,
+        "posts": 3320
+    },
+    {
+        "city_id": 266,
+        "city_name": "Widnes",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.368047,
+            -2.724866
+        ],
+        "population": 1,
+        "posts": 688
+    },
+    {
+        "city_id": 267,
+        "city_name": "Wigan",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.54659,
+            -2.629363
+        ],
+        "population": 1,
+        "posts": 8797
+    },
+    {
+        "city_id": 268,
+        "city_name": "Wimbledon",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.421679,
+            -0.204085
+        ],
+        "population": 1,
+        "posts": 3088
+    },
+    {
+        "city_id": 269,
+        "city_name": "Windsor",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.482917,
+            -0.609568
+        ],
+        "population": 1,
+        "posts": 2293
+    },
+    {
+        "city_id": 270,
+        "city_name": "Woking",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.319903,
+            -0.560383
+        ],
+        "population": 1,
+        "posts": 7902
+    },
+    {
+        "city_id": 271,
+        "city_name": "Wolverhampton",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.583707,
+            -2.126419
+        ],
+        "population": 1,
+        "posts": 383
+    },
+    {
+        "city_id": 272,
+        "city_name": "Worcester",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.191193,
+            -2.2203
+        ],
+        "population": 1,
+        "posts": 9603
+    },
+    {
+        "city_id": 273,
+        "city_name": "Worthing",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            50.809997,
+            -0.373418
+        ],
+        "population": 1,
+        "posts": 7388
+    },
+    {
+        "city_id": 274,
+        "city_name": "Wrexham",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.044456,
+            -2.988586
+        ],
+        "population": 1,
+        "posts": 8536
+    },
+    {
+        "city_id": 275,
+        "city_name": "Yate",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            51.540322,
+            -2.412201
+        ],
+        "population": 1,
+        "posts": 1
+    },
+    {
+        "city_id": 276,
+        "city_name": "Yeovil",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            50.942169,
+            -2.63062
+        ],
+        "population": 1,
+        "posts": 2105
+    },
+    {
+        "city_id": 277,
+        "city_name": "York Davy Gate",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            53.959965,
+            -1.083196
+        ],
+        "population": 1,
+        "posts": 4353
+    }
 ]

@@ -172,14 +172,16 @@ class Marker3D{
         }
         if(this.type === "shop"){
                 const city_position = this._getFilteredPosition(this.cityData.coordinates[0], this.cityData.coordinates[1])
+                const outPosition = city_position.clone()
+                // outPosition.z = 5
                 this.POSITION_IN_TIER_MODE_1.copy(city_position)
                 this.POSITION_IN_TIER_MODE_2.copy(city_position)
                 this.POSITION_IN_TIER_MODE_3.copy(city_position)
-                this.SCALE_IN_ZOOM_LEVEL_0 = this._getZoom0Scale()
-                this.SCALE_IN_ZOOM_LEVEL_1 = this._getZoom0Scale()
-                this.SCALE_IN_ZOOM_LEVEL_2 = this.TYPE_SCALE_FACTOR*this.stage.stageData.settings.tier_2_in_zoom_3_scale_factor
-                this.SCALE_IN_ZOOM_LEVEL_3 = this.TYPE_SCALE_FACTOR*this.stage.stageData.settings.tier_3_in_zoom_3_scale_factor
-                this.SCALE_IN_ZOOM_LEVEL_4 = this.TYPE_SCALE_FACTOR*this.stage.stageData.settings.tier_3_in_zoom_4_scale_factor
+                this.SCALE_IN_ZOOM_LEVEL_0 = this.TYPE_SCALE_FACTOR*this.stage.stageData.settings.shop_scales[0]
+                this.SCALE_IN_ZOOM_LEVEL_1 = this.TYPE_SCALE_FACTOR*this.stage.stageData.settings.shop_scales[1]
+                this.SCALE_IN_ZOOM_LEVEL_2 = this.TYPE_SCALE_FACTOR*this.stage.stageData.settings.shop_scales[2]
+                this.SCALE_IN_ZOOM_LEVEL_3 = this.TYPE_SCALE_FACTOR*this.stage.stageData.settings.shop_scales[3]
+                this.SCALE_IN_ZOOM_LEVEL_4 = this.TYPE_SCALE_FACTOR*this.stage.stageData.settings.shop_scales[4]
         }else{
             if(this.cityData.tier == 1){
                 const city_position = this._getFilteredPosition(this.cityData.coordinates[0], this.cityData.coordinates[1])

@@ -1,14 +1,15 @@
 [
-  {
-    "city_id": 1,
-    "city_name": "Event",
-    "city_tier": 1,
-    "parent_node": null,
-    "coordinates": [
-      52.2310734,
-      1.3737747
-    ],
-    "population": 1,
-    "posts": 1
-  }
+    {
+        "city_id": 279,
+        "city_name": "testevent",
+        "city_tier": 1,
+        "parent_node": null,
+        "coordinates": [
+            52.355316,
+            -2.60376
+        ],
+        "population": 1,
+        "posts": 9475,
+        "info_link": "https:\/\/maps.app.goo.gl\/Kd8HjFP32F4Sqowq9"
+    }
 ]

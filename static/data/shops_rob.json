@@ -1,0 +1,26 @@
+[
+  {
+    "city_id": 1,
+    "city_name": "Shop1",
+    "city_tier": 1,
+    "parent_node": null,
+    "coordinates": [
+      51.5098625,
+      0.1576101
+    ],
+    "population": 1,
+    "posts": 1
+  },
+  {
+    "city_id": 2,
+    "city_name": "Shop2",
+    "city_tier": 1,
+    "parent_node": null,
+    "coordinates": [
+     50.960242,
+     -1.269392
+    ],
+    "population": 1,
+    "posts": 200
+  }
+]
