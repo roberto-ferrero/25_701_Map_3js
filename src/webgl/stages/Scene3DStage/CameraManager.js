@@ -43,7 +43,7 @@ class CameraManager{
         this.RELATIVE_POSITIONS_ZOOM_3 = new THREE.Vector3().subVectors(this.stage.libs.cameraspots.getItem("zoom3").position, this.stage.libs.cameratargets.getItem("zoom3").position)
         this.RELATIVE_POSITIONS_ZOOM_4 = new THREE.Vector3().subVectors(this.stage.libs.cameraspots.getItem("zoom4").position, this.stage.libs.cameratargets.getItem("zoom4").position)
         //
-        console.log("this.RELATIVE_POSITIONS_ZOOM_0: ", this.RELATIVE_POSITIONS_ZOOM_0);
+        // console.log("this.RELATIVE_POSITIONS_ZOOM_0: ", this.RELATIVE_POSITIONS_ZOOM_0);
         // console.log("(CameraManager.init)!")
         this.stageCamera.placeInSpot("zoom0")  
         // this.stageCamera.start_dragMoving()  

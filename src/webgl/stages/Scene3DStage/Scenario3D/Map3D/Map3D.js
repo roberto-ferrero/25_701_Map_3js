@@ -115,7 +115,7 @@ class Map3D{
         // })
     }
     onPointerDown(event) {
-        console.log("(Map3D.onPointerDown)!");
+        // console.log("(Map3D.onPointerDown)!");
         // 1. Normalizar coordenadas del puntero (-1 a +1)
         this.pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
         this.pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
@@ -135,14 +135,14 @@ class Map3D{
             const city_type = hoveredMesh.userData.city_type;
             const markerData = this.stage.stageData.getItemById(cityId, city_type);
             
-            console.log("(Map3D.onPointerDown)! ON A MARKER -------------------> "+cityId+" type: "+city_type);
-            console.log("   markerData:", markerData);
-            console.log("   markerData.tier2_childs.length:", markerData.tier2_childs.length);
-            console.log("   markerData.tier3_childs.length:", markerData.tier3_childs.length);
+            // console.log("(Map3D.onPointerDown)! ON A MARKER -------------------> "+cityId+" type: "+city_type);
+            // console.log("   markerData:", markerData);
+            // console.log("   markerData.tier2_childs.length:", markerData.tier2_childs.length);
+            // console.log("   markerData.tier3_childs.length:", markerData.tier3_childs.length);
             this.stage.printState()
 
             if(city_type == "shop"){
-                console.log("SELECTING A SHOP. ZOOM LEVEL: "+this.stage.get_ZOOM());
+                // console.log("SELECTING A SHOP. ZOOM LEVEL: "+this.stage.get_ZOOM());
                 if(this.stage.get_ZOOM() >= 3){
                     this.stage.moveAndZoom(cityId, city_type, this.stage.get_ZOOM())
                     this._emitClickEvent(cityId, city_type)
@@ -221,7 +221,7 @@ class Map3D{
                 }
             }
         }else{
-            console.log("NO MARKER CLICKED!");
+            if(this.app.DO_TRACE)  console.log("NO MARKER CLICKED!");
             // console.log("CLICK on: nothing");
             if (this.hoveredObjectId !== null) {
                 this._handleRollOut(this.hoveredObjectId);

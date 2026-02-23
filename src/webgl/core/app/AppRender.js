@@ -91,6 +91,7 @@ class AppRender{
     }
     get_activeCamera(){
         if(this.app.dev){
+            // console.log("*1");
             if(this.app.dev.SHOW_DEV_CAMERA){
                 return this.app.dev.camera
             }else{
@@ -101,7 +102,12 @@ class AppRender{
                 }
             }
         }else{
-            return this.camera
+            // console.log("*2");s
+            if(!this.app.USE_RENDER_PLANE && this.stageCamera){
+                return this.stageCamera
+            }else{
+                return this.camera
+            }
         }
     }
     set_stageCamera(stageCamera){

@@ -19,11 +19,13 @@ const Library = {
         //     shops_dataPath: "./data/shops.json",
         //     events_dataPath: "./data/events.json"
         // });
-
+        //--
+        
         window.platform = new Platform({
             $container: config.$container,
             $mouseEvents: config.$mouseEvents,
             loader_pathPrefix: config.loader_pathPrefix,
+            debug: Boolean(config.debug),
             cities_dataPath: config.cities_dataPath,
             shops_dataPath: config.shops_dataPath,
             events_dataPath: config.events_dataPath,

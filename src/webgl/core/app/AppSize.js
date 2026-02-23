@@ -49,7 +49,7 @@ class AppSize{
     //----------------------------------------------
     // PUBLIC:
     update(){
-        this.app.trace("(AppSize.update)!")
+        //this.app.trace("(AppSize.update)!")
         let newWidth
         let newHeight
         //----

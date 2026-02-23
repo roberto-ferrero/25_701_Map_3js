@@ -20,10 +20,8 @@ class WebGLApp{
         this.rnd = Math.random()
         this.app = this
         // console.log("(WebGLApp.CONSTRUCTORA): "+this.rnd, obj)
-
-
         //----------------------
-        this.DO_TRACE = false
+        this.DO_TRACE = obj.data.debug
         this.ACTIVE = true;
         this.BUILT = false;
         //----------------------
@@ -136,7 +134,7 @@ class WebGLApp{
     }
     trace(string, obj, ref=""){
         if(this.DO_TRACE){
-            //console.log(string, obj, ref);
+            console.log(string, obj, ref);
         }
     }
     filter_blender_position(position){

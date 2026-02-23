@@ -80,7 +80,7 @@ class StageCamera{
 
 
         this.stage.emitter.on("onStartDragMoving", ()=>{
-            console.log("(StageCamera.onStartDragMoving)!");
+            if(this.app.DO_TRACE) console.log("(StageCamera.onStartDragMoving)!");
             this.resetOffset()
             this.GSAP_ANIM?.kill()
             this.stage.set_MODE("DRAGGING")
@@ -88,14 +88,14 @@ class StageCamera{
             this.STATES.INITIAL.target_position.copy(this.STATES.CURRENT.target_position)
         })
         this.stage.emitter.on("onStopDragMoving", ()=>{
-            console.log("(StageCamera.onStopDragMoving)!");
+            if(this.app.DO_TRACE) console.log("(StageCamera.onStopDragMoving)!");
             this.stage.set_MODE("IDLE")
             this.STATES.CURRENT.camera_position.copy(this.holder.position)
             this.STATES.CURRENT.target_position.copy(this.target.position)
         })
         this.app.emitter.on("onAppZoomChange", (event)=>{
             if(event.doZoomingAnim){
-                console.log("(StageCamera.onAppZoomChange)!");
+                // if(this.app.DO_TRACE) console.log("(StageCamera.onAppZoomChange)!");
                 const spotId = "zoom"+this.stage.CURRENT_ZOOM
                 this.zoomTo(spotId, 1)
             }
@@ -134,7 +134,7 @@ class StageCamera{
     }
     //----------------------------------------------
     moveAndZoom(positionV3, newZoomLevel, secs = 1, ease="power2.inOut"){
-        console.log("(StageCamera.moveAndZoom) positionV3:", positionV3, " newZoomLevel:", newZoomLevel);
+        // console.log("(StageCamera.moveAndZoom) positionV3:", positionV3, " newZoomLevel:", newZoomLevel);
         this.GSAP_ANIM?.kill()
         this.stage.set_MODE("TRAVELLING")
         //--
@@ -150,14 +150,14 @@ class StageCamera{
         this.STATES.FINAL.camera_position.copy(positionV3).add(zoomIncrV3) // We copy the target position and add the relative vector
         this.STATES.FINAL.camera_fov = cameraRef.fov
         //--
-        console.log("-------------------------");
-        console.log("   zoomIncrV3:", zoomIncrV3);
-        console.log("   STATES.INITIAL.target_position:", this.STATES.INITIAL.target_position);
-        console.log("   STATES.INITIAL.camera_position:", this.STATES.INITIAL.camera_position);
-        console.log("   -");
-        console.log("   STATES.FINAL.target_position:", this.STATES.FINAL.target_position);
-        console.log("   STATES.FINAL.camera_position:", this.STATES.FINAL.camera_position);
-        console.log("-------------------------");
+        // console.log("-------------------------");
+        // console.log("   zoomIncrV3:", zoomIncrV3);
+        // console.log("   STATES.INITIAL.target_position:", this.STATES.INITIAL.target_position);
+        // console.log("   STATES.INITIAL.camera_position:", this.STATES.INITIAL.camera_position);
+        // console.log("   -");
+        // console.log("   STATES.FINAL.target_position:", this.STATES.FINAL.target_position);
+        // console.log("   STATES.FINAL.camera_position:", this.STATES.FINAL.camera_position);
+        // console.log("-------------------------");
 
         //-----------------
         // GSAP ANIM:
@@ -170,14 +170,14 @@ class StageCamera{
                 // this._drawSTATE()
             },
             onComplete:()=>{
-                console.log("GSAP ANIM onComplete!");
+                // console.log("GSAP ANIM onCompslete!");
                 this.stage.set_MODE("IDLE")
             },
         })
 
     }
     zoomTo(spotId, secs = 3, ease="power2.inOut"){
-        console.log("(StageCamera.zoomTo) spotId: ", spotId);
+        // console.log("(StageCamera.zoomTo) spotId: ", spotId);
         this.GSAP_ANIM?.kill()
         this.stage.set_MODE("ZOOMING")
         //--
@@ -203,7 +203,7 @@ class StageCamera{
                 // this._drawSTATE()
             },
             onComplete:()=>{
-                console.log("GSAP ANIM onComplete!");
+                // console.log("GSAP ANIM onComplete!");
                 this.stage.set_MODE("IDLE")
             },
         })
@@ -227,7 +227,7 @@ class StageCamera{
         this._drawSTATE()
     }
     travelToSpot(spotId, secs = 3, ease="power2.inOut"){
-        console.log("(StageCamera.travelToSpot) spotId: ", spotId);
+        // console.log("(StageCamera.travelToSpot) spotId: ", spotId);
         this.GSAP_ANIM?.kill()
         this.stage.set_MODE("TRAVELLING")
         //const spot = this.SPOTS.get_spot(spotId)
@@ -276,7 +276,7 @@ class StageCamera{
     }
     applyOffset(){
         if(!this.OFFSETTED){
-            console.log("(StageCamera.applyOffset)!");
+            // console.log("(StageCamersa.applyOffset)!");
             this.OFFSETTED = true
             this.STATES.INITIAL.camera_offset.copy(this.STATES.CURRENT.camera_offset)
             this.STATES.FINAL.camera_offset.set(0, 0.33)
@@ -297,13 +297,13 @@ class StageCamera{
     }
     resetOffset(){
         if(this.OFFSETTED){
-            console.log("(StageCamera.resetOffset)!");
+            // console.log("(StageCamera.resetOffset)!");
             this.OFFSETTED = false
             this.STATES.INITIAL.camera_offset.copy(this.STATES.CURRENT.camera_offset)
             this.STATES.FINAL.camera_offset.set(0, 0.0)
-            console.log("this.STATES.CURRENT.camera_offset before reset: ", this.STATES.CURRENT.camera_offset);
-            console.log("this.STATES.INITIAL.camera_offset: ", this.STATES.INITIAL.camera_offset);
-            console.log("this.STATES.FINAL.camera_offset: ", this.STATES.FINAL.camera_offset);
+            // console.log("this.STATES.CURRENT.camera_offset before reset: ", this.STATES.CURRENT.camera_offset);
+            // console.log("this.STATES.INITIAL.camera_offset: ", this.STATES.INITIAL.camera_offset);
+            // console.log("this.STATES.FINAL.camera_offset: ", this.STATES.FINAL.camera_offset);
 
             this.OFFSET_ANIM?.kill()
             this.OFFSET_PROGRESS = 0

@@ -34,6 +34,7 @@
                 window.PandoraMap.init({
                     $container: document.querySelector('#webgl_app'),
                     $mouseEvents: document.querySelector('#webgl_app'),
+                    debug: false,
                     loader_pathPrefix: "./", // Ruta relativa a sus assets si fuera necesario
                     cities_dataPath: "./data/cities.json",
                     shops_dataPath: "./data/shops.json",
@@ -79,7 +80,7 @@
                 // Se ha cambiado el zoom de la app
             })
             window.platform.webglApp.emitter.on("onAppTierModeChange", (data) => {
-                console.log("APP Tier Mode Changed:", data.tierMode);
+                console.log("APP Tier Mode Changed:", data.tier);
                 // Se ha cambiado el modo tier
             })
 

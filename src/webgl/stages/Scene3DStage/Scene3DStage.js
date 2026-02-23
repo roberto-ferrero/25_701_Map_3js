@@ -19,7 +19,7 @@ import StageData from "./StageData/StageData"
 class Scene3DStage extends StageSuper{
     // this.app.project.stage
     constructor (obj){
-        console.log("(Scene3DStage.CONSTRUCTORA) 20260211_1400: ", obj)
+        //console.log("(Scene3DStage.CONSTRUCTORA) 20260211_1400: ", obj)
         super(obj)
         //-------------------
         this.START_REQUESTED = true
@@ -157,11 +157,13 @@ class Scene3DStage extends StageSuper{
     //----------------------------------------------
     // PUBLIC API:
     printState(){
-        console.log("------- Scene3DStage STATE -------");
-        console.log(" CURRENT_ZOOM:", this.CURRENT_ZOOM);
-        console.log(" CURRENT_TIER_MODE:", this.CURRENT_TIER_MODE);
-        console.log(" CAMERA_MODE:", this.get_MODE());
-        console.log("----------------------------------");
+        if(this.app.DO_TRACE){
+            console.log("------- Scene3DStage STATE -------");
+            console.log(" CURRENT_ZOOM:", this.CURRENT_ZOOM);
+            console.log(" CURRENT_TIER_MODE:", this.CURRENT_TIER_MODE);
+            console.log(" CAMERA_MODE:", this.get_MODE());
+            console.log("----------------------------------");
+        }
     }
     get_MODE(){
         return this.MODE
@@ -174,13 +176,13 @@ class Scene3DStage extends StageSuper{
     }
     set_MODE(newMode){
         if(this.MODE != newMode){
-            console.log("CHANGE MODE TO: " + newMode);
+            if(this.app.DO_TRACE) console.log("CHANGE MODE TO: " + newMode);
             this.MODE = newMode
         }
     }
     zoomIn(){
         if(!this.stageCamera.TRAVELLING && this.MODE == "IDLE"){
-            console.log("(Scene3DStage.zoomIn)!");
+            if(this.app.DO_TRACE) console.log("(Scene3DStage.zoomIn)!");
             if(this.CURRENT_ZOOM<this.ZOOM_LEVELS-1){
                 const newZoom = this.CURRENT_ZOOM + 1
                 this.zoomToLevel(newZoom)
@@ -189,7 +191,7 @@ class Scene3DStage extends StageSuper{
     }
     zoomOut(){
         if(!this.stageCamera.TRAVELLING  && this.MODE == "IDLE"){
-            console.log("(Scene3DStage.zoomOut)!");
+            if(this.app.DO_TRACE) console.log("(Scene3DStage.zoomOut)!");
             if(this.CURRENT_ZOOM>0){
                 const newZoom = this.CURRENT_ZOOM - 1
                 this.zoomToLevel(newZoom)
@@ -198,7 +200,7 @@ class Scene3DStage extends StageSuper{
     }
     
     zoomToLevel(zoomLevel){
-        console.log("(Scene3DStage.zoomToLevel): "+zoomLevel);
+        if(this.app.DO_TRACE) console.log("(Scene3DStage.zoomToLevel): "+zoomLevel);
         this.CURRENT_ZOOM = zoomLevel
         this.eval_TIER_MODE()
         this.printState()
@@ -224,10 +226,10 @@ class Scene3DStage extends StageSuper{
 
 
     moveAndZoom(markerId, typeId, newZoomLevel){
-        console.log("(Scene3DStage.moveAndZoom) markerId:", markerId, " typeId:", typeId, " newZoomLevel:", newZoomLevel);
+        if(this.app.DO_TRACE) console.log("(Scene3DStage.moveAndZoom) markerId:", markerId, " typeId:", typeId, " newZoomLevel:", newZoomLevel);
         const markerData = this.stageData.getItemById(markerId, typeId)
         const filteredPosition = new THREE.Vector3(markerData.position.x, 1, -markerData.position.y)
-        console.log("filteredPosition: ", filteredPosition);
+        // console.log("filteredPosition: ", filteredPosition);
         this.CURRENT_ZOOM = newZoomLevel
         this.eval_TIER_MODE()
         this.app.emitter.emit("onAppZoomChange", {zoom:this.CURRENT_ZOOM, doZoomingAnim:false})
@@ -266,7 +268,7 @@ class Scene3DStage extends StageSuper{
     build(){
         // console.log("(Scene3DStage.build): "+this.id)
         this.GLB_PROJECT = this.loader.get_gltf("scene")
-        console.log("this.GLB_PROJECT: ", this.GLB_PROJECT);
+        // console.lsog("this.GLB_PROJECT: ", this.GLB_PROJECT);
 
         this.stageData.init()
         this.libs.init(this.GLB_PROJECT)

@@ -81,31 +81,31 @@ class StageLibraries{
             // console.log("itemId: "+itemId+"family: "+family+" type: "+type);
             //--
             if(family === "spot"){
-                console.log("   spot found: "+itemId);
+                // console.log("   spot found: "+itemId);
                 this.spots.addItem(itemId, item)
             }else if(family === "cameratarget"){
-                console.log("   cameratarget found: "+itemId);
+                // console.log("   cameratarget found: "+itemId);
                 this.cameratargets.addItem(itemId, item)
             }else if(family === "cameraspot"){
-                console.log("   cameraspot found: "+itemId);
+                // console.log("   cameraspot found: "+itemId);
                 this.cameraspots.addItem(itemId, item)
             }else if(family === "mesh"){
                 if(item.type == "Group"){
-                    console.log("   meshgroup found: "+itemId);
+                    // console.log("   meshgroup found: "+itemId);
                     this.meshgroups.addItem(itemId, item)
                 }else{
-                    console.log("   mesh found: "+itemId);
+                    // console.log("   mesh found: "+itemId);
                     const materialId = nameArray[2]
                     this.meshes.addItem(itemId, item, materialId)
                 }
             }else if(family === "arealight"){
-                console.log("   arealight found: "+itemId);
+                // console.log("   arealight found: "+itemId);
                 this.arealights.addItem(itemId, item)
             }else if(family === "pointlight"){
-                console.log("   pointlight found: "+itemId);
+                // console.log("   pointlight found: "+itemId);
                 this.pointlights.addItem(itemId, item)
             }else if(family === "sunlight"){
-                console.log("   sunlight found: "+itemId);
+                // console.log("   sunlight found: "+itemId);
                 this.sunlights.addItem(itemId, item)
             }
         })

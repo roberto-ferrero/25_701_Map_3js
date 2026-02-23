@@ -9,7 +9,10 @@ gsap.registerPlugin(ScrollTrigger);
 
 class Platform{
     constructor (obj){
-        console.log("(Platform.CONSTRUCTORA): ", obj)
+        this.debug = Boolean(obj.debug)
+        if(this.debug){
+            // console.log("(Platform.CONSTRUCTORA): ", obj)
+        }
         //--
         const $webglContainer = document.querySelector('#webgl_app')
         const $mouseEvents = document.querySelector('#webgl_app')
@@ -28,6 +31,7 @@ class Platform{
             data: {
                 mobileMode:this.__get_mobileMode(),
                 iOS:this.__get_iOS(),
+                debug: this.debug,
                 cities_dataPath: obj.cities_dataPath,
                 shops_dataPath: obj.shops_dataPath,
                 events_dataPath: obj.events_dataPath,
