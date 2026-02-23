@@ -35,7 +35,8 @@ class Platform{
                 cities_dataPath: obj.cities_dataPath,
                 shops_dataPath: obj.shops_dataPath,
                 events_dataPath: obj.events_dataPath,
-                settings_dataPath: obj.settings_dataPath,
+                // settings_dataPath: obj.settings_dataPath,
+                settings: obj.settings,
             },
             onInit: obj.onInit,
             onZoomChange: obj.onZoomChange,
@@ -171,3 +172,7 @@ class Platform{
   
 }
 export default Platform
+
+
+
+

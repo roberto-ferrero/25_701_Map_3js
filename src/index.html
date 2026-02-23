@@ -39,7 +39,39 @@
                     cities_dataPath: "./data/cities.json",
                     shops_dataPath: "./data/shops.json",
                     events_dataPath: "./data/events.json",
-                    settings_dataPath: "./data/settings.json",
+                    settings: {
+                        "drag_factors": [0.15, 0.05, 0.022, 0.0130, 0.0100],
+
+                        "shop_scales": [0, 0, 0, 0.6, 0.4],
+
+                        "city_scale_factor": 1,
+                        "event_scale_factor": 1,
+                        "shop_scale_factor": 1,
+
+                        "city_opacity_factor": 1,
+                        "event_opacity_factor": 1,
+                        "shop_opacity_factor": 1,
+
+                        "tier_1_in_zoom_0_scale_factor": 1,
+                        "tier_2_in_zoom_0_scale_factor": 0,
+                        "tier_3_in_zoom_0_scale_factor": 0,
+
+                        "tier_1_in_zoom_1_scale_factor": 1,
+                        "tier_2_in_zoom_1_scale_factor": 1,
+                        "tier_3_in_zoom_1_scale_factor": 1,
+
+                        "tier_1_in_zoom_2_scale_factor": 0.8,
+                        "tier_2_in_zoom_2_scale_factor": 0.8,
+                        "tier_3_in_zoom_2_scale_factor": 0.8,
+
+                        "tier_1_in_zoom_3_scale_factor": 0.3,
+                        "tier_2_in_zoom_3_scale_factor": 0.3,
+                        "tier_3_in_zoom_3_scale_factor": 0.3,
+
+                        "tier_1_in_zoom_4_scale_factor": 0.2,
+                        "tier_2_in_zoom_4_scale_factor": 0.2,
+                        "tier_3_in_zoom_4_scale_factor": 0.2
+                    },
                     onInit: () => {
                         console.log("================================");
                         console.log("onInit!");
@@ -105,6 +137,9 @@
 
 </body>
 </html>
+
+
+
 
 
 

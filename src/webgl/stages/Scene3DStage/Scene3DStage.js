@@ -14,7 +14,6 @@ import Scenario3D from "./Scenario3D/Scenario3D"
 // import MarkersPackData from "./StageData/MarkersPackData"
 import StageData from "./StageData/StageData"
 
-//https://github.com/mrdoob/three.js/blob/e32c522ec5086d8c7c12b7cb4b029a222d534225/examples/jsm/objects/Water2.js#L49-L50
 
 class Scene3DStage extends StageSuper{
     // this.app.project.stage
@@ -132,7 +131,7 @@ class Scene3DStage extends StageSuper{
         this.loader.add_json("city_data", this.app.data.cities_dataPath)
         this.loader.add_json("event_data", this.app.data.events_dataPath)
         this.loader.add_json("shop_data", this.app.data.shops_dataPath)
-        this.loader.add_json("settings_data", this.app.data.settings_dataPath)
+        // this.loader.add_json("settings_data", this.app.data.settings_dataPath)
         //------------------------------
         
 

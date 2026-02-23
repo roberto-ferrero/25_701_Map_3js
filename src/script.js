@@ -29,11 +29,12 @@ const Library = {
             cities_dataPath: config.cities_dataPath,
             shops_dataPath: config.shops_dataPath,
             events_dataPath: config.events_dataPath,
-            settings_dataPath: config.settings_dataPath,
+            // settings_dataPath: config.settings_dataPath,
+            settings: config.settings,
             onInit: config.onInit,
             onZoomChange: config.onZoomChange,
             onTierChange: config.onTierChange,
-            onMarkerClicked: config.onMarkerClicked
+            onMarkerClicked: config.onMarkerClicked,
         });
 
                 
@@ -52,3 +53,6 @@ window.PandoraMap = Library;
 
 // Mantenemos el export por si acaso, pero la línea de arriba es la que salva el día
 export default Library;
+
+
+

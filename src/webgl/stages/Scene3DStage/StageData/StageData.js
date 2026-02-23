@@ -33,7 +33,9 @@ class StageData{
         //------------
     }
     init(){
-        this.settings = this.stage.loader.get_json("settings_data")
+        // this.settings = this.stage.loader.get_json("settings_data")
+        this.settings = this.app.data.settings
+        console.log("Settings loaded: ", this.settings);
         //--
         this.city_data.init()
         this.event_data.init()
